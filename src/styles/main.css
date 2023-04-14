@@ -8,18 +8,18 @@ body {
     /* max-height: 70vh; */
 }
 
-div.jsx-2403215218{
+div.jsx-2403215218 {
     min-width: 200px
 }
 
-@media screen and (max-width:768px) {
-    div.jsx-3790122557{
+@media screen and (max-width: 768px) {
+    div.jsx-3790122557 {
         display: flex;
         flex-direction: column;
         gap: 4px !important;
     }
 
-    div.jsx-3790122557>*{
+    div.jsx-3790122557 > * {
         width: 100%;
         margin: 0 !important;
     }
@@ -36,7 +36,14 @@ div.jsx-2403215218{
         align-self: center;
     }
 
-    .optionsContainer.jsx-512615790{
+    .optionsContainer.jsx-512615790 {
         min-height: 60px !important;
     }
+}
+
+
+.main-container {
+    max-width: 1920px;
+    height: 100%;
+    margin: auto;
 }
