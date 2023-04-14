@@ -1,5 +1,5 @@
 import {faker} from "@faker-js/faker";
-import {DHIS2ValueType} from "@hisptz/dhis2-utils";
+import {DataType} from "../interfaces";
 
 export enum SupportedDataTypeNames {
     FULL_NAME = 'Full Name',
@@ -9,14 +9,14 @@ export enum SupportedDataTypeNames {
     EMAIL = "Email",
     NUMBER = "Number",
     BOOLEAN = "True or False (Yes or No)",
-    TRUE_ONLY = "True only"
+    TRUE_ONLY = "True only",
+    DATE_OF_BIRTH = "Date of Birth",
+    DATE = "Date",
+    OPTIONS = "Options",
+    PHYSICAL_ADDRESS = "Physical Address",
+    PHONE_NUMBER = "Phone Number"
 }
 
-export interface DataType {
-    name: string;
-    fn: () => any;
-    dhis2Fields: DHIS2ValueType[]
-}
 
 export const supportedDataTypes: DataType[] = [
     {
@@ -25,7 +25,7 @@ export const supportedDataTypes: DataType[] = [
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
-        ]
+        ],
     },
     {
         name: SupportedDataTypeNames.LAST_NAME,
@@ -77,6 +77,41 @@ export const supportedDataTypes: DataType[] = [
         fn: faker.helpers.maybe,
         dhis2Fields: [
             "NUMBER"
+        ],
+        defaultParams: [
+            () => true,
+            {
+                probability: 0.5
+            }
         ]
+    },
+    {
+        name: SupportedDataTypeNames.DATE_OF_BIRTH,
+        fn: faker.date.past,
+        dhis2Fields: [
+            "DATE"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.DATE,
+        fn: faker.date.past,
+        dhis2Fields: [
+            "DATE"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.OPTIONS,
+        fn: faker.helpers.arrayElement,
+        dhis2Fields: []
+    },
+    {
+        name: SupportedDataTypeNames.PHYSICAL_ADDRESS,
+        fn: faker.address.street,
+        dhis2Fields: []
+    },
+    {
+        name: SupportedDataTypeNames.PHONE_NUMBER,
+        fn: faker.phone.number,
+        dhis2Fields: []
     },
 ]
