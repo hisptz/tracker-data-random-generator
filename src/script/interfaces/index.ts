@@ -4,7 +4,8 @@ import {DateTime} from "luxon";
 export interface DataType {
     name: string;
     fn: any;
-    dhis2Fields: DHIS2ValueType[]
+    dhis2Fields: DHIS2ValueType[],
+    defaultParams?: any;
 }
 
 export interface DataItemConfig {
@@ -13,7 +14,7 @@ export interface DataItemConfig {
     options?: {
         deps?: Record<string, any>,
         probability?: number,
-        params?: any
+        params?: any[];
     }
 }
 

@@ -46,7 +46,7 @@ export const config: DataConfiguration = {
         },
         {
             dataItemId: 'Z1rLc1rVHK8',
-            dataTypeName: SupportedDataTypeNames.TRUE_ONLY
+            dataTypeName: SupportedDataTypeNames.TRUE_ONLY,
         },
         {
             dataItemId: 'NI0QRzJvQ0k',
@@ -56,9 +56,9 @@ export const config: DataConfiguration = {
             dataItemId: 'Jt68iauILtD',
             dataTypeName: SupportedDataTypeNames.OPTIONS,
             options: {
-                params: [
+                params: [[
                     'MALE', 'FEMALE'
-                ]
+                ]]
             }
         },
         {

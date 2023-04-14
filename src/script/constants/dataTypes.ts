@@ -24,7 +24,7 @@ export const supportedDataTypes: DataType[] = [
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
-        ]
+        ],
     },
     {
         name: SupportedDataTypeNames.LAST_NAME,
@@ -76,6 +76,12 @@ export const supportedDataTypes: DataType[] = [
         fn: faker.helpers.maybe,
         dhis2Fields: [
             "NUMBER"
+        ],
+        defaultParams: [
+            () => true,
+            {
+                probability: 0.5
+            }
         ]
     },
     {
