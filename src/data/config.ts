@@ -13,7 +13,8 @@ export const config: DataConfiguration = {
         enrollmentTimeBoundary: {
             min: DateTime.now().minus({year: 1}),
             max: DateTime.now()
-        }
+        },
+        locale: 'ar'
     },
     programStages: [
         {

@@ -24,6 +24,10 @@ export class TrackerRandomDataEngine {
         this.program = program;
         this.attributes = this.program.programTrackedEntityAttributes?.map(({trackedEntityAttribute}) => trackedEntityAttribute) ?? [];
         this.dataElements = compact(flatten(this.program.programStages?.map(({programStageDataElements}) => programStageDataElements?.map(({dataElement}) => dataElement)))) ?? [];
+
+        if (this.config.meta.locale) {
+            faker.setLocale(this.config.meta.locale)
+        }
     }
 
     generate({noOfRecords}: GenerateProps): TrackedEntityInstance[] {

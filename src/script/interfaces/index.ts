@@ -1,11 +1,10 @@
-import {DateTimeConfiguration, DHIS2ValueType, OptionSet} from "@hisptz/dhis2-utils";
+import { DHIS2ValueType} from "@hisptz/dhis2-utils";
 import {DateTime} from "luxon";
-
 export interface DataType {
     name: string;
     fn: any;
     dhis2Fields: DHIS2ValueType[],
-    defaultParams?: any;
+    defaultParams?: any[];
 }
 
 export interface DataItemConfig {
@@ -33,7 +32,8 @@ export interface DataConfiguration {
     meta: {
         orgUnits?: string[]
         trackedEntityType?: string;
-        enrollmentTimeBoundary?: TimeBoundary
+        enrollmentTimeBoundary?: TimeBoundary;
+        locale?: string;
     }
     attributes?: DataItemConfig[],
     programStages?: {
