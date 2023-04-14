@@ -11,6 +11,7 @@ export enum SupportedDataTypeNames {
     BOOLEAN = "True or False (Yes or No)",
     TRUE_ONLY = "True only",
     DATE_OF_BIRTH = "Date of Birth",
+    DATE = "Date",
     OPTIONS = "Options",
     PHYSICAL_ADDRESS = "Physical Address",
     PHONE_NUMBER = "Phone Number"
@@ -86,6 +87,13 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.DATE_OF_BIRTH,
+        fn: faker.date.past,
+        dhis2Fields: [
+            "DATE"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.DATE,
         fn: faker.date.past,
         dhis2Fields: [
             "DATE"

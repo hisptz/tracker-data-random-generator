@@ -1,4 +1,10 @@
-import {DataConfiguration, DataItemConfig, GenerateProps, TimeBoundary} from "../interfaces";
+import {
+    DataConfiguration,
+    DataItemConfig,
+    GenerateProps,
+    GenerateWithPaginationProps,
+    TimeBoundary
+} from "../interfaces";
 import {
     Program,
     Event,
@@ -9,7 +15,7 @@ import {
     DataElement
 } from "@hisptz/dhis2-utils";
 import {faker} from "@faker-js/faker";
-import {compact, find, flatten, times} from "lodash";
+import {compact, find, flatten, flattenDeep, times} from "lodash";
 import {supportedDataTypes} from "../constants/dataTypes";
 
 
@@ -30,11 +36,18 @@ export class TrackerRandomDataEngine {
         }
     }
 
-    generate({noOfRecords}: GenerateProps): TrackedEntityInstance[] {
+    generateWithPagination({pages, pageSize}: GenerateWithPaginationProps): TrackedEntityInstance[][] {
+        const teiPages: TrackedEntityInstance[][] = []
+        times(pages, () => teiPages.push(this.generate({count: pageSize ?? 50})))
+        return teiPages;
+    }
+
+    generate({count}: GenerateProps): TrackedEntityInstance[] {
         const teis: TrackedEntityInstance[] = [];
-        times(noOfRecords, () => teis.push(this.generateTei()))
+        times(count, () => teis.push(this.generateTei()))
         return teis;
     }
+
 
     generateDataItem<T>(config: DataItemConfig, type: 'attribute' | 'dataElement'): T {
         const {dataItemId, dataTypeName, options} = config ?? {}
@@ -86,7 +99,20 @@ export class TrackerRandomDataEngine {
             value: any
         }>(attributeConfig, 'attribute'));
 
-        const events = flatten(this.config.programStages?.map(({id, eventTimeBoundary, dataElements,}) => {
+        const events = flattenDeep(this.config.programStages?.map(({id, eventTimeBoundary, dataElements, count,}) => {
+            const programStage = find(this.program.programStages, ['id', id]);
+
+            if (programStage?.repeatable) {
+                return Array.from(Array(count).keys()).map(() => this.generateEvent({
+                    orgUnit,
+                    programStage: id,
+                    enrollment,
+                    trackedEntityInstance,
+                    eventTimeBoundary,
+                    dataElementsConfig: dataElements
+                }))
+            }
+
             return this.generateEvent({
                 orgUnit,
                 programStage: id,
@@ -113,6 +139,13 @@ export class TrackerRandomDataEngine {
             orgUnit,
             trackedEntityType,
         } as any as TrackedEntityInstance
+    }
+}
+
+
+export class TrackerDataExport {
+    export(data: TrackedEntityInstance[], {}: { type: "json" }) {
+
     }
 }
 

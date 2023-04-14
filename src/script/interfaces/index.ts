@@ -1,5 +1,6 @@
-import { DHIS2ValueType} from "@hisptz/dhis2-utils";
+import {DHIS2ValueType} from "@hisptz/dhis2-utils";
 import {DateTime} from "luxon";
+
 export interface DataType {
     name: string;
     fn: any;
@@ -25,7 +26,12 @@ export interface TimeBoundary {
 
 
 export interface GenerateProps {
-    noOfRecords: number
+    count: number;
+}
+
+export interface GenerateWithPaginationProps {
+    pages: number;
+    pageSize?: number
 }
 
 export interface DataConfiguration {
@@ -37,8 +43,9 @@ export interface DataConfiguration {
     }
     attributes?: DataItemConfig[],
     programStages?: {
-        eventTimeBoundary: TimeBoundary
+        eventTimeBoundary: TimeBoundary;
         id: string;
+        count?: number;
         dataElements: DataItemConfig[]
     }[]
 }

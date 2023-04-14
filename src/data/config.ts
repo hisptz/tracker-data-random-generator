@@ -22,13 +22,31 @@ export const config: DataConfiguration = {
             dataElements: [
                 {
                     dataItemId: "fxXDe8OZ86q",
-                    dataTypeName: SupportedDataTypeNames.DATE_OF_BIRTH,
+                    dataTypeName: SupportedDataTypeNames.DATE,
 
                 },
                 {
                     dataItemId: 'zsM4K8kNPSo',
                     dataTypeName: SupportedDataTypeNames.NUMBER
-                }
+                },
+                {
+                    dataItemId: 'wslSIEQi8ab',
+                    dataTypeName: SupportedDataTypeNames.BOOLEAN
+                },
+                {
+                    dataItemId: 'Q4X7sPYqzNS',
+                    dataTypeName: SupportedDataTypeNames.OPTIONS,
+                    options: {
+                        params: [
+                            [
+                                "MOBILE",
+                                "VOLUNTARYCTC",
+                                "OTHERCOMMUNITY"
+                            ]
+                        ]
+                    }
+                },
+
             ],
             eventTimeBoundary: {
                 min: DateTime.now().minus({month: 2}),
