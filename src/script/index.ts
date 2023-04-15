@@ -5,7 +5,7 @@ import {program} from "../data/program";
 const dataEngine = new TrackerRandomDataEngine({config, program});
 
 const teis = dataEngine.generate({
-    noOfRecords: 10
+    count: 10
 })
 
 console.log(JSON.stringify(teis))
