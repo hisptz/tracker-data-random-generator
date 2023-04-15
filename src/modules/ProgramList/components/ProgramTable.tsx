@@ -1,17 +1,17 @@
-import React, {useMemo} from "react"
+import React, {memo, useMemo} from "react"
 import {Pagination as PaginationInterface, Program} from "@hisptz/dhis2-utils";
 import {Column, usePagination, useTable} from "react-table";
 import i18n from "@dhis2/d2-i18n";
 import {
+    Pagination,
     Table,
-    TableHead,
-    TableRowHead,
-    TableCellHead,
     TableBody,
-    TableRow,
     TableCell,
+    TableCellHead,
     TableFoot,
-    Pagination
+    TableHead,
+    TableRow,
+    TableRowHead
 } from "@dhis2/ui"
 
 export interface ProgramTableProps {
@@ -30,7 +30,7 @@ export function useProgramTable({pagination, data, onPageSizeChange, onPageChang
         {
             Header: i18n.t("With registration"),
             accessor: (originalRow: any, index, sub) => {
-                return originalRow.registration  ? i18n.t('Yes') : i18n.t('No')
+                return originalRow.registration ? i18n.t('Yes') : i18n.t('No')
             },
 
         },
@@ -58,7 +58,7 @@ export function useProgramTable({pagination, data, onPageSizeChange, onPageChang
     }
 }
 
-export function ProgramTable(tableProps: ProgramTableProps) {
+export const ProgramTable = memo((tableProps: ProgramTableProps) => {
     const {
         flatHeaders,
         headerGroups,
@@ -103,4 +103,4 @@ export function ProgramTable(tableProps: ProgramTableProps) {
             </TableFoot>
         </Table>
     )
-}
+})

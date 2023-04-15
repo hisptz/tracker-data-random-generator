@@ -1,5 +1,6 @@
 import {useDataQuery} from "@dhis2/app-runtime";
-import {useMemo, useCallback} from "react"
+import {useCallback, useEffect, useMemo, useRef, useState} from "react"
+import {debounce} from "lodash";
 
 export const programsQuery = {
     programs: {
@@ -10,7 +11,7 @@ export const programsQuery = {
                 pageSize,
                 totalPages: true,
                 filter: keyword ? [
-                    `identifiableToken:like:${keyword}`
+                    `identifiable:ilike:${keyword}`
                 ] : undefined,
                 fields: [
                     `id,displayName,registration`,
@@ -21,12 +22,23 @@ export const programsQuery = {
 }
 
 export function useProgramsData() {
+    const [keyword, setKeyword] = useState<string | undefined>();
     const {data, loading, error, refetch} = useDataQuery(programsQuery, {
         variables: {
             page: 1,
             pageSize: 50
         }
     });
+
+    const onSearch = useRef(debounce((keyword?: string) => {
+        if (!keyword) {
+            return;
+        }
+        refetch({
+            keyword,
+            page: 1
+        })
+    }, 2000))?.current;
 
     const pagination = useMemo(() => {
         return (data?.programs as any)?.pager ?? {page: 1, pageSize: 50}
@@ -54,9 +66,23 @@ export function useProgramsData() {
         [refetch],
     );
 
+    useEffect(() => {
+        if (keyword) {
+            onSearch(keyword)
+        } else {
+            refetch(
+                {
+                    keyword: undefined
+                }
+            )
+        }
+    }, [keyword]);
+
 
     return {
         data: rawData,
+        keyword,
+        setKeyword,
         onPageChange,
         onPageSizeChange,
         pagination,
