@@ -69,15 +69,15 @@ export const supportedDataTypes: DataType[] = [
         name: SupportedDataTypeNames.BOOLEAN,
         fn: faker.datatype.boolean,
         dhis2Fields: [
-            "NUMBER"
+            "BOOLEAN"
         ]
     },
     {
         name: SupportedDataTypeNames.TRUE_ONLY,
         fn: faker.helpers.maybe,
         dhis2Fields: [
-            "NUMBER"
-        ],
+            "TRUE_ONLY"
+        ] as any,
         defaultParams: [
             () => true,
             {

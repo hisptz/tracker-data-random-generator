@@ -5,14 +5,38 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-15T19:12:30.558Z\n"
-"PO-Revision-Date: 2023-04-15T19:12:30.558Z\n"
+"POT-Creation-Date: 2023-04-15T20:24:09.000Z\n"
+"PO-Revision-Date: 2023-04-15T20:24:09.000Z\n"
 
 msgid "Data profile for program {{program}}"
 msgstr "Data profile for program {{program}}"
 
+msgid "Tracked entity attributes"
+msgstr "Tracked entity attributes"
+
+msgid "Program stages"
+msgstr "Program stages"
+
 msgid "Data type"
 msgstr "Data type"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "General configuration"
+msgstr "General configuration"
+
+msgid "Event date boundaries"
+msgstr "Event date boundaries"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Data elements"
+msgstr "Data elements"
 
 msgid ""
 "There are no data profiles for the program {{program}}. Click on Create "

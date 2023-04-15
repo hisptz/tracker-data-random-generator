@@ -1,10 +1,11 @@
 import {DataElement, TrackedEntityAttribute} from "@hisptz/dhis2-utils";
 import {SupportedDataTypeNames, supportedDataTypes} from "../../../../script/constants/dataTypes";
 import React, {useEffect} from "react"
-import {MultipleOptionsField, RHFSingleSelectField} from "@hisptz/dhis2-ui";
+import {RHFSingleSelectField} from "@hisptz/dhis2-ui";
 import i18n from '@dhis2/d2-i18n';
 import {head, isEmpty} from "lodash";
-import {useFormContext} from "react-hook-form";
+import {Controller, useFormContext} from "react-hook-form";
+import {MultiSelectField, MultiSelectOption} from "@dhis2/ui"
 
 export interface DataItemConfigFieldProps {
     name: string;
@@ -46,15 +47,26 @@ export function DataItemConfigField({dataItem, type, name}: DataItemConfigFieldP
                 name={`${name}.dataTypeName`}
                 label={i18n.t("Data type")}
             />
-            <div className="row">
+            <div className="w-100">
                 {
                     dataItem.optionSet && (
-                        <MultipleOptionsField
-                            dataSelected={[]}
-                            options={optionSetOptions}
-                            name={`${name}.options.params`}
-                            label={i18n.t("Options")}
-                        />
+                        <Controller render={
+                            ({field, fieldState, formState,}) => {
+
+                                return (
+                                    <MultiSelectField
+                                        label={i18n.t("Options")}
+                                        onChange={({selected}: { selected: string[] }) => field.onChange(selected)}
+                                        selected={field.value}
+                                    >
+                                        {
+                                            optionSetOptions.map(({label, value}) => (
+                                                <MultiSelectOption label={label} value={value}/>))
+                                        }
+                                    </MultiSelectField>
+                                )
+                            }
+                        } name={`${name}.options.params`}/>
                     )
                 }
             </div>

@@ -12,7 +12,7 @@ const programQuery = {
                 'displayName',
                 'registration',
                 'programTrackedEntityAttributes[trackedEntityAttribute[formName,name,id,valueType,optionSet[options[id,code,name]]]]',
-                'programStages[programStageDataElements[dataElement[formName,name,id,valueType,optionSet[options[id,code,name]]]]]',
+                'programStages[id,displayName,programStageDataElements[dataElement[formName,name,id,valueType,optionSet[options[id,code,name]]]]]',
                 'organisationUnits[id,name]'
             ]
         }
