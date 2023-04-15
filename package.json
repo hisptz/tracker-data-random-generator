@@ -15,6 +15,7 @@
     "@dhis2/cli-app-scripts": "^10.3.6",
     "@types/lodash": "^4.14.194",
     "@types/luxon": "^3.3.0",
+    "@types/react-table": "^7.7.14",
     "cross-var": "^1.1.0",
     "dotenv": "^16.0.3",
     "dotenv-cli": "^7.2.1",
@@ -30,6 +31,7 @@
     "lodash": "^4.17.21",
     "luxon": "^3.3.0",
     "react-router-dom": "^6.10.0",
+    "react-table": "^7.8.0",
     "usehooks-ts": "^2.9.1"
   }
 }
