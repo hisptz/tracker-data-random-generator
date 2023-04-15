@@ -1,11 +1,11 @@
 import React from "react"
 
 
-export function ProgramConfigList() {
+export function DataProfileConfig() {
 
     return (
         <div className="h-100 w-100 column align-center center">
-            <h1>Program Config List page</h1>
+            <h1>Config page</h1>
         </div>
     )
 }
