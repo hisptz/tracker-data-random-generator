@@ -3,6 +3,8 @@ import {DateTime} from "luxon";
 import {SupportedDataTypeNames} from "../script/constants/dataTypes";
 
 export const config: DataConfiguration = {
+    id: "hiv",
+    name: "HIV config",
     meta: {
         orgUnits: [
             'SafacSbYOOU',
@@ -18,7 +20,6 @@ export const config: DataConfiguration = {
     programStages: [
         {
             id: 'K5ac7u3V5bB',
-
             dataElements: [
                 {
                     dataItemId: "fxXDe8OZ86q",
@@ -87,6 +88,6 @@ export const config: DataConfiguration = {
             dataItemId: 'fctSQp5nAYl',
             dataTypeName: SupportedDataTypeNames.PHONE_NUMBER,
         },
-    ],
+    ]
 
 }
