@@ -34,6 +34,17 @@ export interface GenerateWithPaginationProps {
     pageSize?: number
 }
 
+
+export interface DataConfigurationForm {
+    attributes?: DataItemConfig[],
+    programStages?: {
+        eventTimeBoundary: TimeBoundary;
+        id: string;
+        count?: number;
+        dataElements: DataItemConfig[]
+    }[]
+}
+
 export interface DataConfiguration {
     meta: {
         orgUnits?: string[]

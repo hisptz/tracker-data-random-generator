@@ -5,8 +5,24 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-15T16:00:57.185Z\n"
-"PO-Revision-Date: 2023-04-15T16:00:57.185Z\n"
+"POT-Creation-Date: 2023-04-15T19:12:30.558Z\n"
+"PO-Revision-Date: 2023-04-15T19:12:30.558Z\n"
+
+msgid "Data profile for program {{program}}"
+msgstr "Data profile for program {{program}}"
+
+msgid "Data type"
+msgstr "Data type"
+
+msgid ""
+"There are no data profiles for the program {{program}}. Click on Create "
+"data profile to create one."
+msgstr ""
+"There are no data profiles for the program {{program}}. Click on Create "
+"data profile to create one."
+
+msgid "Create data profile"
+msgstr "Create data profile"
 
 msgid "Name"
 msgstr "Name"

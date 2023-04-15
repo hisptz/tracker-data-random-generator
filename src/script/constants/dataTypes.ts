@@ -107,11 +107,17 @@ export const supportedDataTypes: DataType[] = [
     {
         name: SupportedDataTypeNames.PHYSICAL_ADDRESS,
         fn: faker.address.street,
-        dhis2Fields: []
+        dhis2Fields: [
+            'TEXT',
+            'LONG_TEXT',
+        ]
     },
     {
         name: SupportedDataTypeNames.PHONE_NUMBER,
         fn: faker.phone.number,
-        dhis2Fields: []
+        dhis2Fields: [
+            'PHONE_NUMBER',
+            'TEXT'
+        ] as any
     },
 ]
