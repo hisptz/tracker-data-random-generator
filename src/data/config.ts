@@ -2,7 +2,6 @@ import {DataConfiguration} from "../script/interfaces";
 import {DateTime} from "luxon";
 import {SupportedDataTypeNames} from "../script/constants/dataTypes";
 
-
 export const config: DataConfiguration = {
     meta: {
         orgUnits: [
@@ -24,7 +23,6 @@ export const config: DataConfiguration = {
                 {
                     dataItemId: "fxXDe8OZ86q",
                     dataTypeName: SupportedDataTypeNames.DATE,
-
                 },
                 {
                     dataItemId: 'zsM4K8kNPSo',

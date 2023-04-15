@@ -36,6 +36,8 @@ export interface GenerateWithPaginationProps {
 
 
 export interface DataConfigurationForm {
+    name: string;
+    id: string;
     attributes?: DataItemConfig[],
     programStages?: {
         eventTimeBoundary: TimeBoundary;
@@ -46,6 +48,8 @@ export interface DataConfigurationForm {
 }
 
 export interface DataConfiguration {
+    name: string;
+    id: string;
     meta: {
         orgUnits?: string[]
         trackedEntityType?: string;

@@ -44,7 +44,8 @@ export function ProgramStageConfig({programStage, name}: ProgramStageConfigProps
                 <div className="column gap-16">
                     {
                         dataElements.map((dataItem, fieldIndex) => (
-                            <DataItemConfigField name={`${name}.dataElements.${fieldIndex}`} dataItem={dataItem}
+                            <DataItemConfigField key={`${dataItem.id}-config`}
+                                                 name={`${name}.dataElements.${fieldIndex}`} dataItem={dataItem}
                                                  type="dataElement"/>))
                     }
                 </div>
