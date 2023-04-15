@@ -1,9 +1,8 @@
 import {NavItem} from "../interfaces";
 import i18n from '@dhis2/d2-i18n';
-import {ProgramConfigList} from "../../ProgramConfigList";
-import {Config} from "../../Config";
-import {Outlet} from "react-router-dom";
-import {ProgramList} from "../../ProgramList";
+import {Programs} from "../../Programs";
+import {ProgramDataProfiles} from "../../ProgramDataProfiles";
+import {DataProfileConfig} from "../../DataProfileConfig";
 
 export const MAIN_NAV_ITEMS: NavItem[] = [
     {
@@ -12,18 +11,18 @@ export const MAIN_NAV_ITEMS: NavItem[] = [
         subItems: [
             {
                 path: "",
-                element: ProgramList
+                element: Programs
             },
             {
                 path: ":id",
                 subItems: [
                     {
                         path: "",
-                        element: ProgramConfigList
+                        element: ProgramDataProfiles
                     },
                     {
                         path: "config",
-                        element: Config
+                        element: DataProfileConfig
                     }
                 ]
             },

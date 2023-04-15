@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.9.1",
+    "@dhis2/app-service-datastore": "^1.0.0-beta.3",
     "@faker-js/faker": "^7.6.0",
     "@hisptz/dhis2-utils": "^1.0.41",
     "file-saver": "^2.0.5",
@@ -32,6 +33,7 @@
     "luxon": "^3.3.0",
     "react-router-dom": "^6.10.0",
     "react-table": "^7.8.0",
+    "recoil": "^0.7.7",
     "usehooks-ts": "^2.9.1"
   }
 }

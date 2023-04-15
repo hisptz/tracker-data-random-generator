@@ -1,10 +1,11 @@
 import React, {useCallback} from "react"
 import {useProgramsData} from "./hooks/data";
-import {CircularLoader, InputField} from "@dhis2/ui"
+import {InputField} from "@dhis2/ui"
 import {ProgramTable} from "./components/ProgramTable";
 import {useNavigate} from "react-router-dom";
+import {FullPageLoader} from "../../shared/components/FullPageLoader";
 
-export function ProgramList() {
+export function Programs() {
     const navigate = useNavigate();
     const {loading, data, keyword, setKeyword, ...tableProps} = useProgramsData();
 
@@ -22,9 +23,7 @@ export function ProgramList() {
                 />
             </div>
             {
-                loading && (<div className="w-100 h-100 center align-center column">
-                    <CircularLoader small/>
-                </div>)
+                loading && (<FullPageLoader/>)
             }
             {
                 !!data && (<ProgramTable data={data} {...tableProps} onRowClick={onRowClick}/>)
