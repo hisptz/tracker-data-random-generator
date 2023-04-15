@@ -1,10 +1,16 @@
-import React from "react"
+import React, {useCallback} from "react"
 import {useProgramsData} from "./hooks/data";
 import {CircularLoader, InputField} from "@dhis2/ui"
 import {ProgramTable} from "./components/ProgramTable";
+import {useNavigate} from "react-router-dom";
 
 export function ProgramList() {
+    const navigate = useNavigate();
     const {loading, data, keyword, setKeyword, ...tableProps} = useProgramsData();
+
+    const onRowClick = useCallback((rowId: string) => {
+        navigate(`${rowId}`)
+    }, [])
 
     return (
         <div className="h-100 w-100 column p-16 gap-16">
@@ -21,7 +27,7 @@ export function ProgramList() {
                 </div>)
             }
             {
-                !!data && (<ProgramTable data={data} {...tableProps} />)
+                !!data && (<ProgramTable data={data} {...tableProps} onRowClick={onRowClick}/>)
             }
         </div>
     )
