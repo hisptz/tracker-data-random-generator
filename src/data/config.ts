@@ -12,8 +12,8 @@ export const config: DataConfiguration = {
         ],
         trackedEntityType: 'MCPQUTHX1Ze',
         enrollmentTimeBoundary: {
-            min: DateTime.now().minus({year: 1}),
-            max: DateTime.now()
+            min: DateTime.now().minus({year: 1}).toFormat('yyyy-MM-dd'),
+            max: DateTime.now().toFormat('yyyy-MM-dd')
         },
         locale: 'ar'
     },
@@ -49,8 +49,8 @@ export const config: DataConfiguration = {
 
             ],
             eventTimeBoundary: {
-                min: DateTime.now().minus({month: 2}),
-                max: DateTime.now()
+                min: DateTime.now().minus({month: 2}).toFormat('yyyy-MM-dd'),
+                max: DateTime.now().toFormat('yyyy-MM-dd')
             }
         }
     ],

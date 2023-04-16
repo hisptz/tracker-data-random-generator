@@ -14,7 +14,9 @@ export enum SupportedDataTypeNames {
     DATE = "Date",
     OPTIONS = "Options",
     PHYSICAL_ADDRESS = "Physical Address",
-    PHONE_NUMBER = "Phone Number"
+    PHONE_NUMBER = "Phone Number",
+    ID = "ID",
+    LONG_TEXT = "Long text"
 }
 
 
@@ -41,6 +43,20 @@ export const supportedDataTypes: DataType[] = [
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.LONG_TEXT,
+        fn: faker.lorem.paragraph,
+        dhis2Fields: [
+            "LONG_TEXT"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.ID,
+        fn: faker.datatype.uuid,
+        dhis2Fields: [
+            "TEXT"
         ]
     },
     {

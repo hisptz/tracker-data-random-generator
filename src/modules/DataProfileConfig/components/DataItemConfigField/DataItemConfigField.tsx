@@ -66,7 +66,7 @@ export function DataItemConfigField({dataItem, type, name}: DataItemConfigFieldP
                                     </MultiSelectField>
                                 )
                             }
-                        } name={`${name}.options.params`}/>
+                        } name={`${name}.options.params.0`}/>
                     )
                 }
             </div>

@@ -6,13 +6,13 @@ import {
     TimeBoundary
 } from "../interfaces";
 import {
-    Program,
-    Event,
-    TrackedEntityInstance,
-    uid,
+    DataElement,
     Enrollment,
+    Event,
+    Program,
     TrackedEntityAttribute,
-    DataElement
+    TrackedEntityInstance,
+    uid
 } from "@hisptz/dhis2-utils";
 import {faker} from "@faker-js/faker";
 import {compact, find, flatten, flattenDeep, times} from "lodash";
@@ -69,13 +69,15 @@ export class TrackerRandomDataEngine {
         dataElementsConfig: DataItemConfig[];
         eventTimeBoundary: TimeBoundary
     }): Event {
-        const eventDate = faker.date.between(eventTimeBoundary.min?.toJSDate() ?? new Date(), eventTimeBoundary.max?.toJSDate() ?? new Date()).toISOString();
+        const eventDate = faker.date.between(new Date(eventTimeBoundary.min ?? '') ?? new Date(), new Date(eventTimeBoundary.max ?? '') ?? new Date()).toISOString();
         const status = 'COMPLETED';
 
         const dataValues = dataElementsConfig.map((config) => this.generateDataItem<{
             dataElement: string;
             value: any
         }>(config, 'dataElement'))
+
+        console.log(props)
 
         return {
             ...props,
@@ -89,7 +91,7 @@ export class TrackerRandomDataEngine {
 
     generateTei(): TrackedEntityInstance {
         const trackedEntityType = this.config.meta.trackedEntityType;
-        const enrollmentDate = faker.date.between(this.config.meta.enrollmentTimeBoundary?.min?.toJSDate() ?? new Date(), this.config.meta.enrollmentTimeBoundary?.max?.toJSDate() ?? new Date()).toISOString();
+        const enrollmentDate = faker.date.between(new Date(this.config.meta.enrollmentTimeBoundary?.min ?? '') ?? new Date(), new Date(this.config.meta.enrollmentTimeBoundary?.max ?? '') ?? new Date()).toISOString();
         const orgUnit = faker.helpers.arrayElement(this.config.meta.orgUnits);
         const trackedEntityInstance = uid();
         const enrollment = uid();
@@ -125,13 +127,15 @@ export class TrackerRandomDataEngine {
 
         const enrollmentObject: Enrollment = {
             enrollmentDate,
+            trackedEntityInstance,
             enrollment,
             events,
             program: this.program.id,
+            orgUnit
         } as any as Enrollment
 
         return {
-            trackedEntityInstance: uid(),
+            trackedEntityInstance,
             attributes: trackedEntityAttributes,
             enrollments: [
                 enrollmentObject

@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useCallback, useMemo} from "react";
 import {
     Button,
     ButtonStrip,
@@ -16,9 +16,9 @@ import {useRecoilValue} from "recoil";
 import {ProgramState} from "../../../state/program";
 import {Controller, FormProvider, useForm} from "react-hook-form";
 import {RHFTextInputField} from "@hisptz/dhis2-ui";
-import {useSavedObject} from "@dhis2/app-service-datastore";
-import {find} from "lodash";
 import {DateTime} from "luxon";
+import {useGenerateData} from "../hooks/generate";
+import {uniqBy} from "lodash";
 
 export interface GenerateDataModalProps {
     profileId: string | null,
@@ -42,14 +42,23 @@ export function GenerateDataModal({profileId, onClose}: GenerateDataModalProps) 
     const {id: programId} = useParams();
     const program = useRecoilValue(ProgramState(programId));
     const orgUnitOptions = useMemo(() => {
-        return program.organisationUnits.map(({name, id}: { name: string; id: string }) => ({label: name, value: id}))
+        return uniqBy(program.organisationUnits.map(({name, id}: { name: string; id: string }) => ({
+            label: name,
+            value: id
+        })), 'value') as any[]
     }, [program]);
     const form = useForm<GenerateConfig>();
-    const [profiles] = useSavedObject(programId as string)
-    const profile = find(profiles, ['id', profileId]);
+
+
+    const onCloseModal = useCallback(() => {
+        form.reset({});
+        onClose();
+    }, [])
+
+    const {generate} = useGenerateData(profileId, onCloseModal);
 
     return (
-        <Modal position="middle" onClose={onClose} hide={!profileId}>
+        <Modal position="middle" onClose={onCloseModal} hide={!profileId}>
             <ModalTitle>
                 {i18n.t("Generate data")}
             </ModalTitle>
@@ -140,8 +149,8 @@ export function GenerateDataModal({profileId, onClose}: GenerateDataModalProps) 
             </ModalContent>
             <ModalActions>
                 <ButtonStrip>
-                    <Button>{i18n.t("Cancel")}</Button>
-                    <Button primary>{i18n.t("Generate")}</Button>
+                    <Button onClick={onCloseModal}>{i18n.t("Cancel")}</Button>
+                    <Button onClick={form.handleSubmit(generate)} primary>{i18n.t("Generate")}</Button>
                 </ButtonStrip>
             </ModalActions>
         </Modal>

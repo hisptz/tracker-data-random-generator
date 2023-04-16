@@ -1,5 +1,4 @@
 import {DHIS2ValueType} from "@hisptz/dhis2-utils";
-import {DateTime} from "luxon";
 
 export interface DataType {
     name: string;
@@ -19,9 +18,8 @@ export interface DataItemConfig {
 }
 
 export interface TimeBoundary {
-    min?: DateTime,
-    max?: DateTime,
-    exact?: DateTime
+    min?: string,
+    max?: string,
 }
 
 

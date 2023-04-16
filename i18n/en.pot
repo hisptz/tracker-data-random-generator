@@ -5,17 +5,35 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-15T20:24:09.000Z\n"
-"PO-Revision-Date: 2023-04-15T20:24:09.000Z\n"
+"POT-Creation-Date: 2023-04-15T23:20:04.613Z\n"
+"PO-Revision-Date: 2023-04-15T23:20:04.613Z\n"
 
 msgid "Data profile for program {{program}}"
 msgstr "Data profile for program {{program}}"
+
+msgid "General"
+msgstr "General"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Name is required"
+msgstr "Name is required"
 
 msgid "Tracked entity attributes"
 msgstr "Tracked entity attributes"
 
 msgid "Program stages"
 msgstr "Program stages"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Saving..."
+msgstr "Saving..."
 
 msgid "Data type"
 msgstr "Data type"
@@ -38,6 +56,21 @@ msgstr "Max"
 msgid "Data elements"
 msgstr "Data elements"
 
+msgid "Data profile created successfully"
+msgstr "Data profile created successfully"
+
+msgid "Data profile updated successfully"
+msgstr "Data profile updated successfully"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Generate"
+msgstr "Generate"
+
 msgid ""
 "There are no data profiles for the program {{program}}. Click on Create "
 "data profile to create one."
@@ -48,8 +81,29 @@ msgstr ""
 msgid "Create data profile"
 msgstr "Create data profile"
 
-msgid "Name"
-msgstr "Name"
+msgid "Generate data"
+msgstr "Generate data"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Enrollment date boundary"
+msgstr "Enrollment date boundary"
+
+msgid "Maximum of 100 records"
+msgstr "Maximum of 100 records"
+
+msgid "Number of records"
+msgstr "Number of records"
+
+msgid "Export type"
+msgstr "Export type"
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "JSON"
+msgstr "JSON"
 
 msgid "With registration"
 msgstr "With registration"

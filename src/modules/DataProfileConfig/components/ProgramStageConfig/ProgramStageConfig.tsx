@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {ProgramStage} from "@hisptz/dhis2-utils";
 import {RHFTextInputField} from "@hisptz/dhis2-ui";
 import i18n from '@dhis2/d2-i18n';
 import {Field} from "@dhis2/ui"
 import {DataItemConfigField} from "../DataItemConfigField";
+import {useFormContext} from "react-hook-form";
 
 export interface ProgramStageConfigProps {
     programStage: ProgramStage,
@@ -14,6 +15,13 @@ export interface ProgramStageConfigProps {
 export function ProgramStageConfig({programStage, name}: ProgramStageConfigProps) {
     const repeatable = programStage.repeatable;
     const dataElements = programStage.programStageDataElements?.map(({dataElement}) => dataElement) ?? [];
+    const {setValue} = useFormContext();
+
+    useEffect(() => {
+        setValue(`${name}.id`, programStage.id)
+    }, [])
+
+
     return (
         <div className="column gap-16">
             <h2 style={{margin: 0}}>{programStage.displayName}</h2>
