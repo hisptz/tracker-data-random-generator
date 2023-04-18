@@ -1,10 +1,17 @@
 import {DHIS2ValueType} from "@hisptz/dhis2-utils";
 
+
+export interface SupportedParam {
+    type: 'number' | 'text' | 'options',
+    options?: { name: string; value: any }[]
+}
+
 export interface DataType {
     name: string;
     fn: any;
     dhis2Fields: DHIS2ValueType[],
     defaultParams?: any[];
+    supportedParams?: SupportedParam[]
 }
 
 export interface DataItemConfig {

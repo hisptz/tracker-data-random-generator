@@ -4,21 +4,30 @@ import {DataType} from "../interfaces";
 export enum SupportedDataTypeNames {
     FULL_NAME = 'Full Name',
     FIRST_NAME = 'First Name',
+    MIDDLE_NAME = 'Middle Name',
     LAST_NAME = 'Last Name',
     SEX = "Sex",
     EMAIL = "Email",
     NUMBER = "Number",
     BOOLEAN = "True or False (Yes or No)",
     TRUE_ONLY = "True only",
+    //dates
     DATE_OF_BIRTH = "Date of Birth",
-    DATE = "Date",
+    PAST_DATE = "Past date",
+    FUTURE_DATE = "Future date",
+    SOON = "Soon date",
+    RECENT = "Recent date",
+    WEEKDAY = "Weekday",
+    //Option set
     OPTIONS = "Options",
+    //Address
     PHYSICAL_ADDRESS = "Physical Address",
+    CITY = "City",
+    COUNTRY = "Country",
     PHONE_NUMBER = "Phone Number",
     ID = "ID",
     LONG_TEXT = "Long text"
 }
-
 
 export const supportedDataTypes: DataType[] = [
     {
@@ -28,6 +37,21 @@ export const supportedDataTypes: DataType[] = [
             "TEXT",
             "LONG_TEXT"
         ],
+        supportedParams: [
+            {
+                type: "options",
+                options: [
+                    {
+                        name: 'Female',
+                        value: "female"
+                    },
+                    {
+                        name: 'Male',
+                        value: "male"
+                    },
+                ]
+            }
+        ]
     },
     {
         name: SupportedDataTypeNames.LAST_NAME,
@@ -35,7 +59,23 @@ export const supportedDataTypes: DataType[] = [
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
+        ],
+        supportedParams: [
+            {
+                type: "options",
+                options: [
+                    {
+                        name: 'Female',
+                        value: "female"
+                    },
+                    {
+                        name: 'Male',
+                        value: "male"
+                    },
+                ]
+            }
         ]
+
     },
     {
         name: SupportedDataTypeNames.FULL_NAME,
@@ -43,7 +83,47 @@ export const supportedDataTypes: DataType[] = [
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
+        ],
+        supportedParams: [
+            {
+                type: "options",
+                options: [
+                    {
+                        name: 'Female',
+                        value: "female"
+                    },
+                    {
+                        name: 'Male',
+                        value: "male"
+                    },
+                ]
+            }
         ]
+
+    },
+    {
+        name: SupportedDataTypeNames.MIDDLE_NAME,
+        fn: faker.name.middleName,
+        dhis2Fields: [
+            "TEXT",
+            "LONG_TEXT"
+        ],
+        supportedParams: [
+            {
+                type: "options",
+                options: [
+                    {
+                        name: 'Female',
+                        value: "female"
+                    },
+                    {
+                        name: 'Male',
+                        value: "male"
+                    },
+                ]
+            }
+        ]
+
     },
     {
         name: SupportedDataTypeNames.LONG_TEXT,
@@ -101,16 +181,45 @@ export const supportedDataTypes: DataType[] = [
             }
         ]
     },
+    //Dates
     {
         name: SupportedDataTypeNames.DATE_OF_BIRTH,
+        fn: faker.date.birthdate,
+        dhis2Fields: [
+            "DATE"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.FUTURE_DATE,
+        fn: faker.date.future,
+        dhis2Fields: [
+            "DATE"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.PAST_DATE,
         fn: faker.date.past,
         dhis2Fields: [
             "DATE"
         ]
     },
     {
-        name: SupportedDataTypeNames.DATE,
-        fn: faker.date.past,
+        name: SupportedDataTypeNames.SOON,
+        fn: faker.date.soon,
+        dhis2Fields: [
+            "DATE"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.RECENT,
+        fn: faker.date.recent,
+        dhis2Fields: [
+            "DATE"
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.WEEKDAY,
+        fn: faker.date.weekday,
         dhis2Fields: [
             "DATE"
         ]
@@ -120,9 +229,26 @@ export const supportedDataTypes: DataType[] = [
         fn: faker.helpers.arrayElement,
         dhis2Fields: []
     },
+    //Address
     {
         name: SupportedDataTypeNames.PHYSICAL_ADDRESS,
         fn: faker.address.street,
+        dhis2Fields: [
+            'TEXT',
+            'LONG_TEXT',
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.CITY,
+        fn: faker.address.city,
+        dhis2Fields: [
+            'TEXT',
+            'LONG_TEXT',
+        ]
+    },
+    {
+        name: SupportedDataTypeNames.COUNTRY,
+        fn: faker.address.county,
         dhis2Fields: [
             'TEXT',
             'LONG_TEXT',
