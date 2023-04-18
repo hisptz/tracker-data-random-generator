@@ -2,9 +2,10 @@ import React, {useEffect} from "react"
 import {ProgramStage} from "@hisptz/dhis2-utils";
 import {RHFTextInputField} from "@hisptz/dhis2-ui";
 import i18n from '@dhis2/d2-i18n';
-import {Field} from "@dhis2/ui"
+import {Field, IconChevronDown24, IconChevronUp24} from "@dhis2/ui"
 import {DataItemConfigField} from "../DataItemConfigField";
 import {useFormContext} from "react-hook-form";
+import Collapsible from "react-collapsible";
 
 export interface ProgramStageConfigProps {
     programStage: ProgramStage,
@@ -24,40 +25,53 @@ export function ProgramStageConfig({programStage, name}: ProgramStageConfigProps
 
     return (
         <div className="column gap-16">
-            <h2 style={{margin: 0}}>{programStage.displayName}</h2>
-            <div className="column gap-16">
-                <h3>{i18n.t("General configuration")}</h3>
-                <Field label={i18n.t("Event date boundaries")}>
-                    <div className="row gap-16 ">
-                        <RHFTextInputField
-                            name={`${name}.eventTimeBoundary.min`}
-                            label={i18n.t("Min")}
-                            type={'date'}
-                        />
-                        <RHFTextInputField
-                            name={`${name}.eventTimeBoundary.max`}
-                            label={i18n.t("Max")}
-                            type={'date'}
-                        />
+            <Collapsible
+                triggerWhenOpen={
+                    <div className="row space-between">
+                        <h3 style={{margin: 0}}>{programStage.displayName}</h3>
+                        <IconChevronUp24/>
                     </div>
-                </Field>
-                {
-                    repeatable && (
-                        <RHFTextInputField name={`${name}.count`} min={0} max={10} type="number"/>
-                    )
                 }
-            </div>
-            <div className="column">
-                <h3>{i18n.t("Data elements")}</h3>
-                <div className="column gap-16">
+                trigger={
+                    <div className="row space-between">
+                        <h3 style={{margin: 0}}>{programStage.displayName}</h3>
+                        <IconChevronDown24/>
+                    </div>
+                }>
+                <div className="column gap-16 ph-16">
+                    <h4>{i18n.t("General configuration")}</h4>
+                    <Field label={i18n.t("Event date boundaries")}>
+                        <div className="row gap-16 ">
+                            <RHFTextInputField
+                                name={`${name}.eventTimeBoundary.min`}
+                                label={i18n.t("Min")}
+                                type={'date'}
+                            />
+                            <RHFTextInputField
+                                name={`${name}.eventTimeBoundary.max`}
+                                label={i18n.t("Max")}
+                                type={'date'}
+                            />
+                        </div>
+                    </Field>
                     {
-                        dataElements.map((dataItem, fieldIndex) => (
-                            <DataItemConfigField key={`${dataItem.id}-config`}
-                                                 name={`${name}.dataElements.${fieldIndex}`} dataItem={dataItem}
-                                                 type="dataElement"/>))
+                        repeatable && (
+                            <RHFTextInputField name={`${name}.count`} min={0} max={10} type="number"/>
+                        )
                     }
                 </div>
-            </div>
+                <div className="column ph-16">
+                    <h4>{i18n.t("Data elements")}</h4>
+                    <div className="column gap-16">
+                        {
+                            dataElements.map((dataItem, fieldIndex) => (
+                                <DataItemConfigField key={`${dataItem.id}-config`}
+                                                     name={`${name}.dataElements.${fieldIndex}`} dataItem={dataItem}
+                                                     type="dataElement"/>))
+                        }
+                    </div>
+                </div>
+            </Collapsible>
         </div>
     )
 }
