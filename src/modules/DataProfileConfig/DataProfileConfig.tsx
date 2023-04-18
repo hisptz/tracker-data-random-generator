@@ -76,7 +76,7 @@ export function DataProfileConfig() {
                             <ButtonStrip>
                                 <Button onClick={() => navigate(-1)}>{i18n.t("Cancel")}</Button>
                                 <Button loading={loading} onClick={form.handleSubmit(onFormSubmit)}
-                                        primary>{loading ? i18n.t("Save") : i18n.t("Saving...")}</Button>
+                                        primary>{!loading ? i18n.t("Save") : i18n.t("Saving...")}</Button>
                             </ButtonStrip>
                         </div>
                     </div>
