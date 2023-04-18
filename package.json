@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@dhis2/cli-app-scripts": "^10.3.6",
+    "@types/async": "^3.2.18",
     "@types/file-saver": "^2.0.5",
     "@types/lodash": "^4.14.194",
     "@types/luxon": "^3.3.0",

@@ -15,7 +15,7 @@ import {useParams} from "react-router-dom";
 import {useRecoilValue} from "recoil";
 import {ProgramState} from "../../../state/program";
 import {Controller, FormProvider, useForm} from "react-hook-form";
-import {RHFTextInputField} from "@hisptz/dhis2-ui";
+import {RHFCheckboxField, RHFTextInputField} from "@hisptz/dhis2-ui";
 import {DateTime} from "luxon";
 import {useGenerateData} from "../hooks/generate";
 import {uniqBy} from "lodash";
@@ -35,7 +35,8 @@ export interface GenerateConfig {
         max: string;
     };
     count: number;
-    exportTypes: ExportType[]
+    shouldUploadData?: boolean;
+    shouldExportData?: boolean;
 }
 
 export function GenerateDataModal({profileId, onClose}: GenerateDataModalProps) {
@@ -122,27 +123,8 @@ export function GenerateDataModal({profileId, onClose}: GenerateDataModalProps) 
                             label={i18n.t("Number of records")}
                             name={`count`}
                         />
-                        <Controller render={
-                            ({field, fieldState, formState,}) => {
-                                return (
-                                    <MultiSelectField
-                                        filterable
-                                        label={i18n.t("Export type")}
-                                        onChange={({selected}: { selected: string[] }) => field.onChange(selected)}
-                                        selected={field.value ?? []}
-                                    >
-                                        {
-                                            [
-                                                {label: i18n.t("Upload"), value: "upload"},
-                                                {label: i18n.t("JSON"), value: "json"},
-                                            ].map(({label, value}: { label: string; value: string }) => (
-                                                <MultiSelectOption key={`${label}-option`} label={label}
-                                                                   value={value}/>))
-                                        }
-                                    </MultiSelectField>
-                                )
-                            }
-                        } name={`exportTypes`}/>
+                        <RHFCheckboxField label={i18n.t("Export JSON")} name={'shouldExportData'}/>
+                        <RHFCheckboxField label={i18n.t("Upload data")} name={'shouldUploadData'}/>
                     </div>
                 </FormProvider>
 
