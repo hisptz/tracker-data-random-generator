@@ -2,8 +2,16 @@ import {DHIS2ValueType} from "@hisptz/dhis2-utils";
 
 
 export interface SupportedParam {
-    type: 'number' | 'text' | 'options',
-    options?: { name: string; value: any }[]
+    type: 'number' | 'text' | 'options' | 'date' | 'default' | 'object',
+    label: string;
+    keys?: {
+        fieldProps?: Record<string, any>;
+        label: string;
+        key: string;
+        type: 'number' | 'text' | 'options' | 'date' | 'default'
+    }[]
+    options?: { name: string; value: any }[];
+    fieldProps?: Record<string, any>
 }
 
 export interface DataType {

@@ -6,6 +6,7 @@ import i18n from '@dhis2/d2-i18n';
 import {head, isEmpty} from "lodash";
 import {Controller, useFormContext} from "react-hook-form";
 import {MultiSelectField, MultiSelectOption} from "@dhis2/ui"
+import {ParamConfigField} from "./components/ParamConfigField";
 
 export interface DataItemConfigFieldProps {
     name: string;
@@ -69,6 +70,7 @@ export function DataItemConfigField({dataItem, type, name}: DataItemConfigFieldP
                         } name={`${name}.options.params.0`}/>
                     )
                 }
+                <ParamConfigField name={name}/>
             </div>
         </div>
     )

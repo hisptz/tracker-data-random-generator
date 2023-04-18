@@ -13,6 +13,7 @@ export enum SupportedDataTypeNames {
     TRUE_ONLY = "True only",
     //dates
     DATE_OF_BIRTH = "Date of Birth",
+    BETWEEN = "Dates between",
     PAST_DATE = "Past date",
     FUTURE_DATE = "Future date",
     SOON = "Soon date",
@@ -40,6 +41,7 @@ export const supportedDataTypes: DataType[] = [
         supportedParams: [
             {
                 type: "options",
+                label: "Sex",
                 options: [
                     {
                         name: 'Female',
@@ -63,6 +65,7 @@ export const supportedDataTypes: DataType[] = [
         supportedParams: [
             {
                 type: "options",
+                label: "Sex",
                 options: [
                     {
                         name: 'Female',
@@ -84,22 +87,6 @@ export const supportedDataTypes: DataType[] = [
             "TEXT",
             "LONG_TEXT"
         ],
-        supportedParams: [
-            {
-                type: "options",
-                options: [
-                    {
-                        name: 'Female',
-                        value: "female"
-                    },
-                    {
-                        name: 'Male',
-                        value: "male"
-                    },
-                ]
-            }
-        ]
-
     },
     {
         name: SupportedDataTypeNames.MIDDLE_NAME,
@@ -111,6 +98,7 @@ export const supportedDataTypes: DataType[] = [
         supportedParams: [
             {
                 type: "options",
+                label: "Sex",
                 options: [
                     {
                         name: 'Female',
@@ -134,9 +122,15 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.ID,
-        fn: faker.datatype.uuid,
+        fn: faker.datatype.string,
         dhis2Fields: [
             "TEXT"
+        ],
+        supportedParams: [
+            {
+                type: "number",
+                label: "Length"
+            }
         ]
     },
     {
@@ -159,6 +153,12 @@ export const supportedDataTypes: DataType[] = [
         fn: faker.random.numeric,
         dhis2Fields: [
             "NUMBER"
+        ],
+        supportedParams: [
+            {
+                type: "number",
+                label: "Length"
+            }
         ]
     },
     {
@@ -174,6 +174,26 @@ export const supportedDataTypes: DataType[] = [
         dhis2Fields: [
             "TRUE_ONLY"
         ] as any,
+        supportedParams: [
+            {
+                type: "default",
+                label: "Function"
+            },
+            {
+                type: "object",
+                label: "Probability",
+                keys: [
+                    {
+                        key: "probability",
+                        type: "number",
+                        label: "Probability",
+                        fieldProps: {
+                            helpText: "A value between 0 and 1"
+                        }
+                    }
+                ]
+            }
+        ],
         defaultParams: [
             () => true,
             {
@@ -225,6 +245,23 @@ export const supportedDataTypes: DataType[] = [
         ]
     },
     {
+        name: SupportedDataTypeNames.BETWEEN,
+        fn: faker.date.between,
+        dhis2Fields: [
+            "DATE"
+        ],
+        supportedParams: [
+            {
+                label: "From",
+                type: "date"
+            },
+            {
+                label: "To",
+                type: "date"
+            }
+        ]
+    },
+    {
         name: SupportedDataTypeNames.OPTIONS,
         fn: faker.helpers.arrayElement,
         dhis2Fields: []
@@ -260,6 +297,12 @@ export const supportedDataTypes: DataType[] = [
         dhis2Fields: [
             'PHONE_NUMBER',
             'TEXT'
-        ] as any
+        ] as any,
+        supportedParams: [
+            {
+                type: "text",
+                label: "Format",
+            }
+        ]
     },
 ]
