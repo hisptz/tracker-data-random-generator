@@ -13,7 +13,6 @@ export function useSaveConfig() {
     const [current, {update, replace}] = useSavedObject(programId as string, {});
     const {show} = useAlert(({message}) => message, ({type}) => ({...type, duration: 3000}));
 
-    console.log(current)
 
     const save = useCallback(async (data: DataConfigurationForm) => {
         try {

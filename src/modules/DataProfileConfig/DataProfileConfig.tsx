@@ -11,23 +11,28 @@ import {ProgramStageConfig} from "./components/ProgramStageConfig";
 import {ProgramStage, uid} from "@hisptz/dhis2-utils";
 import {RHFTextInputField} from "@hisptz/dhis2-ui";
 import {useSaveConfig} from "./hooks/save";
+import {useDefaultValue} from "./hooks/form";
 
 export function DataProfileConfig() {
-    const {id: programId, configId} = useParams();
+    const {id: programId} = useParams();
     const navigate = useNavigate();
     const program = useRecoilValue(ProgramState(programId));
-    const form = useForm<DataConfigurationForm>();
-
+    const defaultValues = useDefaultValue();
+    const form = useForm<DataConfigurationForm>(
+        {
+            defaultValues
+        }
+    );
     const {save, loading} = useSaveConfig();
 
     const onFormSubmit = useCallback(async (data: DataConfigurationForm) => {
         const updatedData = {
             ...data,
-            id: uid()
+            id: defaultValues?.id ?? uid()
         }
         await save(updatedData);
         navigate(-1)
-    }, [save])
+    }, [save]);
 
     return (
         <div style={{paddingBottom: 64}} className="h-100 w-100 column p-16">

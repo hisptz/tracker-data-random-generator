@@ -22,7 +22,16 @@ export const MAIN_NAV_ITEMS: NavItem[] = [
                     },
                     {
                         path: "config",
-                        element: DataProfileConfig
+                        subItems: [
+                            {
+                                path: "",
+                                element: DataProfileConfig
+                            },
+                            {
+                                path: ":configId",
+                                element: DataProfileConfig
+                            }
+                        ]
                     }
                 ]
             },

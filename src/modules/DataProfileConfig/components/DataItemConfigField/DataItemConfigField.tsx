@@ -34,7 +34,7 @@ export function DataItemConfigField({dataItem, type, name}: DataItemConfigFieldP
 
     useEffect(() => {
         setValue(`${name}.dataItemId`, dataItem.id);
-        if (fieldOptions.length === 1) {
+        if (fieldOptions?.length === 1) {
             setValue(`${name}.dataTypeName`, head(fieldOptions)?.value)
         }
     }, [])
@@ -57,11 +57,11 @@ export function DataItemConfigField({dataItem, type, name}: DataItemConfigFieldP
                                     <MultiSelectField
                                         label={i18n.t("Options")}
                                         onChange={({selected}: { selected: string[] }) => field.onChange(selected)}
-                                        selected={field.value}
+                                        selected={field.value ?? []}
                                     >
                                         {
                                             optionSetOptions.map(({label, value}) => (
-                                                <MultiSelectOption label={label} value={value}/>))
+                                                <MultiSelectOption key={`${label}`} label={label} value={value}/>))
                                         }
                                     </MultiSelectField>
                                 )
