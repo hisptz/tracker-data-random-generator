@@ -41,7 +41,7 @@ export function DataProfileConfig() {
             })}</h1>
             <div style={{maxWidth: 1080, width: "100%", alignSelf: "center"}}>
                 <FormProvider {...form}>
-                    <div className='column gap-32'>
+                    <div className='column gap-16'>
                         <div className='column gap-8'>
                             <h3 style={{margin: 0}}>{i18n.t("General")}</h3>
                             <Divider/>

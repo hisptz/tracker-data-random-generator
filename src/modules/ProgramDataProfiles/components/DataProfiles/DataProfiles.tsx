@@ -5,7 +5,7 @@ import {isEmpty} from "lodash";
 import i18n from '@dhis2/d2-i18n';
 import {useRecoilValue} from "recoil";
 import {ProgramState} from "../../state/program";
-import {Button, ButtonStrip, colors} from "@dhis2/ui"
+import {Button, ButtonStrip, colors, IconAdd24} from "@dhis2/ui"
 import {Column, useTable} from "react-table";
 import {CustomTable} from "../../../../shared/components/CustomTable";
 import {DataConfigurationForm} from "../../../../script/interfaces";
@@ -70,8 +70,12 @@ export function DataProfiles() {
 
 
     return (
-        <div>
+        <div className="column gap-16">
             <GenerateDataModal onClose={() => setSelectedProfile(null)} profileId={selectedProfile}/>
+            <div className="row end w-100">
+                <Button primary icon={<IconAdd24/>}
+                        onClick={() => navigate(`config`)}>{i18n.t("Add new profile")}</Button>
+            </div>
             <CustomTable
                 instance={instance}
                 onRowClick={() => {
