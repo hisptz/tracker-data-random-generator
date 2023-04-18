@@ -56,7 +56,7 @@ export function GenerateDataModal({profileId, onClose}: GenerateDataModalProps) 
         onClose();
     }, [])
 
-    const {generate} = useGenerateData(profileId, onCloseModal);
+    const {generate, uploading} = useGenerateData(profileId, onCloseModal);
 
     return (
         <Modal position="middle" onClose={onCloseModal} hide={!profileId}>
@@ -132,7 +132,8 @@ export function GenerateDataModal({profileId, onClose}: GenerateDataModalProps) 
             <ModalActions>
                 <ButtonStrip>
                     <Button onClick={onCloseModal}>{i18n.t("Cancel")}</Button>
-                    <Button onClick={form.handleSubmit(generate)} primary>{i18n.t("Generate")}</Button>
+                    <Button loading={uploading} onClick={form.handleSubmit(generate)}
+                            primary>{uploading ? i18n.t("Uploading...") : i18n.t("Generate")}</Button>
                 </ButtonStrip>
             </ModalActions>
         </Modal>

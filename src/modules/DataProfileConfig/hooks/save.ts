@@ -25,12 +25,12 @@ export function useSaveConfig() {
             } else {
                 const index = findIndex(current as any ?? [], ['id', data.id]);
                 if (index < 0) {
-                    const updatedValue = current as any ?? [];
+                    const updatedValue = [...(current as any)];
                     updatedValue.push(data);
                     await update(updatedValue);
                     show({message: i18n.t("Data profile created successfully"), type: {success: true}})
                 } else {
-                    const updatedValue = current as Array<DataConfigurationForm>;
+                    const updatedValue = [...(current as any)] as Array<DataConfigurationForm>;
                     set(updatedValue, [index], data);
                     await update(updatedValue);
                     show({message: i18n.t("Data profile updated successfully"), type: {success: true}})

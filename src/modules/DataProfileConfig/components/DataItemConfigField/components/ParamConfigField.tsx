@@ -35,7 +35,7 @@ export function ParamConfigField({name}: ParamConfigFieldProps) {
                             clearable
                             label={label}
                             options={options?.map(({name, value}) => ({label: name, value})) ?? []}
-                            name={`${name}.params.${index}`}
+                            name={`${name}.options.params.${index}`}
                         />
                     )
                 }
@@ -43,13 +43,14 @@ export function ParamConfigField({name}: ParamConfigFieldProps) {
                 if (type === "object") {
                     return keys?.map(({type, fieldProps, label, key}) => (
                         <RHFTextInputField {...fieldProps} type={type} key={`${key}-${label}-field`} label={label}
-                                           name={`${name}.params.${index}.${key}`}/>
+                                           name={`${name}.options.params.${index}.${key}`}/>
                     ))
                 }
 
                 if (['text', 'number', 'date'].includes(type)) {
                     return (
-                        <RHFTextInputField {...fieldProps} label={label} type={type} name={`${name}.params.${index}`}/>
+                        <RHFTextInputField {...fieldProps} label={label} type={type}
+                                           name={`${name}.options.params.${index}`}/>
                     )
                 }
 

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-16T10:50:07.218Z\n"
-"PO-Revision-Date: 2023-04-16T10:50:07.218Z\n"
+"POT-Creation-Date: 2023-04-18T10:10:40.379Z\n"
+"PO-Revision-Date: 2023-04-18T10:10:40.379Z\n"
 
 msgid "Data profile for program {{program}}"
 msgstr "Data profile for program {{program}}"
@@ -62,6 +62,9 @@ msgstr "Data profile created successfully"
 msgid "Data profile updated successfully"
 msgstr "Data profile updated successfully"
 
+msgid "Back to programs"
+msgstr "Back to programs"
+
 msgid "Actions"
 msgstr "Actions"
 
@@ -80,6 +83,9 @@ msgstr ""
 
 msgid "Create data profile"
 msgstr "Create data profile"
+
+msgid "Add new profile"
+msgstr "Add new profile"
 
 msgid "Generate data"
 msgstr "Generate data"
@@ -101,6 +107,9 @@ msgstr "Export JSON"
 
 msgid "Upload data"
 msgstr "Upload data"
+
+msgid "Uploading..."
+msgstr "Uploading..."
 
 msgid "With registration"
 msgstr "With registration"

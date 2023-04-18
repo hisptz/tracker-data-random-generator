@@ -15,8 +15,8 @@ import {
     uid
 } from "@hisptz/dhis2-utils";
 import {faker} from "@faker-js/faker";
-import {compact, find, flatten, flattenDeep, times} from "lodash";
-import {supportedDataTypes} from "../constants/dataTypes";
+import {compact, find, flatten, flattenDeep, head, isEmpty, times} from "lodash";
+import {SupportedDataTypeNames, supportedDataTypes} from "../constants/dataTypes";
 
 
 export class TrackerRandomDataEngine {
@@ -53,7 +53,25 @@ export class TrackerRandomDataEngine {
         const {dataItemId, dataTypeName, options} = config ?? {}
         const dataItem = type === "attribute" ? find(this.attributes, ['id', dataItemId]) : find(this.dataElements, ['id', dataItemId]);
         const dataGenerationConfig = find(supportedDataTypes, ['name', dataTypeName]);
-        const value = dataGenerationConfig?.fn(...(options?.params ?? dataGenerationConfig?.defaultParams ?? []));
+
+        const params = compact(options?.params?.map((param, index) => {
+            console.log(param)
+            if (!isEmpty(param)) {
+                return param;
+            } else {
+                return dataGenerationConfig?.defaultParams?.[index];
+            }
+        }) ?? dataGenerationConfig?.defaultParams ?? []);
+
+        if (dataGenerationConfig?.name === SupportedDataTypeNames.TRUE_ONLY) {
+            params.unshift(head(dataGenerationConfig.defaultParams))
+            console.log({
+                params,
+                originalParams: options?.params
+            })
+        }
+
+        const value = dataGenerationConfig?.fn(...(params));
 
         return {
             [type]: dataItemId,

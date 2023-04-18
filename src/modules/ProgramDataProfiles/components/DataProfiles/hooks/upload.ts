@@ -20,7 +20,9 @@ export function useUploadData() {
 
         const responses = await mapSeries(dataChunks, asyncify(async (data: any) => {
             return await upload({
-                data
+                data: {
+                    trackedEntityInstances: data
+                }
             })
         }));
         console.log(responses)
