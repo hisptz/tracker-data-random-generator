@@ -2,7 +2,7 @@ import React, {useEffect} from "react"
 import {ProgramStage} from "@hisptz/dhis2-utils";
 import {RHFTextInputField} from "@hisptz/dhis2-ui";
 import i18n from '@dhis2/d2-i18n';
-import {Field, IconChevronDown24, IconChevronUp24} from "@dhis2/ui"
+import {IconChevronDown24, IconChevronUp24} from "@dhis2/ui"
 import {DataItemConfigField} from "../DataItemConfigField";
 import {useFormContext} from "react-hook-form";
 import Collapsible from "react-collapsible";
@@ -40,20 +40,6 @@ export function ProgramStageConfig({programStage, name}: ProgramStageConfigProps
                 }>
                 <div className="column gap-16 ph-16">
                     <h4>{i18n.t("General configuration")}</h4>
-                    <Field label={i18n.t("Event date boundaries")}>
-                        <div className="row gap-16 ">
-                            <RHFTextInputField
-                                name={`${name}.eventTimeBoundary.min`}
-                                label={i18n.t("Min")}
-                                type={'date'}
-                            />
-                            <RHFTextInputField
-                                name={`${name}.eventTimeBoundary.max`}
-                                label={i18n.t("Max")}
-                                type={'date'}
-                            />
-                        </div>
-                    </Field>
                     {
                         repeatable && (
                             <RHFTextInputField name={`${name}.count`} min={0} max={10} type="number"/>

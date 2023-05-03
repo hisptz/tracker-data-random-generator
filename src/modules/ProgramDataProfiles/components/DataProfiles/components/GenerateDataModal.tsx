@@ -19,6 +19,7 @@ import {RHFCheckboxField, RHFTextInputField} from "@hisptz/dhis2-ui";
 import {DateTime} from "luxon";
 import {useGenerateData} from "../hooks/generate";
 import {uniqBy} from "lodash";
+import {ProgramStageConfig} from "./ProgramStageConfig";
 
 export interface GenerateDataModalProps {
     profileId: string | null,
@@ -30,6 +31,7 @@ export type ExportType = "json" | "upload"
 
 export interface GenerateConfig {
     orgUnits: string[];
+    stages: { id: string, eventTimeBoundary: { min: string, max: string } }[];
     enrollmentTimeBoundary?: {
         min: string;
         max: string;
@@ -115,6 +117,20 @@ export function GenerateDataModal({profileId, onClose}: GenerateDataModalProps) 
                                 </Field>
                             )
                         }
+                        <div style={{maxHeight: 500, overflow: 'auto'}} className="column gap-16">
+                            <h3 style={{margin: 0}}>{i18n.t("Program stages")}</h3>
+                            {
+                                program.programStages?.map((stage: any, index: number) => {
+                                    return (
+                                        <ProgramStageConfig
+                                            key={`${stage.id}-config-generate`}
+                                            stage={stage}
+                                            index={index}
+                                        />
+                                    )
+                                })
+                            }
+                        </div>
                         <RHFTextInputField
                             helpText={i18n.t("Maximum of 100 records")}
                             min={"0"}
