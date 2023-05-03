@@ -31,6 +31,7 @@ export function ParamConfigField({name}: ParamConfigFieldProps) {
                 if (type === "options") {
                     return (
                         <RHFSingleSelectField
+                            key={`${label}-field`}
                             {...fieldProps}
                             clearable
                             label={label}
@@ -49,7 +50,7 @@ export function ParamConfigField({name}: ParamConfigFieldProps) {
 
                 if (['text', 'number', 'date'].includes(type)) {
                     return (
-                        <RHFTextInputField {...fieldProps} label={label} type={type}
+                        <RHFTextInputField key={`${label}-field`} {...fieldProps} label={label} type={type}
                                            name={`${name}.options.params.${index}`}/>
                     )
                 }

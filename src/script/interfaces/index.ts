@@ -53,9 +53,7 @@ export interface DataConfigurationForm {
     id: string;
     attributes?: DataItemConfig[],
     programStages?: {
-        eventTimeBoundary: TimeBoundary;
         id: string;
-        count?: number;
         dataElements: DataItemConfig[]
     }[]
 }

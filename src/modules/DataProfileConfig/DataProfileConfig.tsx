@@ -21,7 +21,8 @@ export function DataProfileConfig() {
     const defaultValues = useDefaultValue();
     const form = useForm<DataConfigurationForm>(
         {
-            defaultValues
+            defaultValues,
+            shouldFocusError: false
         }
     );
     const {save, loading} = useSaveConfig();

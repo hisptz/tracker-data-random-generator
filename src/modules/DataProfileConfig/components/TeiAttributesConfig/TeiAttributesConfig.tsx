@@ -8,14 +8,24 @@ import {DataItemConfigField} from "../DataItemConfigField";
 export function TeiAttributesConfig() {
     const {id: programId} = useParams();
     const program = useRecoilValue(ProgramState(programId));
-    const trackedEntityAttributes = useMemo(() => program.programTrackedEntityAttributes?.map(({trackedEntityAttribute}: any) => trackedEntityAttribute), [program]);
+    const trackedEntityAttributes = useMemo(() => program.programTrackedEntityAttributes?.map(({
+                                                                                                   trackedEntityAttribute,
+                                                                                                   mandatory
+                                                                                               }: any) => ({
+        ...trackedEntityAttribute,
+        mandatory
+    })), [program]);
+
+
+    console.log(trackedEntityAttributes)
 
     return (
         <div className="column gap-16">
             {
                 trackedEntityAttributes.map((tea: any, fieldIndex: number) => (
-                    <DataItemConfigField key={`${tea.id}-config`} name={`attributes.${fieldIndex}`} dataItem={tea}
-                                         type="attribute"/>
+                    <DataItemConfigField required={tea.mandatory} key={`${tea.id}-config`}
+                                         name={`attributes.${fieldIndex}`} dataItem={tea}
+                    />
                 ))
             }
         </div>

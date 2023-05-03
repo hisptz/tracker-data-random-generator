@@ -15,7 +15,10 @@ export interface ProgramStageConfigProps {
 
 export function ProgramStageConfig({programStage, name}: ProgramStageConfigProps) {
     const repeatable = programStage.repeatable;
-    const dataElements = programStage.programStageDataElements?.map(({dataElement}) => dataElement) ?? [];
+    const dataElements = programStage.programStageDataElements?.map(({dataElement, compulsory}) => ({
+        ...dataElement,
+        compulsory
+    })) ?? [];
     const {setValue} = useFormContext();
 
     useEffect(() => {
@@ -52,8 +55,9 @@ export function ProgramStageConfig({programStage, name}: ProgramStageConfigProps
                         {
                             dataElements.map((dataItem, fieldIndex) => (
                                 <DataItemConfigField key={`${dataItem.id}-config`}
+                                                     required={dataItem.compulsory}
                                                      name={`${name}.dataElements.${fieldIndex}`} dataItem={dataItem}
-                                                     type="dataElement"/>))
+                                />))
                         }
                     </div>
                 </div>
