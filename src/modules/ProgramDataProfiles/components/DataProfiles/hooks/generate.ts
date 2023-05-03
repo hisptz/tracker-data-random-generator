@@ -5,9 +5,10 @@ import {useRecoilValue} from "recoil";
 import {ProgramState} from "../../../state/program";
 import {useCallback} from "react";
 import {GenerateConfig} from "../components/GenerateDataModal";
-import {DataConfigurationForm} from "../../../../../script/interfaces";
+import {DataConfiguration, DataConfigurationForm} from "../../../../../script/interfaces";
 import fileSaver from "file-saver"
 import {useUploadData} from "./upload";
+import {TrackerRandomDataEngine} from "../../../../../script/engine";
 
 export function useExportData() {
     const exportData = useCallback(
@@ -29,34 +30,43 @@ export function useGenerateData(profileId: string | null, onComplete: () => void
     const {exportData} = useExportData();
     const {loading: uploading, uploadData} = useUploadData();
 
-    const generate = useCallback(async (data: GenerateConfig) => {
+    const generate = useCallback(async ({
+                                            orgUnits,
+                                            stages,
+                                            enrollmentTimeBoundary,
+                                            count,
+                                            shouldExportData,
+                                            shouldUploadData
+                                        }: GenerateConfig) => {
+        if (!profile) {
+            return;
+        }
+        const meta = {
+            orgUnits,
+            enrollmentTimeBoundary,
+            trackedEntityType: program.trackedEntityType.id
+        }
+        const dataGenerateConfig: DataConfiguration = {
+            meta,
+            ...(profile as any),
+            programStages: (profile as any).programStages.map((pStage: any) => {
+                return {
+                    ...pStage,
+                    eventTimeBoundary: find(stages, ['id', pStage.id])
+                }
+            })
+        }
 
-        console.log({
-            data
-        })
+        const dataEngine = new TrackerRandomDataEngine({config: dataGenerateConfig, program});
+        const data = dataEngine.generate({count});
 
-        // if (!profile) {
-        //     return;
-        // }
-        // const meta = {
-        //     orgUnits,
-        //     enrollmentTimeBoundary,
-        //     trackedEntityType: program.trackedEntityType.id
-        // }
-        // const dataGenerateConfig: DataConfiguration = {
-        //     meta,
-        //     ...(profile as any)
-        // }
-        // const dataEngine = new TrackerRandomDataEngine({config: dataGenerateConfig, program});
-        // const data = dataEngine.generate({count});
-        //
-        // if (shouldExportData) {
-        //     await exportData(data);
-        // }
-        // if (shouldUploadData) {
-        //     await uploadData(data)
-        // }
-        // onComplete();
+        if (shouldExportData) {
+            await exportData(data);
+        }
+        if (shouldUploadData) {
+            await uploadData(data)
+        }
+        onComplete();
     }, [profile, program]);
 
     return {

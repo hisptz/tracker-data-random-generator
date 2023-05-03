@@ -55,7 +55,6 @@ export class TrackerRandomDataEngine {
         const dataGenerationConfig = find(supportedDataTypes, ['name', dataTypeName]);
 
         const params = compact(options?.params?.map((param, index) => {
-            console.log(param)
             if (!isEmpty(param)) {
                 return param;
             } else {
@@ -65,10 +64,6 @@ export class TrackerRandomDataEngine {
 
         if (dataGenerationConfig?.name === SupportedDataTypeNames.TRUE_ONLY) {
             params.unshift(head(dataGenerationConfig.defaultParams))
-            console.log({
-                params,
-                originalParams: options?.params
-            })
         }
 
         const value = dataGenerationConfig?.fn(...(params));
@@ -79,23 +74,24 @@ export class TrackerRandomDataEngine {
         } as T
     }
 
-    generateEvent({dataElementsConfig, eventTimeBoundary, ...props}: {
+    generateEvent({dataElementsConfig, eventTimeBoundary, enrollmentDate, ...props}: {
         programStage: string;
         enrollment: string;
         orgUnit: string;
         trackedEntityInstance: string;
         dataElementsConfig: DataItemConfig[];
-        eventTimeBoundary: TimeBoundary
+        eventTimeBoundary: TimeBoundary,
+        enrollmentDate: string;
     }): Event {
-        const eventDate = faker.date.between(new Date(eventTimeBoundary.min ?? '') ?? new Date(), new Date(eventTimeBoundary.max ?? '') ?? new Date()).toISOString();
+        const minDate = new Date(eventTimeBoundary.min ?? '') < new Date(enrollmentDate ?? '') ? new Date(enrollmentDate ?? '') : new Date(eventTimeBoundary.min ?? '');
+        const maxDate = new Date(eventTimeBoundary.max ?? '') > new Date(enrollmentDate ?? '') ? new Date(eventTimeBoundary.max ?? '') : new Date(enrollmentDate ?? '');
+        const eventDate = faker.date.between(minDate ?? new Date(), maxDate ?? new Date()).toISOString();
         const status = 'COMPLETED';
 
         const dataValues = dataElementsConfig.map((config) => this.generateDataItem<{
             dataElement: string;
             value: any
         }>(config, 'dataElement'))
-
-        console.log(props)
 
         return {
             ...props,
@@ -124,6 +120,7 @@ export class TrackerRandomDataEngine {
 
             if (programStage?.repeatable) {
                 return Array.from(Array(count).keys()).map(() => this.generateEvent({
+                    enrollmentDate,
                     orgUnit,
                     programStage: id,
                     enrollment,
@@ -134,6 +131,7 @@ export class TrackerRandomDataEngine {
             }
 
             return this.generateEvent({
+                enrollmentDate,
                 orgUnit,
                 programStage: id,
                 enrollment,

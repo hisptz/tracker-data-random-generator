@@ -34,6 +34,7 @@ export function ParamConfigField({name}: ParamConfigFieldProps) {
                             key={`${label}-field`}
                             {...fieldProps}
                             clearable
+                            filterable
                             label={label}
                             options={options?.map(({name, value}) => ({label: name, value})) ?? []}
                             name={`${name}.options.params.${index}`}

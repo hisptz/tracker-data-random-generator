@@ -11,17 +11,17 @@ function StartDateSelector({index}: { index: number }) {
     const [enrollmentDateMin, max] = useWatch({
         name: [
             `enrollmentTimeBoundary.min`,
-            `stages.${index}.eventTimeBoundary.max`
+            `stages.${index}.max`
         ]
     })
 
     return (
         <RHFTextInputField
-            name={`stages.${index}.eventTimeBoundary.min`}
+            name={`stages.${index}.min`}
             label={i18n.t("Min")}
             type={'date'}
             min={enrollmentDateMin}
-            max={max}
+            max={max ?? DateTime.now().toFormat('yyyy-MM-dd')}
             validations={{
                 min: {
                     value: enrollmentDateMin,
@@ -42,12 +42,12 @@ function EndDateSelector({index}: { index: number }) {
     const [enrollmentDateMin, min] = useWatch({
         name: [
             `enrollmentTimeBoundary.min`,
-            `stages.${index}.eventTimeBoundary.min`
+            `stages.${index}.min`
         ]
     })
     return (
         <RHFTextInputField
-            name={`stages.${index}.eventTimeBoundary.max`}
+            name={`stages.${index}.max`}
             min={min ?? enrollmentDateMin}
             max={DateTime.now().toFormat('yyyy-MM-dd')}
             label={i18n.t("Max")}

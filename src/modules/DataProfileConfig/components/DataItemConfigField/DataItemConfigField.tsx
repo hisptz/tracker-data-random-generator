@@ -67,6 +67,7 @@ export function DataItemConfigField({dataItem, required, name}: DataItemConfigFi
 
                                     return (
                                         <MultiSelectField
+                                            filterable
                                             label={i18n.t("Options")}
                                             onChange={({selected}: { selected: string[] }) => field.onChange(selected)}
                                             selected={field.value ?? []}
