@@ -5,11 +5,111 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-15T16:00:57.185Z\n"
-"PO-Revision-Date: 2023-04-15T16:00:57.185Z\n"
+"POT-Creation-Date: 2023-05-03T10:26:28.567Z\n"
+"PO-Revision-Date: 2023-05-03T10:26:28.567Z\n"
+
+msgid "Data profile for program {{program}}"
+msgstr "Data profile for program {{program}}"
+
+msgid "General"
+msgstr "General"
 
 msgid "Name"
 msgstr "Name"
+
+msgid "Name is required"
+msgstr "Name is required"
+
+msgid "Tracked entity attributes"
+msgstr "Tracked entity attributes"
+
+msgid "Program stages"
+msgstr "Program stages"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Saving..."
+msgstr "Saving..."
+
+msgid "Data type"
+msgstr "Data type"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "General configuration"
+msgstr "General configuration"
+
+msgid "Data elements"
+msgstr "Data elements"
+
+msgid "Data profile created successfully"
+msgstr "Data profile created successfully"
+
+msgid "Data profile updated successfully"
+msgstr "Data profile updated successfully"
+
+msgid "Back to programs"
+msgstr "Back to programs"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Generate"
+msgstr "Generate"
+
+msgid ""
+"There are no data profiles for the program {{program}}. Click on Create "
+"data profile to create one."
+msgstr ""
+"There are no data profiles for the program {{program}}. Click on Create "
+"data profile to create one."
+
+msgid "Create data profile"
+msgstr "Create data profile"
+
+msgid "Add new profile"
+msgstr "Add new profile"
+
+msgid "Generate data"
+msgstr "Generate data"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Enrollment date boundary"
+msgstr "Enrollment date boundary"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Event date boundaries"
+msgstr "Event date boundaries"
+
+msgid "Maximum of 100 records"
+msgstr "Maximum of 100 records"
+
+msgid "Number of records"
+msgstr "Number of records"
+
+msgid "Export JSON"
+msgstr "Export JSON"
+
+msgid "Upload data"
+msgstr "Upload data"
+
+msgid "Uploading..."
+msgstr "Uploading..."
 
 msgid "With registration"
 msgstr "With registration"

@@ -6,17 +6,17 @@ import {
     TimeBoundary
 } from "../interfaces";
 import {
-    Program,
-    Event,
-    TrackedEntityInstance,
-    uid,
+    DataElement,
     Enrollment,
+    Event,
+    Program,
     TrackedEntityAttribute,
-    DataElement
+    TrackedEntityInstance,
+    uid
 } from "@hisptz/dhis2-utils";
 import {faker} from "@faker-js/faker";
-import {compact, find, flatten, flattenDeep, times} from "lodash";
-import {supportedDataTypes} from "../constants/dataTypes";
+import {compact, find, flatten, flattenDeep, head, isEmpty, times} from "lodash";
+import {SupportedDataTypeNames, supportedDataTypes} from "../constants/dataTypes";
 
 
 export class TrackerRandomDataEngine {
@@ -53,7 +53,20 @@ export class TrackerRandomDataEngine {
         const {dataItemId, dataTypeName, options} = config ?? {}
         const dataItem = type === "attribute" ? find(this.attributes, ['id', dataItemId]) : find(this.dataElements, ['id', dataItemId]);
         const dataGenerationConfig = find(supportedDataTypes, ['name', dataTypeName]);
-        const value = dataGenerationConfig?.fn(...(options?.params ?? dataGenerationConfig?.defaultParams ?? []));
+
+        const params = compact(options?.params?.map((param, index) => {
+            if (!isEmpty(param)) {
+                return param;
+            } else {
+                return dataGenerationConfig?.defaultParams?.[index];
+            }
+        }) ?? dataGenerationConfig?.defaultParams ?? []);
+
+        if (dataGenerationConfig?.name === SupportedDataTypeNames.TRUE_ONLY) {
+            params.unshift(head(dataGenerationConfig.defaultParams))
+        }
+
+        const value = dataGenerationConfig?.fn(...(params));
 
         return {
             [type]: dataItemId,
@@ -61,15 +74,18 @@ export class TrackerRandomDataEngine {
         } as T
     }
 
-    generateEvent({dataElementsConfig, eventTimeBoundary, ...props}: {
+    generateEvent({dataElementsConfig, eventTimeBoundary, enrollmentDate, ...props}: {
         programStage: string;
         enrollment: string;
         orgUnit: string;
         trackedEntityInstance: string;
         dataElementsConfig: DataItemConfig[];
-        eventTimeBoundary: TimeBoundary
+        eventTimeBoundary: TimeBoundary,
+        enrollmentDate: string;
     }): Event {
-        const eventDate = faker.date.between(eventTimeBoundary.min?.toJSDate() ?? new Date(), eventTimeBoundary.max?.toJSDate() ?? new Date()).toISOString();
+        const minDate = new Date(eventTimeBoundary.min ?? '') < new Date(enrollmentDate ?? '') ? new Date(enrollmentDate ?? '') : new Date(eventTimeBoundary.min ?? '');
+        const maxDate = new Date(eventTimeBoundary.max ?? '') > new Date(enrollmentDate ?? '') ? new Date(eventTimeBoundary.max ?? '') : new Date(enrollmentDate ?? '');
+        const eventDate = faker.date.between(minDate ?? new Date(), maxDate ?? new Date()).toISOString();
         const status = 'COMPLETED';
 
         const dataValues = dataElementsConfig.map((config) => this.generateDataItem<{
@@ -89,7 +105,7 @@ export class TrackerRandomDataEngine {
 
     generateTei(): TrackedEntityInstance {
         const trackedEntityType = this.config.meta.trackedEntityType;
-        const enrollmentDate = faker.date.between(this.config.meta.enrollmentTimeBoundary?.min?.toJSDate() ?? new Date(), this.config.meta.enrollmentTimeBoundary?.max?.toJSDate() ?? new Date()).toISOString();
+        const enrollmentDate = faker.date.between(new Date(this.config.meta.enrollmentTimeBoundary?.min ?? '') ?? new Date(), new Date(this.config.meta.enrollmentTimeBoundary?.max ?? '') ?? new Date()).toISOString();
         const orgUnit = faker.helpers.arrayElement(this.config.meta.orgUnits);
         const trackedEntityInstance = uid();
         const enrollment = uid();
@@ -104,6 +120,7 @@ export class TrackerRandomDataEngine {
 
             if (programStage?.repeatable) {
                 return Array.from(Array(count).keys()).map(() => this.generateEvent({
+                    enrollmentDate,
                     orgUnit,
                     programStage: id,
                     enrollment,
@@ -114,6 +131,7 @@ export class TrackerRandomDataEngine {
             }
 
             return this.generateEvent({
+                enrollmentDate,
                 orgUnit,
                 programStage: id,
                 enrollment,
@@ -125,13 +143,15 @@ export class TrackerRandomDataEngine {
 
         const enrollmentObject: Enrollment = {
             enrollmentDate,
+            trackedEntityInstance,
             enrollment,
             events,
             program: this.program.id,
+            orgUnit
         } as any as Enrollment
 
         return {
-            trackedEntityInstance: uid(),
+            trackedEntityInstance,
             attributes: trackedEntityAttributes,
             enrollments: [
                 enrollmentObject

@@ -2,8 +2,9 @@ import {DataConfiguration} from "../script/interfaces";
 import {DateTime} from "luxon";
 import {SupportedDataTypeNames} from "../script/constants/dataTypes";
 
-
 export const config: DataConfiguration = {
+    id: "hiv",
+    name: "HIV config",
     meta: {
         orgUnits: [
             'SafacSbYOOU',
@@ -11,8 +12,8 @@ export const config: DataConfiguration = {
         ],
         trackedEntityType: 'MCPQUTHX1Ze',
         enrollmentTimeBoundary: {
-            min: DateTime.now().minus({year: 1}),
-            max: DateTime.now()
+            min: DateTime.now().minus({year: 1}).toFormat('yyyy-MM-dd'),
+            max: DateTime.now().toFormat('yyyy-MM-dd')
         },
         locale: 'ar'
     },
@@ -23,7 +24,6 @@ export const config: DataConfiguration = {
                 {
                     dataItemId: "fxXDe8OZ86q",
                     dataTypeName: SupportedDataTypeNames.DATE,
-
                 },
                 {
                     dataItemId: 'zsM4K8kNPSo',
@@ -49,8 +49,8 @@ export const config: DataConfiguration = {
 
             ],
             eventTimeBoundary: {
-                min: DateTime.now().minus({month: 2}),
-                max: DateTime.now()
+                min: DateTime.now().minus({month: 2}).toFormat('yyyy-MM-dd'),
+                max: DateTime.now().toFormat('yyyy-MM-dd')
             }
         }
     ],
@@ -88,6 +88,6 @@ export const config: DataConfiguration = {
             dataItemId: 'fctSQp5nAYl',
             dataTypeName: SupportedDataTypeNames.PHONE_NUMBER,
         },
-    ],
+    ]
 
 }

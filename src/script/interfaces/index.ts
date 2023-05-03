@@ -1,11 +1,25 @@
 import {DHIS2ValueType} from "@hisptz/dhis2-utils";
-import {DateTime} from "luxon";
+
+
+export interface SupportedParam {
+    type: 'number' | 'text' | 'options' | 'date' | 'default' | 'object',
+    label: string;
+    keys?: {
+        fieldProps?: Record<string, any>;
+        label: string;
+        key: string;
+        type: 'number' | 'text' | 'options' | 'date' | 'default'
+    }[]
+    options?: { name: string; value: any }[];
+    fieldProps?: Record<string, any>
+}
 
 export interface DataType {
     name: string;
     fn: any;
     dhis2Fields: DHIS2ValueType[],
     defaultParams?: any[];
+    supportedParams?: SupportedParam[]
 }
 
 export interface DataItemConfig {
@@ -19,9 +33,8 @@ export interface DataItemConfig {
 }
 
 export interface TimeBoundary {
-    min?: DateTime,
-    max?: DateTime,
-    exact?: DateTime
+    min?: string,
+    max?: string,
 }
 
 
@@ -34,7 +47,20 @@ export interface GenerateWithPaginationProps {
     pageSize?: number
 }
 
+
+export interface DataConfigurationForm {
+    name: string;
+    id: string;
+    attributes?: DataItemConfig[],
+    programStages?: {
+        id: string;
+        dataElements: DataItemConfig[]
+    }[]
+}
+
 export interface DataConfiguration {
+    name: string;
+    id: string;
     meta: {
         orgUnits?: string[]
         trackedEntityType?: string;

@@ -8,7 +8,13 @@ const programQuery = {
         id: ({id}: any) => id,
         params: {
             fields: [
-                'displayName'
+                'id',
+                'displayName',
+                'registration',
+                'trackedEntityType[id]',
+                'programTrackedEntityAttributes[mandatory,trackedEntityAttribute[formName,name,id,valueType,optionSet[options[id,code,name]]]]',
+                'programStages[id,displayName,programStageDataElements[compulsory,dataElement[formName,name,id,valueType,optionSet[options[id,code,name]]]]]',
+                'organisationUnits[id,name]'
             ]
         }
     }
