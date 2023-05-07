@@ -5,11 +5,132 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-13T20:19:24.133Z\n"
-"PO-Revision-Date: 2023-04-13T20:19:24.133Z\n"
+"POT-Creation-Date: 2023-05-07T09:30:32.674Z\n"
+"PO-Revision-Date: 2023-05-07T09:30:32.674Z\n"
 
-msgid "Hello {{name}}"
-msgstr "Hello {{name}}"
+msgid "Data profile for program {{program}}"
+msgstr "Data profile for program {{program}}"
 
-msgid "Welcome to DHIS2!"
-msgstr "Welcome to DHIS2!"
+msgid "General"
+msgstr "General"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Name is required"
+msgstr "Name is required"
+
+msgid "Tracked entity attributes"
+msgstr "Tracked entity attributes"
+
+msgid "Program stages"
+msgstr "Program stages"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Saving..."
+msgstr "Saving..."
+
+msgid "Data type"
+msgstr "Data type"
+
+msgid "Data type is required for this field"
+msgstr "Data type is required for this field"
+
+msgid "Options are required for this field"
+msgstr "Options are required for this field"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "General configuration"
+msgstr "General configuration"
+
+msgid "Data elements"
+msgstr "Data elements"
+
+msgid "Data profile created successfully"
+msgstr "Data profile created successfully"
+
+msgid "Data profile updated successfully"
+msgstr "Data profile updated successfully"
+
+msgid "Back to programs"
+msgstr "Back to programs"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Generate"
+msgstr "Generate"
+
+msgid ""
+"There are no data profiles for the program {{program}}. Click on Create "
+"data profile to create one."
+msgstr ""
+"There are no data profiles for the program {{program}}. Click on Create "
+"data profile to create one."
+
+msgid "Create data profile"
+msgstr "Create data profile"
+
+msgid "Add new profile"
+msgstr "Add new profile"
+
+msgid "Generate data"
+msgstr "Generate data"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Enrollment date boundary"
+msgstr "Enrollment date boundary"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Maximum of 100 records"
+msgstr "Maximum of 100 records"
+
+msgid "Number of records"
+msgstr "Number of records"
+
+msgid "Export JSON"
+msgstr "Export JSON"
+
+msgid "Upload data"
+msgstr "Upload data"
+
+msgid "Uploading..."
+msgstr "Uploading..."
+
+msgid "This date should be after {{date}}"
+msgstr "This date should be after {{date}}"
+
+msgid "This date should not be in the future"
+msgstr "This date should not be in the future"
+
+msgid "Event date boundaries"
+msgstr "Event date boundaries"
+
+msgid "With registration"
+msgstr "With registration"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Program List"
+msgstr "Program List"

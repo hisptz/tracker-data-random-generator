@@ -1,6 +1,6 @@
 const config = {
     type: 'app',
-    title: 'Tracker data random generator',
+    title: 'Random data generator',
     entryPoints: {
         app: './src/App.tsx',
     },

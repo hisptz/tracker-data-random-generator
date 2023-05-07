@@ -1,5 +1,5 @@
 {
-  "name": "tracker-data-random-generator",
+  "name": "random-data-generator",
   "version": "1.0.0",
   "description": "",
   "license": "BSD-3-Clause",
@@ -8,19 +8,40 @@
     "build": "d2-app-scripts build",
     "start": "dotenv -- cross-var d2-app-scripts start --proxy %DHIS2_PROXY%",
     "test": "d2-app-scripts test",
-    "deploy": "d2-app-scripts deploy"
+    "deploy": "d2-app-scripts deploy",
+    "run": "ts-node src/script/index.ts"
   },
   "devDependencies": {
     "@dhis2/cli-app-scripts": "^10.3.6",
+    "@types/async": "^3.2.18",
+    "@types/file-saver": "^2.0.5",
+    "@types/lodash": "^4.14.194",
+    "@types/luxon": "^3.3.0",
+    "@types/react-helmet": "^6.1.6",
+    "@types/react-table": "^7.7.14",
     "cross-var": "^1.1.0",
     "dotenv": "^16.0.3",
-    "dotenv-cli": "^7.2.1"
+    "dotenv-cli": "^7.2.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.9.1",
+    "@dhis2/app-service-datastore": "^1.0.0-beta.3",
     "@faker-js/faker": "^7.6.0",
+    "@hisptz/dhis2-ui": "^1.0.41",
     "@hisptz/dhis2-utils": "^1.0.41",
+    "async-es": "^3.2.4",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
     "lodash": "^4.17.21",
+    "luxon": "^3.3.0",
+    "react-collapsible": "^2.10.0",
+    "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.43.9",
+    "react-router-dom": "^6.10.0",
+    "react-table": "^7.8.0",
+    "recoil": "^0.7.7",
     "usehooks-ts": "^2.9.1"
   }
 }
