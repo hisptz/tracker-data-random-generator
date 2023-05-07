@@ -1,5 +1,5 @@
 {
-  "name": "tracker-data-random-generator",
+  "name": "random-data-generator",
   "version": "1.0.0",
   "description": "",
   "license": "BSD-3-Clause",
@@ -17,6 +17,7 @@
     "@types/file-saver": "^2.0.5",
     "@types/lodash": "^4.14.194",
     "@types/luxon": "^3.3.0",
+    "@types/react-helmet": "^6.1.6",
     "@types/react-table": "^7.7.14",
     "cross-var": "^1.1.0",
     "dotenv": "^16.0.3",
@@ -36,6 +37,7 @@
     "lodash": "^4.17.21",
     "luxon": "^3.3.0",
     "react-collapsible": "^2.10.0",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.10.0",
     "react-table": "^7.8.0",

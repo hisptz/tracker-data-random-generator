@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-05-03T10:26:28.567Z\n"
-"PO-Revision-Date: 2023-05-03T10:26:28.567Z\n"
+"POT-Creation-Date: 2023-05-07T09:30:32.674Z\n"
+"PO-Revision-Date: 2023-05-07T09:30:32.674Z\n"
 
 msgid "Data profile for program {{program}}"
 msgstr "Data profile for program {{program}}"
@@ -37,6 +37,12 @@ msgstr "Saving..."
 
 msgid "Data type"
 msgstr "Data type"
+
+msgid "Data type is required for this field"
+msgstr "Data type is required for this field"
+
+msgid "Options are required for this field"
+msgstr "Options are required for this field"
 
 msgid "Options"
 msgstr "Options"
@@ -93,9 +99,6 @@ msgstr "Min"
 msgid "Max"
 msgstr "Max"
 
-msgid "Event date boundaries"
-msgstr "Event date boundaries"
-
 msgid "Maximum of 100 records"
 msgstr "Maximum of 100 records"
 
@@ -110,6 +113,15 @@ msgstr "Upload data"
 
 msgid "Uploading..."
 msgstr "Uploading..."
+
+msgid "This date should be after {{date}}"
+msgstr "This date should be after {{date}}"
+
+msgid "This date should not be in the future"
+msgstr "This date should not be in the future"
+
+msgid "Event date boundaries"
+msgstr "Event date boundaries"
 
 msgid "With registration"
 msgstr "With registration"
