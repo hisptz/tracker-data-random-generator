@@ -33,7 +33,7 @@ export enum SupportedDataTypeNames {
 export const supportedDataTypes: DataType[] = [
     {
         name: SupportedDataTypeNames.FIRST_NAME,
-        fn: faker.name.firstName,
+        fn: faker.person.firstName,
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
@@ -57,7 +57,7 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.LAST_NAME,
-        fn: faker.name.lastName,
+        fn: faker.person.lastName,
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
@@ -82,7 +82,7 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.FULL_NAME,
-        fn: faker.name.fullName,
+        fn: faker.person.fullName,
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
@@ -90,7 +90,7 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.MIDDLE_NAME,
-        fn: faker.name.middleName,
+        fn: faker.person.middleName,
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
@@ -122,7 +122,7 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.ID,
-        fn: faker.datatype.string,
+        fn: faker.string.alphanumeric,
         dhis2Fields: [
             "TEXT"
         ],
@@ -135,7 +135,7 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.SEX,
-        fn: faker.name.sex,
+        fn: faker.person.sex,
         dhis2Fields: [
             "TEXT",
             "LONG_TEXT"
@@ -150,14 +150,18 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.NUMBER,
-        fn: faker.random.numeric,
+        fn: faker.number.int,
         dhis2Fields: [
             "NUMBER"
         ],
         supportedParams: [
             {
-                type: "number",
-                label: "Length"
+                type: "object",
+                label: "",
+                keys: [
+                    {type: "number", label: "Min", key: 'min'},
+                    {type: "number", label: "Max", key: "max"}
+                ]
             }
         ]
     },
@@ -264,12 +268,15 @@ export const supportedDataTypes: DataType[] = [
     {
         name: SupportedDataTypeNames.OPTIONS,
         fn: faker.helpers.arrayElement,
+        defaultParams: [
+            []
+        ],
         dhis2Fields: []
     },
     //Address
     {
         name: SupportedDataTypeNames.PHYSICAL_ADDRESS,
-        fn: faker.address.street,
+        fn: faker.location.street,
         dhis2Fields: [
             'TEXT',
             'LONG_TEXT',
@@ -277,7 +284,7 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.CITY,
-        fn: faker.address.city,
+        fn: faker.location.city,
         dhis2Fields: [
             'TEXT',
             'LONG_TEXT',
@@ -285,7 +292,7 @@ export const supportedDataTypes: DataType[] = [
     },
     {
         name: SupportedDataTypeNames.COUNTRY,
-        fn: faker.address.county,
+        fn: faker.location.county,
         dhis2Fields: [
             'TEXT',
             'LONG_TEXT',

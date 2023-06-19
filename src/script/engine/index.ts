@@ -51,8 +51,9 @@ export class TrackerRandomDataEngine {
 
     generateDataItem<T>(config: DataItemConfig, type: 'attribute' | 'dataElement'): T {
         const {dataItemId, dataTypeName, options} = config ?? {}
-        const dataItem = type === "attribute" ? find(this.attributes, ['id', dataItemId]) : find(this.dataElements, ['id', dataItemId]);
+        console.log(config);
         const dataGenerationConfig = find(supportedDataTypes, ['name', dataTypeName]);
+
 
         const params = compact(options?.params?.map((param, index) => {
             if (!isEmpty(param)) {
@@ -66,7 +67,16 @@ export class TrackerRandomDataEngine {
             params.unshift(head(dataGenerationConfig.defaultParams))
         }
 
-        const value = dataGenerationConfig?.fn(...(params));
+        let value;
+
+        if (dataGenerationConfig?.name === SupportedDataTypeNames.OPTIONS) {
+            if (!isEmpty(head(params))) {
+                console.log(params)
+                value = dataGenerationConfig?.fn(head(params))
+            }
+        } else {
+            value = dataGenerationConfig?.fn(...(params));
+        }
 
         return {
             [type]: dataItemId,
