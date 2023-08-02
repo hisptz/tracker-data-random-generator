@@ -62,15 +62,13 @@ export function useGenerateData(profileId: string | null, onComplete: () => void
 				const dataEngine = new TrackerRandomDataEngine({config: dataGenerateConfig, program, engine});
 				const data = await dataEngine.generate({count});
 
-				console.log(data)
-
 				if (shouldExportData) {
 						await exportData(data);
 				}
 				if (shouldUploadData) {
 						await uploadData(data)
 				}
-				// onComplete();
+				onComplete();
 		}, [profile, program]);
 
 		return {
