@@ -17,8 +17,6 @@ export function TeiAttributesConfig() {
     })), [program]);
 
 
-    console.log(trackedEntityAttributes)
-
     return (
         <div className="column gap-16">
             {
