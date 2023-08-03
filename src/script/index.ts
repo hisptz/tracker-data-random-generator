@@ -7,5 +7,3 @@ const dataEngine = new TrackerRandomDataEngine({config, program});
 const teis = dataEngine.generate({
     count: 10
 })
-
-console.log(JSON.stringify(teis))

@@ -25,7 +25,6 @@ export function useUploadData() {
                 }
             })
         }));
-        console.log(responses)
         //TODO: better handle the responses to have a summary of how much data has been uploaded
         show({
             message: i18n.t("Uploaded {{count}} tracked entity instances successfully", {
