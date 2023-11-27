@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-05-07T09:30:32.674Z\n"
-"PO-Revision-Date: 2023-05-07T09:30:32.674Z\n"
+"POT-Creation-Date: 2023-09-20T03:35:46.441Z\n"
+"PO-Revision-Date: 2023-09-20T03:35:46.441Z\n"
 
 msgid "Data profile for program {{program}}"
 msgstr "Data profile for program {{program}}"
@@ -114,6 +114,9 @@ msgstr "Upload data"
 msgid "Uploading..."
 msgstr "Uploading..."
 
+msgid "Select organisation unit(s)"
+msgstr "Select organisation unit(s)"
+
 msgid "This date should be after {{date}}"
 msgstr "This date should be after {{date}}"
 
@@ -134,3 +137,12 @@ msgstr "No"
 
 msgid "Program List"
 msgstr "Program List"
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "Years"
+msgstr "Years"
+
+msgid "Age"
+msgstr "Age"

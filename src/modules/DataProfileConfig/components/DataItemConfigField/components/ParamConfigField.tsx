@@ -43,9 +43,10 @@ export function ParamConfigField({name}: ParamConfigFieldProps) {
                 }
 
                 if (type === "object") {
-                    return keys?.map(({type, fieldProps, label, key}) => (
-                        <RHFTextInputField {...fieldProps} type={type} key={`${key}-${label}-field`} label={label}
-                                           name={`${name}.options.params.${index}.${key}`}/>
+                    return keys?.map(({type, fieldProps, label, key, options}) => (
+                       options ? <RHFSingleSelectField options={options?.map(({name, value}) => ({label: name, value})) ?? []} {...fieldProps} type={type} key={`${key}-${label}-field`} label={label}
+                                           name={`${name}.options.params.${index}.${key}`}/> : <RHFTextInputField {...fieldProps} type={type} key={`${key}-${label}-field`} label={label}
+                                                                                                                  name={`${name}.options.params.${index}.${key}`}/>
                     ))
                 }
 
