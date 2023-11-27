@@ -164,7 +164,7 @@ export class TrackerRandomDataEngine {
 				const eventDate = faker.date.between(minDate ?? new Date(), maxDate ?? new Date()).toISOString();
 				const status = 'COMPLETED';
 
-				const dataValues = dataElementsConfig.map((config) => this.generateDataItem<{
+				const dataValues = dataElementsConfig?.map((config) => this.generateDataItem<{
 						dataElement: string;
 						value: any
 				}>(config, 'dataElement', {teiIndex}))
