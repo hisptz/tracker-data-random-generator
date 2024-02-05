@@ -1,8 +1,9 @@
 import {DHIS2ValueType} from "@hisptz/dhis2-utils";
+import {OrgUnit} from "@hisptz/dhis2-ui/build/types/components/selectors/OrgUnitSelector/types";
 
 
 export interface SupportedParam {
-		type: 'number' | 'text' | 'options' | 'date' | 'default' | 'object',
+		type: 'number' | 'text' | 'options' | 'date' | 'default' | 'object' | 'boolean',
 		label: string;
 		keys?: Array<SupportedParam & { key: string }>
 		options?: { name: string; value: any }[];
@@ -57,7 +58,7 @@ export interface DataConfiguration {
 		name: string;
 		id: string;
 		meta: {
-				orgUnits?: string[]
+				orgUnits?: OrgUnit[]
 				trackedEntityType?: string;
 				enrollmentTimeBoundary?: TimeBoundary;
 				locale?: string;

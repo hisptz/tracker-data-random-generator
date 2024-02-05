@@ -27,6 +27,7 @@ export function useGenerateData(profileId: string | null, onComplete: () => void
 		const {id: programId} = useParams();
 		const engine = useDataEngine();
 		const program = useRecoilValue(ProgramState(programId));
+		const organisationUnits = program.organisationUnits;
 		const [profiles] = useSavedObject(programId as string)
 		const profile: DataConfigurationForm | undefined = find(profiles, ['id', profileId]);
 		const {exportData} = useExportData();
@@ -44,14 +45,14 @@ export function useGenerateData(profileId: string | null, onComplete: () => void
 						return;
 				}
 				const meta = {
-						orgUnits,
+						orgUnits: organisationUnits.filter(({id}: any) => orgUnits.includes(id)),
 						enrollmentTimeBoundary,
 						trackedEntityType: program.trackedEntityType.id
 				}
 				const dataGenerateConfig: DataConfiguration = {
 						meta,
 						...(profile as any),
-						programStages: (profile as any).programStages.map((pStage: any) => {
+						programStages: (profile as any).programStages?.map((pStage: any) => {
 								return {
 										...pStage,
 										eventTimeBoundary: find(stages, ['id', pStage.id])
