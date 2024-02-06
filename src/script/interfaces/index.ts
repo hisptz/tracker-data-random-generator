@@ -58,6 +58,12 @@ export interface DataConfigurationForm {
 	}[];
 }
 
+export interface EventDataConfigurationForm {
+	name: string;
+	id: string;
+	dataElements: DataItemConfig[];
+}
+
 export interface EventProgramDataConfiguration {
 	id: string;
 	count?: number;
@@ -77,13 +83,14 @@ export interface DataConfiguration {
 		orgUnits?: OrgUnit[];
 		trackedEntityType?: string;
 		enrollmentTimeBoundary?: TimeBoundary;
+		eventTimeBoundary?: TimeBoundary;
 		locale?: string;
 	};
 	attributes?: DataItemConfig[];
 	programStages?: {
-		eventTimeBoundary: TimeBoundary;
 		id: string;
 		count?: number;
 		dataElements: DataItemConfig[];
+		eventTimeBoundary: TimeBoundary;
 	}[];
 }

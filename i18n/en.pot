@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-05T18:34:43.076Z\n"
-"PO-Revision-Date: 2024-02-05T18:34:43.076Z\n"
+"POT-Creation-Date: 2024-02-06T05:30:42.981Z\n"
+"PO-Revision-Date: 2024-02-06T05:30:42.981Z\n"
 
 msgid "Data type"
 msgstr "Data type"
@@ -20,12 +20,6 @@ msgstr "Options are required for this field"
 msgid "Options"
 msgstr "Options"
 
-msgid "General configuration"
-msgstr "General configuration"
-
-msgid "Data elements"
-msgstr "Data elements"
-
 msgid "Data profile for program {{program}}"
 msgstr "Data profile for program {{program}}"
 
@@ -38,11 +32,8 @@ msgstr "Name"
 msgid "Name is required"
 msgstr "Name is required"
 
-msgid "Tracked entity attributes"
-msgstr "Tracked entity attributes"
-
-msgid "Program stages"
-msgstr "Program stages"
+msgid "Data Elements"
+msgstr "Data Elements"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -52,6 +43,18 @@ msgstr "Save"
 
 msgid "Saving..."
 msgstr "Saving..."
+
+msgid "General configuration"
+msgstr "General configuration"
+
+msgid "Data elements"
+msgstr "Data elements"
+
+msgid "Tracked entity attributes"
+msgstr "Tracked entity attributes"
+
+msgid "Program stages"
+msgstr "Program stages"
 
 msgid "Data profile created successfully"
 msgstr "Data profile created successfully"
