@@ -1,11 +1,11 @@
 {
   "sidebar": {
     "Getting Started": [
-      "pid/intro",
-      "pid/installation"
+      "data-generator/intro",
+      "data-generator/installation"
     ],
     "Setting Up Configuration": [
-      "pid/configuration"
+      "data-generator/configuration"
     ]
   }
 }
