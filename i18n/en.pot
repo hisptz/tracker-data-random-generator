@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-06T05:30:42.981Z\n"
-"PO-Revision-Date: 2024-02-06T05:30:42.981Z\n"
+"POT-Creation-Date: 2024-07-15T07:51:19.540Z\n"
+"PO-Revision-Date: 2024-07-15T07:51:19.540Z\n"
 
 msgid "Data type"
 msgstr "Data type"
@@ -102,6 +102,9 @@ msgstr "Min"
 msgid "Max"
 msgstr "Max"
 
+msgid "Event date boundaries"
+msgstr "Event date boundaries"
+
 msgid "Maximum of 100 records"
 msgstr "Maximum of 100 records"
 
@@ -125,9 +128,6 @@ msgstr "This date should be after {{date}}"
 
 msgid "This date should not be in the future"
 msgstr "This date should not be in the future"
-
-msgid "Event date boundaries"
-msgstr "Event date boundaries"
 
 msgid "With registration"
 msgstr "With registration"
