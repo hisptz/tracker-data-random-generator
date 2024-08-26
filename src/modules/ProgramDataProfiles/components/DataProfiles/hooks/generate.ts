@@ -26,7 +26,7 @@ export function useExportData() {
 	const exportData = useCallback(async (data: any) => {
 		fileSaver.saveAs(
 			new Blob([JSON.stringify(data)], { type: "text/json" }),
-			"data.json"
+			"data.json",
 		);
 	}, []);
 	return {
@@ -36,7 +36,7 @@ export function useExportData() {
 
 export function useGenerateData(
 	profileId: string | null,
-	onComplete: () => void
+	onComplete: () => void,
 ) {
 	const { id: programId } = useParams();
 	const engine = useDataEngine();
@@ -49,7 +49,7 @@ export function useGenerateData(
 		| undefined = find(profiles, ["id", profileId]);
 	const { exportData } = useExportData();
 	const { loading: uploading, uploadData } = useUploadData(
-		program?.registration ? "trackedEntityInstances" : "events"
+		program?.registration ? "trackedEntityInstances" : "events",
 	);
 
 	const generateTrackerProgramData = useCallback(
@@ -66,7 +66,7 @@ export function useGenerateData(
 			}
 			const meta = {
 				orgUnits: organisationUnits.filter(({ id }: { id: string }) =>
-					orgUnits.includes(id)
+					orgUnits.includes(id),
 				),
 				enrollmentTimeBoundary,
 				trackedEntityType: program?.trackedEntityType?.id,
@@ -80,7 +80,7 @@ export function useGenerateData(
 							...pStage,
 							eventTimeBoundary: find(stages, ["id", pStage.id]),
 						};
-					}
+					},
 				),
 			};
 
@@ -91,6 +91,7 @@ export function useGenerateData(
 				program,
 				engine,
 			});
+
 			const data = await dataEngine.generate({ count });
 
 			if (shouldExportData) {
@@ -101,7 +102,7 @@ export function useGenerateData(
 			}
 			onComplete();
 		},
-		[profile, program]
+		[profile, program],
 	);
 
 	const generateEventProgramData = useCallback(
@@ -117,7 +118,7 @@ export function useGenerateData(
 			}
 			const meta = {
 				orgUnits: organisationUnits.filter(({ id }: { id: string }) =>
-					orgUnits.includes(id)
+					orgUnits.includes(id),
 				),
 				eventTimeBoundary,
 			};
@@ -143,18 +144,17 @@ export function useGenerateData(
 			}
 			onComplete();
 		},
-		[profile, program]
+		[profile, program],
 	);
 
 	const generate = useCallback(
 		async (config: GenerateConfig | EventGenerateConfig) => {
-			console.log({ config });
 			if (program?.registration) {
 				return generateTrackerProgramData(config as GenerateConfig);
 			}
 			return generateEventProgramData(config as EventGenerateConfig);
 		},
-		[profile, program]
+		[profile, program],
 	);
 
 	return {
