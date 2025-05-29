@@ -319,6 +319,41 @@ export const supportedDataTypes: DataType[] = [
 			},
 		],
 	},
+	{
+		name: SupportedDataTypeNames.COORDINATES,
+		fn: faker.location.nearbyGPSCoordinate,
+		dhis2Fields: ["COORDINATE"] as any,
+		defaultParams: [
+			{
+				origin: [0, 0],
+				radius: 10000,
+				isMetric: true,
+			},
+		],
+		supportedParams: [
+			{
+				type: "object",
+				label: "Configuration",
+				keys: [
+					{
+						key: "origin",
+						type: "text",
+						label: "Origin",
+					},
+					{
+						key: "radius",
+						type: "number",
+						label: "Radius",
+					},
+					{
+						key: "isMetric",
+						label: "Is metric",
+						type: "boolean",
+					},
+				],
+			},
+		],
+	},
 
 	//Technical
 	{

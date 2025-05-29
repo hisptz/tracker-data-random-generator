@@ -9,7 +9,8 @@ export interface SupportedParam {
 		| "date"
 		| "default"
 		| "object"
-		| "boolean";
+		| "boolean"
+		| "coordinates";
 	label: string;
 	keys?: Array<SupportedParam & { key: string }>;
 	options?: { name: string; value: any }[];

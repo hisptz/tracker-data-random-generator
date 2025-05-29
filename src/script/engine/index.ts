@@ -163,17 +163,19 @@ export class EventRandomDataEngine {
 		]);
 
 		const params = compact(
-			options?.params?.map((param, index) => {
-				if (!isEmpty(param)) {
-					const paramType =
-						dataGenerationConfig?.supportedParams?.[index];
-					return sanitizeParam(param, paramType);
-				} else {
-					return dataGenerationConfig?.defaultParams?.[index];
-				}
-			}) ??
-				dataGenerationConfig?.defaultParams ??
-				[],
+			isEmpty(options?.params)
+				? dataGenerationConfig?.defaultParams
+				: options?.params?.map((param, index) => {
+						if (!isEmpty(param)) {
+							const paramType =
+								dataGenerationConfig?.supportedParams?.[index];
+							return sanitizeParam(param, paramType);
+						} else {
+							return dataGenerationConfig?.defaultParams?.[index];
+						}
+					}) ??
+						dataGenerationConfig?.defaultParams ??
+						[],
 		);
 
 		if (dataGenerationConfig?.name === SupportedDataTypeNames.TRUE_ONLY) {
@@ -187,12 +189,20 @@ export class EventRandomDataEngine {
 				value = dataGenerationConfig?.fn(head(params));
 			}
 		} else {
-			value = dataGenerationConfig?.fn(...params);
+			if (
+				dataGenerationConfig?.name ===
+				SupportedDataTypeNames.COORDINATES
+			) {
+				const coordinateValue = dataGenerationConfig?.fn(...params);
+				value = `[${coordinateValue}]`;
+			} else {
+				value = dataGenerationConfig?.fn(...params);
+			}
 		}
 
 		return {
 			dataElement: dataItemId,
-			value,
+			value: `${value}`,
 		};
 	}
 }
