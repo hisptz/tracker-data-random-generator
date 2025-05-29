@@ -448,17 +448,22 @@ export class TrackerRandomDataEngine {
 						]);
 
 						if (programStage?.repeatable) {
-							return Array.from(Array(count).keys()).map(() =>
-								this.generateTrackerEvent({
-									enrollmentDate,
-									orgUnit,
-									programStage: id,
-									enrollment,
-									trackedEntityInstance,
-									eventTimeBoundary,
-									dataElementsConfig: dataElements,
-									teiIndex,
-								}),
+							const numberCount = count
+								? parseInt(String(count))
+								: 1;
+
+							return Array.from(Array(numberCount).keys()).map(
+								() =>
+									this.generateTrackerEvent({
+										enrollmentDate,
+										orgUnit,
+										programStage: id,
+										enrollment,
+										trackedEntityInstance,
+										eventTimeBoundary,
+										dataElementsConfig: dataElements,
+										teiIndex,
+									}),
 							);
 						}
 

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-07-15T07:51:19.540Z\n"
-"PO-Revision-Date: 2024-07-15T07:51:19.540Z\n"
+"POT-Creation-Date: 2024-08-26T12:06:31.081Z\n"
+"PO-Revision-Date: 2024-08-26T12:06:31.081Z\n"
 
 msgid "Data type"
 msgstr "Data type"
@@ -46,6 +46,9 @@ msgstr "Saving..."
 
 msgid "General configuration"
 msgstr "General configuration"
+
+msgid "Number of events to be generated"
+msgstr "Number of events to be generated"
 
 msgid "Data elements"
 msgstr "Data elements"

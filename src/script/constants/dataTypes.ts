@@ -154,7 +154,12 @@ export const supportedDataTypes: DataType[] = [
 	{
 		name: SupportedDataTypeNames.POSITIVE_NUMBER,
 		fn: faker.number.int,
-		dhis2Fields: ["NUMBER", "INTEGER", "INTEGER_ZERO_OR_POSITIVE"],
+		dhis2Fields: [
+			"NUMBER",
+			"INTEGER",
+			"INTEGER_ZERO_OR_POSITIVE",
+			"INTEGER_POSITIVE",
+		],
 		supportedParams: [
 			{
 				type: "object",
