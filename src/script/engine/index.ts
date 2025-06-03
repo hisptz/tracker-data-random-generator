@@ -194,7 +194,8 @@ export class EventRandomDataEngine {
 				SupportedDataTypeNames.COORDINATES
 			) {
 				const coordinateValue = dataGenerationConfig?.fn(...params);
-				value = `[${coordinateValue}]`;
+				const [latitude, longitude] = coordinateValue ?? [];
+				value = `[${parseFloat(latitude).toFixed(2)},${parseFloat(longitude).toFixed(2)}]`;
 			} else {
 				value = dataGenerationConfig?.fn(...params);
 			}
