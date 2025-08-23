@@ -39,6 +39,7 @@ export enum SupportedDataTypeNames {
 	//Geo
 	GEOJSON = "GeoJSON",
 	COORDINATES = "Coordinates",
+	DATE = "Date",
 }
 
 export const supportedDataTypes: DataType[] = [

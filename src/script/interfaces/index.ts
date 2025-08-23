@@ -70,7 +70,7 @@ export interface EventProgramDataConfiguration {
 	dataElements: DataItemConfig[];
 	name: string;
 	meta: {
-		orgUnits?: OrgUnit[];
+		orgUnits?: { name: string; id: string }[];
 		locale?: string;
 		eventTimeBoundary: TimeBoundary;
 	};
@@ -80,7 +80,7 @@ export interface DataConfiguration {
 	name: string;
 	id: string;
 	meta: {
-		orgUnits?: OrgUnit[];
+		orgUnits?: { name: string; id: string }[];
 		trackedEntityType?: string;
 		enrollmentTimeBoundary?: TimeBoundary;
 		eventTimeBoundary?: TimeBoundary;
