@@ -5,35 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-20T03:35:46.441Z\n"
-"PO-Revision-Date: 2023-09-20T03:35:46.441Z\n"
-
-msgid "Data profile for program {{program}}"
-msgstr "Data profile for program {{program}}"
-
-msgid "General"
-msgstr "General"
-
-msgid "Name"
-msgstr "Name"
-
-msgid "Name is required"
-msgstr "Name is required"
-
-msgid "Tracked entity attributes"
-msgstr "Tracked entity attributes"
-
-msgid "Program stages"
-msgstr "Program stages"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Save"
-msgstr "Save"
-
-msgid "Saving..."
-msgstr "Saving..."
+"POT-Creation-Date: 2025-08-19T14:05:19.009Z\n"
+"PO-Revision-Date: 2025-08-19T14:05:19.009Z\n"
 
 msgid "Data type"
 msgstr "Data type"
@@ -47,11 +20,44 @@ msgstr "Options are required for this field"
 msgid "Options"
 msgstr "Options"
 
+msgid "Data profile for program {{program}}"
+msgstr "Data profile for program {{program}}"
+
+msgid "General"
+msgstr "General"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Name is required"
+msgstr "Name is required"
+
+msgid "Data Elements"
+msgstr "Data Elements"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Saving..."
+msgstr "Saving..."
+
 msgid "General configuration"
 msgstr "General configuration"
 
+msgid "Number of events to be generated"
+msgstr "Number of events to be generated"
+
 msgid "Data elements"
 msgstr "Data elements"
+
+msgid "Tracked entity attributes"
+msgstr "Tracked entity attributes"
+
+msgid "Program stages"
+msgstr "Program stages"
 
 msgid "Data profile created successfully"
 msgstr "Data profile created successfully"
@@ -99,6 +105,9 @@ msgstr "Min"
 msgid "Max"
 msgstr "Max"
 
+msgid "Event date boundaries"
+msgstr "Event date boundaries"
+
 msgid "Maximum of 100 records"
 msgstr "Maximum of 100 records"
 
@@ -122,9 +131,6 @@ msgstr "This date should be after {{date}}"
 
 msgid "This date should not be in the future"
 msgstr "This date should not be in the future"
-
-msgid "Event date boundaries"
-msgstr "Event date boundaries"
 
 msgid "With registration"
 msgstr "With registration"
