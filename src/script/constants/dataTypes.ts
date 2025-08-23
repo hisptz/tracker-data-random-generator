@@ -234,7 +234,7 @@ export const supportedDataTypes: DataType[] = [
 						options: [
 							{
 								name: i18n.t("Years"),
-								value: "years",
+								value: "year",
 							},
 							{
 								name: i18n.t("Age"),
