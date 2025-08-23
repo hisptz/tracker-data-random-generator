@@ -1,5 +1,4 @@
 import { DHIS2ValueType } from "@hisptz/dhis2-utils";
-import { OrgUnit } from "@hisptz/dhis2-ui/build/types/components/selectors/OrgUnitSelector/types";
 
 export interface SupportedParam {
 	type:
