@@ -10,6 +10,7 @@ import { Column, useTable } from "react-table";
 import { CustomTable } from "../../../../shared/components/CustomTable";
 import { DataConfigurationForm } from "../../../../script/interfaces";
 import { GenerateDataModal } from "./components/GenerateDataModal";
+import { DeleteDataProfileModal } from "./components/DeleteDataProfileModal";
 
 export function DataProfiles() {
 	const { id: programId } = useParams();
@@ -17,6 +18,7 @@ export function DataProfiles() {
 	const navigate = useNavigate();
 	const program = useRecoilValue(ProgramState(programId)) as any;
 	const [dataProfiles] = useSavedObject(programId as string);
+	const [profileToDelete, setProfileToDelete] = useState<string | null>(null);
 
 	const columns: Column<DataConfigurationForm>[] = useMemo(
 		() => [
@@ -55,12 +57,25 @@ export function DataProfiles() {
 							>
 								{i18n.t("Generate")}
 							</Button>
+							<Button
+								secondary
+								destructive
+								onClick={(
+									_: unknown,
+									event: React.SyntheticEvent,
+								) => {
+									event.stopPropagation();
+									setProfileToDelete(id);
+								}}
+							>
+								{i18n.t("Delete")}
+							</Button>
 						</ButtonStrip>
 					);
 				},
 			},
 		],
-		[],
+		[navigate],
 	);
 
 	const instance = useTable<DataConfigurationForm>({
@@ -94,6 +109,15 @@ export function DataProfiles() {
 			<GenerateDataModal
 				onClose={() => setSelectedProfile(null)}
 				profileId={selectedProfile}
+			/>
+			<DeleteDataProfileModal
+				onClose={() => setProfileToDelete(null)}
+				profileId={profileToDelete}
+				profileName={
+					(dataProfiles as unknown as DataConfigurationForm[])?.find(
+						({ id }) => id === profileToDelete,
+					)?.name
+				}
 			/>
 			<div className="row end w-100">
 				<Button

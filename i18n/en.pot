@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-21T16:57:59.676Z\n"
-"PO-Revision-Date: 2026-10-21T16:57:59.677Z\n"
+"POT-Creation-Date: 2026-10-21T17:41:17.297Z\n"
+"PO-Revision-Date: 2026-10-21T17:41:17.297Z\n"
 
 msgid "Data type"
 msgstr "Data type"
@@ -76,6 +76,22 @@ msgstr "Edit"
 
 msgid "Generate"
 msgstr "Generate"
+
+msgid "Delete data profile"
+msgstr "Delete data profile"
+
+msgid ""
+"Are you sure you want to delete the data profile {{name}}? This action "
+"cannot be undone."
+msgstr ""
+"Are you sure you want to delete the data profile {{name}}? This action "
+"cannot be undone."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Deleting..."
+msgstr "Deleting..."
 
 msgid ""
 "There are no data profiles for the program {{program}}. Click on Create "
@@ -149,6 +165,12 @@ msgstr "Generating..."
 
 msgid "Select organisation unit(s)"
 msgstr "Select organisation unit(s)"
+
+msgid "Data profile deleted successfully"
+msgstr "Data profile deleted successfully"
+
+msgid "Could not delete data profile"
+msgstr "Could not delete data profile"
 
 msgid "With registration"
 msgstr "With registration"
