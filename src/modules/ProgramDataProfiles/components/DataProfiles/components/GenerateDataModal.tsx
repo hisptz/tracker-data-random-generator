@@ -18,7 +18,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { RHFCheckboxField, RHFTextInputField } from "@hisptz/dhis2-ui";
 import { DateTime } from "luxon";
 import { useGenerateData } from "../hooks/generate";
-import { uniqBy } from "lodash";
+import { isEmpty, uniqBy } from "lodash";
 import { ProgramStageConfig } from "./ProgramStageConfig";
 
 export interface GenerateDataModalProps {
@@ -30,7 +30,7 @@ export type ExportType = "json" | "upload";
 
 export interface GenerateConfig {
 	orgUnits: string[];
-	stages: { id: string; eventTimeBoundary: { min: string; max: string } }[];
+	stages: { id: string; min?: string; max?: string }[];
 	enrollmentTimeBoundary?: {
 		min: string;
 		max: string;
@@ -48,6 +48,16 @@ export interface EventGenerateConfig {
 	shouldExportData?: boolean;
 }
 
+const defaultValues = {
+	orgUnits: [],
+	count: 10,
+	shouldExportData: false,
+	shouldUploadData: true,
+};
+
+const requiredMessage = i18n.t("This field is required");
+const futureMessage = i18n.t("This date should not be in the future");
+
 export function GenerateDataModal({
 	profileId,
 	onClose,
@@ -57,20 +67,33 @@ export function GenerateDataModal({
 	const orgUnitOptions = useMemo(() => {
 		return uniqBy(
 			program?.organisationUnits.map(
-				({ name, id }: { name: string; id: string }) => ({
-					label: name,
+				({
+					displayName,
+					name,
+					id,
+				}: {
+					displayName?: string;
+					name: string;
+					id: string;
+				}) => ({
+					label: displayName ?? name,
 					value: id,
 				}),
 			),
 			"value",
 		) as never[];
 	}, [program]);
-	const form = useForm<GenerateConfig | EventGenerateConfig>();
+	const form = useForm<GenerateConfig | EventGenerateConfig>({
+		defaultValues,
+	});
+	const today = DateTime.now().toFormat("yyyy-MM-dd");
+	const enrollmentMin = form.watch("enrollmentTimeBoundary.min" as never);
+	const eventMin = form.watch("eventTimeBoundary.min" as never);
 
 	const onCloseModal = useCallback(() => {
-		form.reset({});
+		form.reset(defaultValues);
 		onClose();
-	}, []);
+	}, [form, onClose]);
 
 	const { generate, uploading } = useGenerateData(profileId, onCloseModal);
 
@@ -81,9 +104,21 @@ export function GenerateDataModal({
 				<FormProvider {...form}>
 					<div className="column gap-16">
 						<Controller
-							render={({ field }) => {
+							rules={{
+								validate: (value) =>
+									!isEmpty(value) ||
+									i18n.t(
+										"Select at least one organisation unit",
+									),
+							}}
+							render={({ field, fieldState }) => {
 								return (
 									<MultiSelectField
+										required
+										error={!!fieldState.error}
+										validationText={
+											fieldState.error?.message
+										}
 										filterable
 										label={i18n.t("Organisation units")}
 										onChange={({
@@ -124,28 +159,50 @@ export function GenerateDataModal({
 									>
 										<div className="w-100">
 											<RHFTextInputField
-												max={DateTime.now().toFormat(
-													"yyyy-MM-dd",
-												)}
+												max={today}
 												fullWidth
+												required
 												type="date"
 												label={i18n.t("Min")}
 												name={
 													"enrollmentTimeBoundary.min"
 												}
+												validations={{
+													required: requiredMessage,
+													max: {
+														value: today,
+														message: futureMessage,
+													},
+												}}
 											/>
 										</div>
 										<div className="w-100">
 											<RHFTextInputField
-												max={DateTime.now().toFormat(
-													"yyyy-MM-dd",
-												)}
+												min={enrollmentMin}
+												max={today}
 												fullWidth
+												required
 												type="date"
 												label={i18n.t("Max")}
 												name={
 													"enrollmentTimeBoundary.max"
 												}
+												validations={{
+													required: requiredMessage,
+													min: {
+														value: enrollmentMin,
+														message: i18n.t(
+															"This date should be after {{date}}",
+															{
+																date: enrollmentMin,
+															},
+														),
+													},
+													max: {
+														value: today,
+														message: futureMessage,
+													},
+												}}
 											/>
 										</div>
 									</div>
@@ -176,14 +233,40 @@ export function GenerateDataModal({
 								<Field label={i18n.t("Event date boundaries")}>
 									<div className="row gap-16 ">
 										<RHFTextInputField
-											name={`eventTimeBoundary.min`}
+											name={"eventTimeBoundary.min"}
 											label={i18n.t("Min")}
 											type={"date"}
+											required
+											max={today}
+											validations={{
+												required: requiredMessage,
+												max: {
+													value: today,
+													message: futureMessage,
+												},
+											}}
 										/>
 										<RHFTextInputField
-											name={`eventTimeBoundary.max`}
+											name={"eventTimeBoundary.max"}
 											label={i18n.t("Max")}
 											type={"date"}
+											required
+											min={eventMin}
+											max={today}
+											validations={{
+												required: requiredMessage,
+												min: {
+													value: eventMin,
+													message: i18n.t(
+														"This date should be after {{date}}",
+														{ date: eventMin },
+													),
+												},
+												max: {
+													value: today,
+													message: futureMessage,
+												},
+											}}
 										/>
 									</div>
 								</Field>
@@ -191,11 +274,28 @@ export function GenerateDataModal({
 						)}
 						<RHFTextInputField
 							helpText={i18n.t("Maximum of 100 records")}
-							min={"0"}
+							min={"1"}
 							max={"100"}
+							step={"1"}
+							required
 							type="number"
-							label={i18n.t("Number of records")}
+							label={
+								program?.registration
+									? i18n.t("Number of tracked entities")
+									: i18n.t("Number of events")
+							}
 							name={"count"}
+							validations={{
+								required: requiredMessage,
+								min: {
+									value: 1,
+									message: i18n.t("Minimum of 1 record"),
+								},
+								max: {
+									value: 100,
+									message: i18n.t("Maximum of 100 records"),
+								},
+							}}
 						/>
 						<RHFCheckboxField
 							label={i18n.t("Export JSON")}
@@ -204,6 +304,17 @@ export function GenerateDataModal({
 						<RHFCheckboxField
 							label={i18n.t("Upload data")}
 							name={"shouldUploadData"}
+							validations={{
+								validate: (
+									value: boolean,
+									values: GenerateConfig,
+								) =>
+									value ||
+									values.shouldExportData ||
+									i18n.t(
+										"Select at least one of export or upload",
+									),
+							}}
 						/>
 					</div>
 				</FormProvider>
@@ -212,13 +323,16 @@ export function GenerateDataModal({
 				<ButtonStrip>
 					<Button onClick={onCloseModal}>{i18n.t("Cancel")}</Button>
 					<Button
-						loading={uploading}
+						loading={uploading || form.formState.isSubmitting}
+						disabled={uploading || form.formState.isSubmitting}
 						onClick={() => form.handleSubmit(generate)()}
 						primary
 					>
 						{uploading
 							? i18n.t("Uploading...")
-							: i18n.t("Generate")}
+							: form.formState.isSubmitting
+								? i18n.t("Generating...")
+								: i18n.t("Generate")}
 					</Button>
 				</ButtonStrip>
 			</ModalActions>

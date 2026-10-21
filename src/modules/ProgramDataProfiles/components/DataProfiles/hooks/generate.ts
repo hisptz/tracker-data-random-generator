@@ -20,12 +20,15 @@ import {
 	EventRandomDataEngine,
 	TrackerRandomDataEngine,
 } from "../../../../../script/engine";
-import { useDataEngine } from "@dhis2/app-runtime";
+import { useAlert, useDataEngine } from "@dhis2/app-runtime";
+import i18n from "@dhis2/d2-i18n";
 
 export function useExportData() {
-	const exportData = useCallback(async (data: any) => {
+	const exportData = useCallback(async (data: unknown) => {
 		fileSaver.saveAs(
-			new Blob([JSON.stringify(data)], { type: "text/json" }),
+			new Blob([JSON.stringify(data, null, 2)], {
+				type: "application/json",
+			}),
 			"data.json",
 		);
 	}, []);
@@ -41,15 +44,22 @@ export function useGenerateData(
 	const { id: programId } = useParams();
 	const engine = useDataEngine();
 	const program = useRecoilValue(ProgramState(programId));
-	const organisationUnits = program?.organisationUnits;
+	const organisationUnits = program?.organisationUnits ?? [];
 	const [profiles] = useSavedObject(programId as string);
-	const profile:
+	const profile = find(profiles, ["id", profileId]) as
 		| DataConfigurationForm
 		| EventDataConfigurationForm
-		| undefined = find(profiles, ["id", profileId]);
+		| undefined;
 	const { exportData } = useExportData();
-	const { loading: uploading, uploadData } = useUploadData(
-		program?.registration ? "trackedEntityInstances" : "events",
+	const { loading: uploading, uploadData } = useUploadData();
+	const { show } = useAlert(({ message }) => message, { critical: true });
+
+	const getSelectedOrgUnits = useCallback(
+		(orgUnits: string[]) =>
+			organisationUnits.filter(({ id }: { id: string }) =>
+				orgUnits.includes(id),
+			),
+		[organisationUnits],
 	);
 
 	const generateTrackerProgramData = useCallback(
@@ -58,103 +68,102 @@ export function useGenerateData(
 			stages,
 			enrollmentTimeBoundary,
 			count,
-			shouldExportData,
-			shouldUploadData,
 		}: GenerateConfig) => {
-			if (!profile || !program) {
-				return;
-			}
-			const meta = {
-				orgUnits: organisationUnits.filter(({ id }: { id: string }) =>
-					orgUnits.includes(id),
-				),
-				enrollmentTimeBoundary,
-				trackedEntityType: program?.trackedEntityType?.id,
+			const trackerProfile = profile as DataConfigurationForm;
+			const config: DataConfiguration = {
+				...trackerProfile,
+				meta: {
+					orgUnits: getSelectedOrgUnits(orgUnits),
+					enrollmentTimeBoundary,
+					trackedEntityType: program?.trackedEntityType?.id,
+				},
+				programStages: trackerProfile.programStages?.map((pStage) => {
+					const stageConfig = find(stages, ["id", pStage.id]);
+					return {
+						...pStage,
+						eventTimeBoundary: {
+							min: stageConfig?.min,
+							max: stageConfig?.max,
+						},
+					};
+				}),
 			};
-			const dataGenerateConfig: DataConfiguration = {
-				meta,
-				...(profile as any),
-				programStages: (profile as any).programStages?.map(
-					(pStage: any) => {
-						return {
-							...pStage,
-							eventTimeBoundary: find(stages, ["id", pStage.id]),
-						};
-					},
-				),
-			};
-
-			console.log(dataGenerateConfig);
 
 			const dataEngine = new TrackerRandomDataEngine({
-				config: dataGenerateConfig,
-				program,
+				config,
+				program: program!,
 				engine,
 			});
 
-			const data = await dataEngine.generate({ count });
-
-			if (shouldExportData) {
-				await exportData(data);
-			}
-			if (shouldUploadData) {
-				await uploadData(data);
-			}
-			onComplete();
+			return dataEngine.generate({ count });
 		},
-		[profile, program],
+		[profile, program, engine, getSelectedOrgUnits],
 	);
 
 	const generateEventProgramData = useCallback(
-		async ({
-			orgUnits,
-			count,
-			eventTimeBoundary,
-			shouldExportData,
-			shouldUploadData,
-		}: EventGenerateConfig) => {
-			if (!profile || !program) {
-				return;
-			}
-			const meta = {
-				orgUnits: organisationUnits.filter(({ id }: { id: string }) =>
-					orgUnits.includes(id),
-				),
-				eventTimeBoundary,
-			};
-
+		async ({ orgUnits, count, eventTimeBoundary }: EventGenerateConfig) => {
 			const config: EventProgramDataConfiguration = {
 				...(profile as EventDataConfigurationForm),
 				count,
-				meta,
+				meta: {
+					orgUnits: getSelectedOrgUnits(orgUnits),
+					eventTimeBoundary,
+				},
 			};
 
 			const dataEngine = new EventRandomDataEngine({
 				config,
-				program,
+				program: program!,
 				engine,
 			});
-			const data = await dataEngine.generate({ count });
-
-			if (shouldExportData) {
-				await exportData(data);
-			}
-			if (shouldUploadData) {
-				await uploadData(data);
-			}
-			onComplete();
+			return dataEngine.generate({ count });
 		},
-		[profile, program],
+		[profile, program, engine, getSelectedOrgUnits],
 	);
 
 	const generate = useCallback(
 		async (config: GenerateConfig | EventGenerateConfig) => {
-			if (program?.registration) {
-				return generateTrackerProgramData(config as GenerateConfig);
+			if (!profile || !program) {
+				return;
 			}
-			return generateEventProgramData(config as EventGenerateConfig);
+			try {
+				const count = Number(config.count);
+				const data = program.registration
+					? await generateTrackerProgramData({
+							...(config as GenerateConfig),
+							count,
+						})
+					: await generateEventProgramData({
+							...(config as EventGenerateConfig),
+							count,
+						});
+
+				if (config.shouldExportData) {
+					await exportData(data);
+				}
+				if (config.shouldUploadData) {
+					await uploadData(data);
+				}
+				onComplete();
+			} catch (e) {
+				console.error(e);
+				show({
+					message: i18n.t("Error generating data: {{message}}", {
+						message: e instanceof Error ? e.message : "",
+					}),
+				});
+			}
 		},
-		[profile, program],
+		[
+			profile,
+			program,
+			generateTrackerProgramData,
+			generateEventProgramData,
+			exportData,
+			uploadData,
+			onComplete,
+			show,
+		],
 	);
 
 	return {
