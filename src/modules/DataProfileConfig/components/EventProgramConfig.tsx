@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { ProgramState } from "../../ProgramDataProfiles/state/program";
-import { useDefaultValue } from "../hooks/form";
+import { useDefaultValue, useInvalidFormAlert } from "../hooks/form";
 import { FormProvider, useForm } from "react-hook-form";
 import { DataConfigurationForm } from "../../../script/interfaces";
 import { useSaveConfig } from "../hooks/save";
@@ -22,6 +22,7 @@ export function EventProgramConfig() {
 		shouldFocusError: false,
 	});
 	const { save, loading } = useSaveConfig();
+	const onInvalidSubmit = useInvalidFormAlert();
 
 	const onFormSubmit = useCallback(
 		async (data: DataConfigurationForm) => {
@@ -94,7 +95,10 @@ export function EventProgramConfig() {
 								<Button
 									loading={loading}
 									onClick={() =>
-										form.handleSubmit(onFormSubmit)()
+										form.handleSubmit(
+											onFormSubmit,
+											onInvalidSubmit,
+										)()
 									}
 									primary
 								>

@@ -1,4 +1,4 @@
-import { useDefaultValue } from "../hooks/form";
+import { useDefaultValue, useInvalidFormAlert } from "../hooks/form";
 import { FormProvider, useForm } from "react-hook-form";
 import { EventProgramDataConfiguration } from "../../../script/interfaces";
 import { useSaveConfig } from "../hooks/save";
@@ -31,6 +31,7 @@ export function TrackerProgramConfig() {
 		shouldFocusError: false,
 	});
 	const { save, loading } = useSaveConfig();
+	const onInvalidSubmit = useInvalidFormAlert();
 
 	const onFormSubmit = useCallback(
 		async (data: EventProgramDataConfiguration) => {
@@ -160,7 +161,10 @@ export function TrackerProgramConfig() {
 								<Button
 									loading={loading}
 									onClick={() =>
-										form.handleSubmit(onFormSubmit)()
+										form.handleSubmit(
+											onFormSubmit,
+											onInvalidSubmit,
+										)()
 									}
 									primary
 								>

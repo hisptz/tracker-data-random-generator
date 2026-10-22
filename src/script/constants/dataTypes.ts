@@ -87,6 +87,21 @@ const exactOrRangeModeKey: SupportedParam & { key: string } = {
 	},
 };
 
+const numberRangeKeys: Array<SupportedParam & { key: string }> = [
+	{
+		type: "number",
+		label: "Min",
+		key: "min",
+		rangeBound: { bound: "min", pair: "max" },
+	},
+	{
+		type: "number",
+		label: "Max",
+		key: "max",
+		rangeBound: { bound: "max", pair: "min" },
+	},
+];
+
 const rangeOnly = { key: "mode", values: [undefined, null, "", "range"] };
 const exactOnly = { key: "mode", values: ["exact"] };
 
@@ -239,10 +254,7 @@ export const supportedDataTypes: DataType[] = [
 			{
 				type: "object",
 				label: "",
-				keys: [
-					{ type: "number", label: "Min", key: "min" },
-					{ type: "number", label: "Max", key: "max" },
-				],
+				keys: numberRangeKeys,
 			},
 		],
 	},
@@ -259,10 +271,7 @@ export const supportedDataTypes: DataType[] = [
 			{
 				type: "object",
 				label: "",
-				keys: [
-					{ type: "number", label: "Min", key: "min" },
-					{ type: "number", label: "Max", key: "max" },
-				],
+				keys: numberRangeKeys,
 			},
 		],
 	},
@@ -316,11 +325,13 @@ export const supportedDataTypes: DataType[] = [
 						key: "max",
 						type: "number",
 						label: i18n.t("Max"),
+						rangeBound: { bound: "max", pair: "min" },
 					},
 					{
 						key: "min",
 						type: "number",
 						label: i18n.t("Min"),
+						rangeBound: { bound: "min", pair: "max" },
 					},
 					{
 						key: "mode",
@@ -374,10 +385,12 @@ export const supportedDataTypes: DataType[] = [
 			{
 				label: "From",
 				type: "date",
+				rangeBound: { bound: "min", pair: 1 },
 			},
 			{
 				label: "To",
 				type: "date",
+				rangeBound: { bound: "max", pair: 0 },
 			},
 		],
 	},
@@ -405,6 +418,7 @@ export const supportedDataTypes: DataType[] = [
 						type: "datetime-local",
 						label: i18n.t("From"),
 						showWhen: rangeOnly,
+						rangeBound: { bound: "min", pair: "to" },
 						fieldProps: {
 							helpText: i18n.t("Defaults to a year ago"),
 						},
@@ -414,6 +428,7 @@ export const supportedDataTypes: DataType[] = [
 						type: "datetime-local",
 						label: i18n.t("To"),
 						showWhen: rangeOnly,
+						rangeBound: { bound: "max", pair: "from" },
 						fieldProps: {
 							helpText: i18n.t("Defaults to now"),
 						},
@@ -446,6 +461,7 @@ export const supportedDataTypes: DataType[] = [
 						type: "time",
 						label: i18n.t("From"),
 						showWhen: rangeOnly,
+						rangeBound: { bound: "min", pair: "to" },
 						fieldProps: {
 							helpText: i18n.t("Defaults to 00:00"),
 						},
@@ -455,6 +471,7 @@ export const supportedDataTypes: DataType[] = [
 						type: "time",
 						label: i18n.t("To"),
 						showWhen: rangeOnly,
+						rangeBound: { bound: "max", pair: "from" },
 						fieldProps: {
 							helpText: i18n.t("Defaults to 23:59"),
 						},

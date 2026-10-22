@@ -19,6 +19,8 @@ export interface SupportedParam {
 	fieldProps?: Record<string, any>;
 	// For object keys: only show this field when a sibling key has the given value(s)
 	showWhen?: { key: string; values: any[] };
+	// Marks this field as one end of a range. `pair` is the sibling key (for object keys) or the param index (for top-level params) holding the other end
+	rangeBound?: { bound: "min" | "max"; pair: string | number };
 }
 
 export interface DataType {
