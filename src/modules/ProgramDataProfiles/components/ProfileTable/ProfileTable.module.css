@@ -1,0 +1,27 @@
+.nameCell {
+	cursor: pointer;
+}
+
+.name {
+	color: var(--colors-grey900);
+	font-weight: 500;
+	text-decoration: none;
+	word-break: break-word;
+}
+
+.nameCell:hover .name {
+	color: var(--colors-blue700);
+	text-decoration: underline;
+}
+
+.name:focus-visible {
+	outline: 2px solid var(--colors-blue600);
+	outline-offset: 2px;
+}
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--spacers-dp8);
+	white-space: nowrap;
+}
