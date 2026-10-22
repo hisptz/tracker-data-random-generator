@@ -1,59 +1,145 @@
-import { useAlert, useDataMutation } from "@dhis2/app-runtime";
-import { useCallback } from "react";
-import { chunk, snakeCase } from "lodash";
-import { asyncify, mapSeries } from "async-es";
+import { useAlert, useDataEngine } from "@dhis2/app-runtime";
+import { useCallback, useState } from "react";
+import { chunk, get, isEmpty } from "lodash";
 import i18n from "@dhis2/d2-i18n";
-import { Event, TrackedEntityInstance } from "@hisptz/dhis2-utils";
+import { TrackerPayload } from "../../../../../script/interfaces";
 
-export const generateUploadMutation = (
-	type: "events" | "trackedEntityInstances",
-) => {
-	return {
-		type: "create",
-		resource: type,
-		data: ({ data }: any) => data,
-	} as any;
+interface ImportReport {
+	status: "OK" | "WARNING" | "ERROR";
+	stats?: {
+		created: number;
+		updated: number;
+		deleted: number;
+		ignored: number;
+		total: number;
+	};
+	validationReport?: {
+		errorReports?: { message: string; errorCode: string; uid: string }[];
+	};
+}
+
+/*
+ * Uses the tracker importer (POST /api/tracker). The deprecated trackedEntityInstances and events
+ * endpoints were removed in DHIS2 2.41.
+ * The payload is flat ({ trackedEntities, enrollments, events }) with records linked by UID.
+ */
+const uploadMutation = {
+	type: "create" as const,
+	resource: "tracker",
+	params: {
+		async: false,
+		importStrategy: "CREATE",
+		atomicMode: "OBJECT",
+		reportMode: "ERRORS",
+	},
+	data: ({ data }: Record<string, unknown>) =>
+		data as Record<string, unknown>,
 };
 
-export function useUploadData(type: "events" | "trackedEntityInstances") {
-	const [upload, { loading, error }] = useDataMutation(
-		generateUploadMutation(type),
+const CHUNK_SIZE = 50;
+
+/*
+ * Splits the payload into requests of at most CHUNK_SIZE tracked entities (or events for event programs),
+ * keeping each tracked entity in the same request as its enrollments and events.
+ */
+function chunkPayload({
+	trackedEntities,
+	enrollments,
+	events,
+}: TrackerPayload): TrackerPayload[] {
+	const singleEvents = events.filter(({ trackedEntity }) => !trackedEntity);
+	const trackedEntityChunks = chunk(trackedEntities, CHUNK_SIZE).map(
+		(trackedEntitiesChunk) => {
+			const ids = new Set(
+				trackedEntitiesChunk.map(({ trackedEntity }) => trackedEntity),
+			);
+			return {
+				trackedEntities: trackedEntitiesChunk,
+				enrollments: enrollments.filter(({ trackedEntity }) =>
+					ids.has(trackedEntity),
+				),
+				events: events.filter(
+					({ trackedEntity }) =>
+						!!trackedEntity && ids.has(trackedEntity),
+				),
+			};
+		},
 	);
+	const singleEventChunks = chunk(singleEvents, CHUNK_SIZE).map(
+		(eventsChunk) => ({
+			trackedEntities: [],
+			enrollments: [],
+			events: eventsChunk,
+		}),
+	);
+	return [...trackedEntityChunks, ...singleEventChunks];
+}
+
+export function useUploadData() {
+	const engine = useDataEngine();
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<Error | null>(null);
 	const { show } = useAlert(
 		({ message }) => message,
-		({ type }) => ({ ...type, duration: 3000 }),
+		({ type }) => ({ ...type, duration: 5000 }),
 	);
 
 	const uploadData = useCallback(
-		async (data: Array<Event | TrackedEntityInstance>) => {
-			const dataChunks = chunk(data, 50);
+		async (payload: TrackerPayload) => {
+			setLoading(true);
+			setError(null);
+			const totals = { created: 0, ignored: 0 };
+			const errors: string[] = [];
 
-			const responses = await mapSeries(
-				dataChunks,
-				asyncify(async (data: any) => {
-					return await upload({
-						data: {
-							[type]: data,
-						},
-					});
-				}),
-			);
-			//TODO: better handle the responses to have a summary of how much data has been uploaded
+			try {
+				for (const payloadChunk of chunkPayload(payload)) {
+					let report: ImportReport | undefined;
+					try {
+						report = (await engine.mutate(uploadMutation, {
+							variables: { data: payloadChunk },
+						})) as unknown as ImportReport;
+					} catch (e) {
+						// The importer responds with 409 and the import report when there are validation errors
+						report = get(e, "details") as ImportReport | undefined;
+						if (!report?.status) {
+							throw e;
+						}
+					}
+					totals.created += report?.stats?.created ?? 0;
+					totals.ignored += report?.stats?.ignored ?? 0;
+					errors.push(
+						...(report?.validationReport?.errorReports?.map(
+							({ message }) => message,
+						) ?? []),
+					);
+				}
 
-			const count = data.length;
-			const entityName = `${snakeCase(type).replaceAll("_", " ")}`;
-			show({
-				message: i18n.t(
-					"Uploaded {{count}} {{entityName}} successfully",
-					{
-						count,
-						entityName,
-					},
-				),
-				type: { success: true },
-			});
+				if (!isEmpty(errors)) {
+					console.error("Tracker import errors", errors);
+				}
+
+				show({
+					message: isEmpty(errors)
+						? i18n.t(
+								"Upload complete: {{created}} records created",
+								totals,
+							)
+						: i18n.t(
+								"Upload complete: {{created}} records created, {{ignored}} ignored. First error: {{error}}",
+								{ ...totals, error: errors[0] },
+							),
+					type: isEmpty(errors)
+						? { success: true }
+						: { warning: true },
+				});
+			} catch (e) {
+				setError(e as Error);
+				throw e;
+			} finally {
+				setLoading(false);
+			}
 		},
-		[upload],
+		[engine, show],
 	);
 
 	return {

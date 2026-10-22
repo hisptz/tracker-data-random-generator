@@ -43,7 +43,8 @@ export function ParamConfigField({name}: ParamConfigFieldProps) {
 								}
 
 								if (type === "object") {
-										return keys?.map(({type, fieldProps, label, key, options}) => (
+										const objectValue = dataTypeConfig?.options?.params?.[index] ?? {};
+										return keys?.filter(({showWhen}) => !showWhen || showWhen.values.includes(objectValue[showWhen.key])).map(({type, fieldProps, label, key, options}) => (
 												options ? <RHFSingleSelectField
 																options={options?.map(({name, value}) => ({label: name, value})) ?? []} {...fieldProps}
 																type={type} key={`${key}-${label}-field`} label={label}

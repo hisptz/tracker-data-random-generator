@@ -1,1 +1,1 @@
-export * from './DataProfiles'
+export * from "./DataProfiles";
