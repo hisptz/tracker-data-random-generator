@@ -7,6 +7,8 @@ export interface SupportedParam {
 		| "text"
 		| "options"
 		| "date"
+		| "time"
+		| "datetime-local"
 		| "default"
 		| "object"
 		| "boolean"
@@ -15,6 +17,8 @@ export interface SupportedParam {
 	keys?: Array<SupportedParam & { key: string }>;
 	options?: { name: string; value: any }[];
 	fieldProps?: Record<string, any>;
+	// For object keys: only show this field when a sibling key has the given value(s)
+	showWhen?: { key: string; values: any[] };
 }
 
 export interface DataType {
@@ -77,6 +81,60 @@ export interface EventProgramDataConfiguration {
 	};
 }
 
+/*
+ * Payload shapes accepted by the tracker importer (POST /api/tracker).
+ * See dhis-web-api .../webapi/controller/tracker/view/*.java
+ */
+export interface TrackerDataValue {
+	dataElement: string;
+	value: string;
+}
+
+export interface TrackerAttributeValue {
+	attribute: string;
+	value: string;
+}
+
+export interface TrackerEvent {
+	event: string;
+	program: string;
+	programStage: string;
+	orgUnit: string;
+	occurredAt: string;
+	status: "ACTIVE" | "COMPLETED";
+	completedAt?: string;
+	enrollment?: string;
+	trackedEntity?: string;
+	dataValues: TrackerDataValue[];
+}
+
+export interface TrackerEnrollment {
+	enrollment: string;
+	trackedEntity: string;
+	program: string;
+	orgUnit: string;
+	status: "ACTIVE" | "COMPLETED";
+	enrolledAt: string;
+	occurredAt: string;
+}
+
+export interface TrackerTrackedEntity {
+	trackedEntity: string;
+	trackedEntityType: string;
+	orgUnit: string;
+	attributes: TrackerAttributeValue[];
+}
+
+/*
+ * Flat tracker import payload. Enrollments reference their tracked entity and events reference
+ * their enrollment (and tracked entity) by UID instead of being nested.
+ */
+export interface TrackerPayload {
+	trackedEntities: TrackerTrackedEntity[];
+	enrollments: TrackerEnrollment[];
+	events: TrackerEvent[];
+}
+
 export interface DataConfiguration {
 	name: string;
 	id: string;
@@ -92,6 +150,6 @@ export interface DataConfiguration {
 		id: string;
 		count?: number;
 		dataElements: DataItemConfig[];
-		eventTimeBoundary: TimeBoundary;
+		eventTimeBoundary?: TimeBoundary;
 	}[];
 }

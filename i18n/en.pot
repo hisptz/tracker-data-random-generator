@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-08-19T14:05:19.009Z\n"
-"PO-Revision-Date: 2025-08-19T14:05:19.009Z\n"
+"POT-Creation-Date: 2026-10-21T17:41:17.297Z\n"
+"PO-Revision-Date: 2026-10-21T17:41:17.297Z\n"
 
 msgid "Data type"
 msgstr "Data type"
@@ -77,6 +77,22 @@ msgstr "Edit"
 msgid "Generate"
 msgstr "Generate"
 
+msgid "Delete data profile"
+msgstr "Delete data profile"
+
+msgid ""
+"Are you sure you want to delete the data profile {{name}}? This action "
+"cannot be undone."
+msgstr ""
+"Are you sure you want to delete the data profile {{name}}? This action "
+"cannot be undone."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Deleting..."
+msgstr "Deleting..."
+
 msgid ""
 "There are no data profiles for the program {{program}}. Click on Create "
 "data profile to create one."
@@ -90,8 +106,17 @@ msgstr "Create data profile"
 msgid "Add new profile"
 msgstr "Add new profile"
 
+msgid "This field is required"
+msgstr "This field is required"
+
+msgid "This date should not be in the future"
+msgstr "This date should not be in the future"
+
 msgid "Generate data"
 msgstr "Generate data"
+
+msgid "Select at least one organisation unit"
+msgstr "Select at least one organisation unit"
 
 msgid "Organisation units"
 msgstr "Organisation units"
@@ -105,14 +130,23 @@ msgstr "Min"
 msgid "Max"
 msgstr "Max"
 
+msgid "This date should be after {{date}}"
+msgstr "This date should be after {{date}}"
+
 msgid "Event date boundaries"
 msgstr "Event date boundaries"
 
 msgid "Maximum of 100 records"
 msgstr "Maximum of 100 records"
 
-msgid "Number of records"
-msgstr "Number of records"
+msgid "Number of tracked entities"
+msgstr "Number of tracked entities"
+
+msgid "Number of events"
+msgstr "Number of events"
+
+msgid "Minimum of 1 record"
+msgstr "Minimum of 1 record"
 
 msgid "Export JSON"
 msgstr "Export JSON"
@@ -120,17 +154,23 @@ msgstr "Export JSON"
 msgid "Upload data"
 msgstr "Upload data"
 
+msgid "Select at least one of export or upload"
+msgstr "Select at least one of export or upload"
+
 msgid "Uploading..."
 msgstr "Uploading..."
+
+msgid "Generating..."
+msgstr "Generating..."
 
 msgid "Select organisation unit(s)"
 msgstr "Select organisation unit(s)"
 
-msgid "This date should be after {{date}}"
-msgstr "This date should be after {{date}}"
+msgid "Data profile deleted successfully"
+msgstr "Data profile deleted successfully"
 
-msgid "This date should not be in the future"
-msgstr "This date should not be in the future"
+msgid "Could not delete data profile"
+msgstr "Could not delete data profile"
 
 msgid "With registration"
 msgstr "With registration"
@@ -147,8 +187,35 @@ msgstr "Program List"
 msgid "Mode"
 msgstr "Mode"
 
+msgid "Range"
+msgstr "Range"
+
+msgid "Exact"
+msgstr "Exact"
+
+msgid "Defaults to range"
+msgstr "Defaults to range"
+
 msgid "Years"
 msgstr "Years"
 
 msgid "Age"
 msgstr "Age"
+
+msgid "Date time"
+msgstr "Date time"
+
+msgid "Defaults to now"
+msgstr "Defaults to now"
+
+msgid "From"
+msgstr "From"
+
+msgid "Defaults to a year ago"
+msgstr "Defaults to a year ago"
+
+msgid "To"
+msgstr "To"
+
+msgid "Time"
+msgstr "Time"
