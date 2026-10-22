@@ -2,6 +2,7 @@ import { useCallback, useMemo } from "react";
 import { useSavedObject } from "@dhis2/app-service-datastore";
 import { useAlert } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
+import { NO_ESCAPE } from "../utils/i18n";
 import { uid } from "@hisptz/dhis2-utils";
 import { cloneDeep, find } from "lodash";
 import {
@@ -73,7 +74,10 @@ export function useProfiles() {
 			const copy: Profile = {
 				...cloneDeep(profile),
 				id: uid(),
-				name: i18n.t("{{name}} (copy)", { name: profile.name }),
+				name: i18n.t("{{name}} (copy)", {
+					name: profile.name,
+					interpolation: NO_ESCAPE,
+				}),
 			};
 			await replace([...profiles, copy]);
 			show({ message: i18n.t("Profile duplicated") });

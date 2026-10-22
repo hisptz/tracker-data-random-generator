@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button, ButtonStrip, NoticeBox } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { NO_ESCAPE } from "../../shared/utils/i18n";
 import { uid } from "@hisptz/dhis2-utils";
 import { get } from "lodash";
 import { useCurrentProgram } from "../../shared/components/ProgramProvider/ProgramProvider";
@@ -127,6 +128,7 @@ function ProfileForm({ profile }: { profile?: Profile }) {
 										>
 											{i18n.t("Go to {{section}}", {
 												section: firstSectionWithErrors.label,
+												interpolation: NO_ESCAPE,
 											})}
 										</Button>
 									)}
@@ -211,7 +213,10 @@ export function ProfileEditor() {
 				<NoticeBox warning title={i18n.t("This profile doesn't exist")}>
 					{i18n.t("It may have been deleted.")}{" "}
 					<Link to={`/programs/${program.id}`}>
-						{i18n.t("Back to {{program}}", { program: program.displayName })}
+						{i18n.t("Back to {{program}}", {
+							program: program.displayName,
+							interpolation: NO_ESCAPE,
+						})}
 					</Link>
 				</NoticeBox>
 			</Page>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Controller, useFormState, useWatch } from "react-hook-form";
 import { Button, Checkbox, IconChevronDown16, IconChevronUp16 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { NO_ESCAPE } from "../../../shared/utils/i18n";
 import { ProgramStage } from "@hisptz/dhis2-utils";
 import { CustomDateRange } from "./DateRangeField";
 import styles from "./StageRangesField.module.css";
@@ -18,7 +19,10 @@ function StageRange({ stage }: { stage: ProgramStage }) {
 				render={({ field }) => (
 					<Checkbox
 						dense
-						label={i18n.t("Use custom dates for {{stage}}", { stage: label })}
+						label={i18n.t("Use custom dates for {{stage}}", {
+							stage: label,
+							interpolation: NO_ESCAPE,
+						})}
 						checked={!!field.value}
 						onChange={({ checked }) => field.onChange(checked)}
 					/>

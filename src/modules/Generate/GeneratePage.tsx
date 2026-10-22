@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button, ButtonStrip, NoticeBox } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { NO_ESCAPE } from "../../shared/utils/i18n";
 import { RHFTextInputField } from "@hisptz/dhis2-ui";
 import { useCurrentProgram } from "../../shared/components/ProgramProvider/ProgramProvider";
 import { Page } from "../../shared/components/Page/Page";
@@ -183,7 +184,10 @@ export function GeneratePage() {
 				<NoticeBox warning title={i18n.t("This profile doesn't exist")}>
 					{i18n.t("It may have been deleted.")}{" "}
 					<Link to={programPath}>
-						{i18n.t("Back to {{program}}", { program: program.displayName })}
+						{i18n.t("Back to {{program}}", {
+							program: program.displayName,
+							interpolation: NO_ESCAPE,
+						})}
 					</Link>
 				</NoticeBox>
 			</Page>
@@ -194,7 +198,10 @@ export function GeneratePage() {
 		<Page
 			width="narrow"
 			title={i18n.t("Generate data")}
-			description={i18n.t("Using the profile {{name}}", { name: profile.name })}
+			description={i18n.t("Using the profile {{name}}", {
+				name: profile.name,
+				interpolation: NO_ESCAPE,
+			})}
 			breadcrumbs={[
 				{ label: program.displayName, to: programPath },
 				{ label: profile.name, to: `${programPath}/profiles/${profile.id}` },

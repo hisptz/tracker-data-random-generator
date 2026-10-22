@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { CircularLoader, Input, NoticeBox } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { NO_ESCAPE } from "../../utils/i18n";
 import cx from "classnames";
 import { usePrograms } from "../../hooks/programs";
 import styles from "./ProgramSidebar.module.css";
@@ -78,6 +79,7 @@ export function ProgramSidebar({ className, onNavigate }: ProgramSidebarProps) {
 							{keyword
 								? i18n.t("No programs match \"{{keyword}}\"", {
 										keyword,
+										interpolation: NO_ESCAPE,
 									})
 								: i18n.t("No programs available")}
 						</li>

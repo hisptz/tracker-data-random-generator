@@ -7,6 +7,7 @@ import {
 	MenuItem,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { NO_ESCAPE } from "../../../../shared/utils/i18n";
 import { OverflowButton } from "../../../../shared/components/OverflowButton/OverflowButton";
 import { DeleteProfileModal } from "./DeleteProfileModal";
 
@@ -36,7 +37,10 @@ export function ProfileActionsMenu({
 			<OverflowButton
 				open={menuOpen}
 				onToggle={() => setMenuOpen((open) => !open)}
-				label={i18n.t("More actions for {{name}}", { name })}
+				label={i18n.t("More actions for {{name}}", {
+					name,
+					interpolation: NO_ESCAPE,
+				})}
 				menu={
 					<FlyoutMenu dense>
 						<MenuItem

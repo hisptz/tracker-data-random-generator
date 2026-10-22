@@ -9,6 +9,7 @@ import {
 	NoticeBox,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { NO_ESCAPE } from "../../../../shared/utils/i18n";
 import styles from "./DeleteProfileModal.module.css";
 
 export interface DeleteProfileModalProps {
@@ -57,7 +58,7 @@ export function DeleteProfileModal({
 					<p className={styles.text}>
 						{i18n.t(
 							"Delete the profile \"{{name}}\"? Data that was already generated is not affected. This cannot be undone.",
-							{ name },
+							{ name, interpolation: NO_ESCAPE },
 						)}
 					</p>
 					{error && (

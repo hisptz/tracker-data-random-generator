@@ -453,7 +453,7 @@ export const supportedDataTypes: DataType[] = [
 						label: i18n.t("Time"),
 						showWhen: exactOnly,
 						fieldProps: {
-							helpText: i18n.t("Defaults to 00:00"),
+							helpText: i18n.t("Defaults to {{time}}", { time: "00:00" }),
 						},
 					},
 					{
@@ -463,7 +463,7 @@ export const supportedDataTypes: DataType[] = [
 						showWhen: rangeOnly,
 						rangeBound: { bound: "min", pair: "to" },
 						fieldProps: {
-							helpText: i18n.t("Defaults to 00:00"),
+							helpText: i18n.t("Defaults to {{time}}", { time: "00:00" }),
 						},
 					},
 					{
@@ -473,7 +473,7 @@ export const supportedDataTypes: DataType[] = [
 						showWhen: rangeOnly,
 						rangeBound: { bound: "max", pair: "from" },
 						fieldProps: {
-							helpText: i18n.t("Defaults to 23:59"),
+							helpText: i18n.t("Defaults to {{time}}", { time: "23:59" }),
 						},
 					},
 				],

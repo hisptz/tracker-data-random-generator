@@ -5,145 +5,36 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-22T16:19:50.799Z\n"
-"PO-Revision-Date: 2026-10-22T16:19:50.800Z\n"
+"POT-Creation-Date: 2026-10-22T18:48:59.930Z\n"
+"PO-Revision-Date: 2026-10-22T18:48:59.931Z\n"
 
-msgid "Data type"
-msgstr "Data type"
+msgid "Where"
+msgstr "Where"
 
-msgid "Data type is required for this field"
-msgstr "Data type is required for this field"
+msgid "Choose where the records are registered."
+msgstr "Choose where the records are registered."
 
-msgid "Options are required for this field"
-msgstr "Options are required for this field"
-
-msgid "Options"
-msgstr "Options"
-
-msgid "{{label}} must not be greater than {{pairLabel}}"
-msgstr "{{label}} must not be greater than {{pairLabel}}"
-
-msgid "{{label}} must not be less than {{pairLabel}}"
-msgstr "{{label}} must not be less than {{pairLabel}}"
-
-msgid "Data profile for program {{program}}"
-msgstr "Data profile for program {{program}}"
-
-msgid "General"
-msgstr "General"
-
-msgid "Name"
-msgstr "Name"
-
-msgid "Name is required"
-msgstr "Name is required"
-
-msgid "Data Elements"
-msgstr "Data Elements"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Save"
-msgstr "Save"
-
-msgid "Saving..."
-msgstr "Saving..."
-
-msgid "General configuration"
-msgstr "General configuration"
-
-msgid "Number of events to be generated"
-msgstr "Number of events to be generated"
-
-msgid "Data elements"
-msgstr "Data elements"
-
-msgid "Tracked entity attributes"
-msgstr "Tracked entity attributes"
-
-msgid "Program stages"
-msgstr "Program stages"
-
-msgid "Data profile created successfully"
-msgstr "Data profile created successfully"
-
-msgid "Data profile updated successfully"
-msgstr "Data profile updated successfully"
-
-msgid "Back to programs"
-msgstr "Back to programs"
-
-msgid "Actions"
-msgstr "Actions"
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Generate"
-msgstr "Generate"
-
-msgid "Delete"
-msgstr "Delete"
+msgid "When"
+msgstr "When"
 
 msgid ""
-"There are no data profiles for the program {{program}}. Click on Create "
-"data profile to create one."
+"Enrollment dates are picked at random in this range. Events happen after "
+"their enrollment."
 msgstr ""
-"There are no data profiles for the program {{program}}. Click on Create "
-"data profile to create one."
+"Enrollment dates are picked at random in this range. Events happen after "
+"their enrollment."
 
-msgid "Create data profile"
-msgstr "Create data profile"
+msgid "Event dates are picked at random in this range."
+msgstr "Event dates are picked at random in this range."
 
-msgid "Add new profile"
-msgstr "Add new profile"
+msgid "Enrollment dates"
+msgstr "Enrollment dates"
 
-msgid "Delete data profile"
-msgstr "Delete data profile"
+msgid "Event dates"
+msgstr "Event dates"
 
-msgid ""
-"Are you sure you want to delete the data profile {{name}}? This action "
-"cannot be undone."
-msgstr ""
-"Are you sure you want to delete the data profile {{name}}? This action "
-"cannot be undone."
-
-msgid "Deleting..."
-msgstr "Deleting..."
-
-msgid "This field is required"
-msgstr "This field is required"
-
-msgid "This date should not be in the future"
-msgstr "This date should not be in the future"
-
-msgid "Generate data"
-msgstr "Generate data"
-
-msgid "Select at least one organisation unit"
-msgstr "Select at least one organisation unit"
-
-msgid "Organisation units"
-msgstr "Organisation units"
-
-msgid "Enrollment date boundary"
-msgstr "Enrollment date boundary"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "This date should be after {{date}}"
-msgstr "This date should be after {{date}}"
-
-msgid "Event date boundaries"
-msgstr "Event date boundaries"
-
-msgid "Maximum of 100 records"
-msgstr "Maximum of 100 records"
+msgid "How many"
+msgstr "How many"
 
 msgid "Number of tracked entities"
 msgstr "Number of tracked entities"
@@ -151,44 +42,450 @@ msgstr "Number of tracked entities"
 msgid "Number of events"
 msgstr "Number of events"
 
-msgid "Minimum of 1 record"
-msgstr "Minimum of 1 record"
+msgid "From 1 to {{max}}"
+msgstr "From 1 to {{max}}"
 
-msgid "Export JSON"
-msgstr "Export JSON"
+msgid "Output"
+msgstr "Output"
 
-msgid "Upload data"
-msgstr "Upload data"
+msgid "Generate data"
+msgstr "Generate data"
 
-msgid "Select at least one of export or upload"
-msgstr "Select at least one of export or upload"
+msgid "Cancel"
+msgstr "Cancel"
 
-msgid "Uploading..."
-msgstr "Uploading..."
+msgid "Stop generating data?"
+msgstr "Stop generating data?"
 
-msgid "Generating..."
-msgstr "Generating..."
+msgid ""
+"Leaving this page stops the upload after the current batch. Records that "
+"were already uploaded stay in DHIS2."
+msgstr ""
+"Leaving this page stops the upload after the current batch. Records that "
+"were already uploaded stay in DHIS2."
 
-msgid "Select organisation unit(s)"
-msgstr "Select organisation unit(s)"
+msgid "Stop and leave"
+msgstr "Stop and leave"
 
-msgid "Data profile deleted successfully"
-msgstr "Data profile deleted successfully"
+msgid "Some settings need attention"
+msgstr "Some settings need attention"
 
-msgid "Could not delete data profile"
-msgstr "Could not delete data profile"
+msgid "Fix the highlighted fields and try again."
+msgstr "Fix the highlighted fields and try again."
 
-msgid "With registration"
-msgstr "With registration"
+msgid "Profile not found"
+msgstr "Profile not found"
 
-msgid "Yes"
-msgstr "Yes"
+msgid "This profile doesn't exist"
+msgstr "This profile doesn't exist"
 
-msgid "No"
-msgstr "No"
+msgid "It may have been deleted."
+msgstr "It may have been deleted."
 
-msgid "Program List"
-msgstr "Program List"
+msgid "Back to {{program}}"
+msgstr "Back to {{program}}"
+
+msgid "Using the profile {{name}}"
+msgstr "Using the profile {{name}}"
+
+msgid "From {{start}} to {{end}}"
+msgstr "From {{start}} to {{end}}"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
+
+msgid ""
+"This program isn't assigned to any organisation units. Assign it in the "
+"Maintenance app before generating data."
+msgstr ""
+"This program isn't assigned to any organisation units. Assign it in the "
+"Maintenance app before generating data."
+
+msgid "Select at least one organisation unit"
+msgstr "Select at least one organisation unit"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid ""
+"Only units the program is assigned to can be selected. Records are spread "
+"across the selected units at random."
+msgstr ""
+"Only units the program is assigned to can be selected. Records are spread "
+"across the selected units at random."
+
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} of {{total}} selected"
+
+msgid "Select all assigned"
+msgstr "Select all assigned"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "What should happen with the data?"
+msgstr "What should happen with the data?"
+
+msgid "Upload to DHIS2"
+msgstr "Upload to DHIS2"
+
+msgid "Download JSON only"
+msgstr "Download JSON only"
+
+msgid "Advanced options"
+msgstr "Advanced options"
+
+msgid "Skip program rules"
+msgstr "Skip program rules"
+
+msgid ""
+"Uploads faster, but values assigned by program rules aren't set and rule "
+"validations don't run."
+msgstr ""
+"Uploads faster, but values assigned by program rules aren't set and rule "
+"validations don't run."
+
+msgid "Generating records..."
+msgstr "Generating records..."
+
+msgid "Stopping after the current batch..."
+msgstr "Stopping after the current batch..."
+
+msgid "Uploading batch {{current}} of {{total}}"
+msgstr "Uploading batch {{current}} of {{total}}"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid ""
+"Records are uploaded in batches of {{size}}. Stopping keeps the batches "
+"that were already uploaded."
+msgstr ""
+"Records are uploaded in batches of {{size}}. Stopping keeps the batches "
+"that were already uploaded."
+
+msgid "{{completed}} of {{total}} batches were uploaded."
+msgstr "{{completed}} of {{total}} batches were uploaded."
+
+msgid "The upload failed"
+msgstr "The upload failed"
+
+msgid "The data could not be generated"
+msgstr "The data could not be generated"
+
+msgid "Records from those batches stay in DHIS2."
+msgstr "Records from those batches stay in DHIS2."
+
+msgid "The upload was stopped"
+msgstr "The upload was stopped"
+
+msgid "The JSON file is downloading"
+msgstr "The JSON file is downloading"
+
+msgid ""
+"Nothing was uploaded. You can import the file later with the Import/Export "
+"app."
+msgstr ""
+"Nothing was uploaded. You can import the file later with the Import/Export "
+"app."
+
+msgid "The upload finished with errors"
+msgstr "The upload finished with errors"
+
+msgid "Some records were not imported. The errors are listed below."
+msgstr "Some records were not imported. The errors are listed below."
+
+msgid "The upload is complete"
+msgstr "The upload is complete"
+
+msgid "All generated records were imported."
+msgstr "All generated records were imported."
+
+msgid "Objects created in DHIS2"
+msgstr "Objects created in DHIS2"
+
+msgid "Objects ignored"
+msgstr "Objects ignored"
+
+msgid "Tracked entities generated"
+msgstr "Tracked entities generated"
+
+msgid "Enrollments generated"
+msgstr "Enrollments generated"
+
+msgid "Events generated"
+msgstr "Events generated"
+
+msgid "Import errors"
+msgstr "Import errors"
+
+msgid "Showing the first {{shown}} of {{total}} errors."
+msgstr "Showing the first {{shown}} of {{total}} errors."
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Record"
+msgstr "Record"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Generate again"
+msgstr "Generate again"
+
+msgid "Download generated JSON"
+msgstr "Download generated JSON"
+
+msgid "Back to profiles"
+msgstr "Back to profiles"
+
+msgid "Use custom dates for {{stage}}"
+msgstr "Use custom dates for {{stage}}"
+
+msgid "Events are dated between the enrollment date and today."
+msgstr "Events are dated between the enrollment date and today."
+
+msgid "Customise dates per stage"
+msgstr "Customise dates per stage"
+
+msgid "Some stages use custom dates"
+msgstr "Some stages use custom dates"
+
+msgid "Last 30 days"
+msgstr "Last 30 days"
+
+msgid "Last 3 months"
+msgstr "Last 3 months"
+
+msgid "Last 12 months"
+msgstr "Last 12 months"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "The date can't be in the future"
+msgstr "The date can't be in the future"
+
+msgid "Choose a start date"
+msgstr "Choose a start date"
+
+msgid "Choose an end date"
+msgstr "Choose an end date"
+
+msgid "The end date can't be before the start date"
+msgstr "The end date can't be before the start date"
+
+msgid "Enter a whole number from 1 to {{max}}"
+msgstr "Enter a whole number from 1 to {{max}}"
+
+msgid "Select a program to get started"
+msgstr "Select a program to get started"
+
+msgid ""
+"Choose a program from the list to see its profiles. A profile describes how "
+"fake values are generated for each field, so you can create test data in a "
+"few clicks."
+msgstr ""
+"Choose a program from the list to see its profiles. A profile describes how "
+"fake values are generated for each field, so you can create test data in a "
+"few clicks."
+
+msgid "General"
+msgstr "General"
+
+msgid "New profile"
+msgstr "New profile"
+
+msgid "The profile can't be saved yet"
+msgstr "The profile can't be saved yet"
+
+msgid "Some fields need attention. Fix them and save again."
+msgstr "Some fields need attention. Fix them and save again."
+
+msgid "Go to {{section}}"
+msgstr "Go to {{section}}"
+
+msgid "The profile could not be saved"
+msgstr "The profile could not be saved"
+
+msgid "Saving..."
+msgstr "Saving..."
+
+msgid "Save profile"
+msgstr "Save profile"
+
+msgid "Discard unsaved changes?"
+msgstr "Discard unsaved changes?"
+
+msgid ""
+"You have changes to this profile that haven't been saved. If you leave now, "
+"they will be lost."
+msgstr ""
+"You have changes to this profile that haven't been saved. If you leave now, "
+"they will be lost."
+
+msgid "Discard changes"
+msgstr "Discard changes"
+
+msgid "Required"
+msgstr "Required"
+
+msgid "Suggested"
+msgstr "Suggested"
+
+msgid "Option set"
+msgstr "Option set"
+
+msgid "Choose a generator for this required field"
+msgstr "Choose a generator for this required field"
+
+msgid "Generator"
+msgstr "Generator"
+
+msgid "Not generated"
+msgstr "Not generated"
+
+msgid "No generators match"
+msgstr "No generators match"
+
+msgid "Select at least one option"
+msgstr "Select at least one option"
+
+msgid "Options to use"
+msgstr "Options to use"
+
+msgid "Choose options"
+msgstr "Choose options"
+
+msgid "Values are picked at random from the selected options"
+msgstr "Values are picked at random from the selected options"
+
+msgid "{{label}} must not be greater than {{pairLabel}}"
+msgstr "{{label}} must not be greater than {{pairLabel}}"
+
+msgid "{{label}} must not be less than {{pairLabel}}"
+msgstr "{{label}} must not be less than {{pairLabel}}"
+
+msgid "Needs attention ({{total}})"
+msgstr "Needs attention ({{total}})"
+
+msgid "Required missing ({{total}})"
+msgstr "Required missing ({{total}})"
+
+msgid "{{configured}} of {{total}} configured"
+msgstr "{{configured}} of {{total}} configured"
+
+msgid "Profile sections"
+msgstr "Profile sections"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "Enter a whole number from 0 to {{max}}"
+msgstr "Enter a whole number from 0 to {{max}}"
+
+msgid "Give the profile a name that describes the data it creates."
+msgstr "Give the profile a name that describes the data it creates."
+
+msgid "Profile name"
+msgstr "Profile name"
+
+msgid "For example, Malaria cases 2024"
+msgstr "For example, Malaria cases 2024"
+
+msgid "Enter a name for the profile"
+msgstr "Enter a name for the profile"
+
+msgid "Clear all"
+msgstr "Clear all"
+
+msgid ""
+"Choose a generator for each field. Fields without a generator are left "
+"empty."
+msgstr ""
+"Choose a generator for each field. Fields without a generator are left "
+"empty."
+
+msgid "Events per enrollment"
+msgstr "Events per enrollment"
+
+msgid "This stage is repeatable. Leave empty to create 1 event."
+msgstr "This stage is repeatable. Leave empty to create 1 event."
+
+msgid "This section has no fields to configure."
+msgstr "This section has no fields to configure."
+
+msgid "Data elements"
+msgstr "Data elements"
+
+msgid "Tracked entity attributes"
+msgstr "Tracked entity attributes"
+
+msgid "Data elements ({{total}})"
+msgstr "Data elements ({{total}})"
+
+msgid "Stages ({{total}})"
+msgstr "Stages ({{total}})"
+
+msgid "Attributes ({{total}})"
+msgstr "Attributes ({{total}})"
+
+msgid "Tracker program"
+msgstr "Tracker program"
+
+msgid "Event program"
+msgstr "Event program"
+
+msgid "The profile could not be duplicated"
+msgstr "The profile could not be duplicated"
+
+msgid "No profiles yet"
+msgstr "No profiles yet"
+
+msgid ""
+"A profile describes how fake values are generated for each field in this "
+"program. Create one to start generating test data."
+msgstr ""
+"A profile describes how fake values are generated for each field in this "
+"program. Create one to start generating test data."
+
+msgid "Create first profile"
+msgstr "Create first profile"
+
+msgid "Delete profile"
+msgstr "Delete profile"
+
+msgid ""
+"Delete the profile \"{{name}}\"? Data that was already generated is not "
+"affected. This cannot be undone."
+msgstr ""
+"Delete the profile \"{{name}}\"? Data that was already generated is not "
+"affected. This cannot be undone."
+
+msgid "The profile could not be deleted"
+msgstr "The profile could not be deleted"
+
+msgid "More actions for {{name}}"
+msgstr "More actions for {{name}}"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Duplicate"
+msgstr "Duplicate"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Actions"
+msgstr "Actions"
 
 msgid "Mode"
 msgstr "Mode"
@@ -201,6 +498,12 @@ msgstr "Exact"
 
 msgid "Defaults to range"
 msgstr "Defaults to range"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Min"
+msgstr "Min"
 
 msgid "Years"
 msgstr "Years"
@@ -225,3 +528,51 @@ msgstr "To"
 
 msgid "Time"
 msgstr "Time"
+
+msgid "Defaults to {{time}}"
+msgstr "Defaults to {{time}}"
+
+msgid "Stay on page"
+msgstr "Stay on page"
+
+msgid "Programs"
+msgstr "Programs"
+
+msgid "More actions"
+msgstr "More actions"
+
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
+msgid "Could not load the program"
+msgstr "Could not load the program"
+
+msgid "The program may have been deleted, or you may not have access to it."
+msgstr "The program may have been deleted, or you may not have access to it."
+
+msgid "Filter programs"
+msgstr "Filter programs"
+
+msgid "Could not load programs"
+msgstr "Could not load programs"
+
+msgid "No programs match \"{{keyword}}\""
+msgstr "No programs match \"{{keyword}}\""
+
+msgid "No programs available"
+msgstr "No programs available"
+
+msgid "Profile saved"
+msgstr "Profile saved"
+
+msgid "Profile deleted"
+msgstr "Profile deleted"
+
+msgid "{{name}} (copy)"
+msgstr "{{name}} (copy)"
+
+msgid "Profile duplicated"
+msgstr "Profile duplicated"
+
+msgid "..."
+msgstr "..."
