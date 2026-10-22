@@ -1,8 +1,7 @@
 import { find } from "lodash";
 import { useSavedObject } from "@dhis2/app-service-datastore";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { ProgramState } from "../../../state/program";
+import { useCurrentProgram } from "../../../../../shared/components/ProgramProvider/ProgramProvider";
 import { useCallback } from "react";
 import {
 	EventGenerateConfig,
@@ -43,7 +42,7 @@ export function useGenerateData(
 ) {
 	const { id: programId } = useParams();
 	const engine = useDataEngine();
-	const program = useRecoilValue(ProgramState(programId));
+	const program = useCurrentProgram();
 	const organisationUnits = program?.organisationUnits ?? [];
 	const [profiles] = useSavedObject(programId as string);
 	const profile = find(profiles, ["id", profileId]) as

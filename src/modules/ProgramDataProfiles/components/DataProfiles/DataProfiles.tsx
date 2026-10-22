@@ -3,8 +3,7 @@ import { useSavedObject } from "@dhis2/app-service-datastore";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmpty } from "lodash";
 import i18n from "@dhis2/d2-i18n";
-import { useRecoilValue } from "recoil";
-import { ProgramState } from "../../state/program";
+import { useCurrentProgram } from "../../../../shared/components/ProgramProvider/ProgramProvider";
 import { Button, ButtonStrip, colors, IconAdd24 } from "@dhis2/ui";
 import { Column, useTable } from "react-table";
 import { CustomTable } from "../../../../shared/components/CustomTable";
@@ -16,7 +15,7 @@ export function DataProfiles() {
 	const { id: programId } = useParams();
 	const [selectedProfile, setSelectedProfile] = useState<string | null>(null);
 	const navigate = useNavigate();
-	const program = useRecoilValue(ProgramState(programId)) as any;
+	const program = useCurrentProgram();
 	const [dataProfiles] = useSavedObject(programId as string);
 	const [profileToDelete, setProfileToDelete] = useState<string | null>(null);
 
@@ -41,7 +40,7 @@ export function DataProfiles() {
 									event: React.SyntheticEvent,
 								) => {
 									event.stopPropagation();
-									navigate(`config/${id}`);
+									navigate(`profiles/${id}`);
 								}}
 							>
 								{i18n.t("Edit")}
@@ -97,7 +96,7 @@ export function DataProfiles() {
 						},
 					)}
 				</h2>
-				<Button onClick={() => navigate("config")} primary>
+				<Button onClick={() => navigate("profiles/new")} primary>
 					{i18n.t("Create data profile")}
 				</Button>
 			</div>
@@ -123,7 +122,7 @@ export function DataProfiles() {
 				<Button
 					primary
 					icon={<IconAdd24 />}
-					onClick={() => navigate(`config`)}
+					onClick={() => navigate("profiles/new")}
 				>
 					{i18n.t("Add new profile")}
 				</Button>

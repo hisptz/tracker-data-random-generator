@@ -1,13 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { ProgramState } from "../../ProgramDataProfiles/state/program";
+import { useCurrentProgram } from "../../../shared/components/ProgramProvider/ProgramProvider";
 import React, { useMemo } from "react";
 import { DataItemConfigField } from "./DataItemConfigField";
 import { head } from "lodash";
 
 export function DataElementConfig() {
 	const { id: programId } = useParams();
-	const program = useRecoilValue(ProgramState(programId));
+	const program = useCurrentProgram();
 
 	const stage = head(program?.programStages);
 	const dataElements = useMemo(

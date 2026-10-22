@@ -13,8 +13,7 @@ import {
 import i18n from "@dhis2/d2-i18n";
 import { useAlert } from "@dhis2/app-runtime";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { ProgramState } from "../../../state/program";
+import { useCurrentProgram } from "../../../../../shared/components/ProgramProvider/ProgramProvider";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { RHFCheckboxField, RHFTextInputField } from "@hisptz/dhis2-ui";
 import { DateTime } from "luxon";
@@ -67,7 +66,7 @@ export function GenerateDataModal({
 	onClose,
 }: GenerateDataModalProps) {
 	const { id: programId } = useParams();
-	const program = useRecoilValue(ProgramState(programId));
+	const program = useCurrentProgram();
 	const orgUnitOptions = useMemo(() => {
 		return uniqBy(
 			program?.organisationUnits.map(

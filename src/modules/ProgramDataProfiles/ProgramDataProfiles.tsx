@@ -1,25 +1,14 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { ProgramState } from "./state/program";
-import { useNavigate, useParams } from "react-router-dom";
+import { useCurrentProgram } from "../../shared/components/ProgramProvider/ProgramProvider";
 import { DataProfiles } from "./components/DataProfiles";
-import { Button } from "@dhis2/ui";
-import i18n from "@dhis2/d2-i18n";
+import { Page } from "../../shared/components/Page/Page";
 
 export function ProgramDataProfiles() {
-	const { id: programId } = useParams();
-	const program = useRecoilValue(ProgramState(programId));
-	const navigate = useNavigate();
+	const program = useCurrentProgram();
 
 	return (
-		<div className="p-16 h-100 w-100 column gap-32">
-			<div className="row">
-				<Button onClick={() => navigate(-1)}>
-					{i18n.t("Back to programs")}
-				</Button>
-			</div>
-			<h1>{program.displayName}</h1>
+		<Page title={program.displayName}>
 			<DataProfiles />
-		</div>
+		</Page>
 	);
 }

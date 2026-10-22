@@ -1,32 +1,71 @@
-import {createHashRouter, Navigate, Outlet, RouteObject, RouterProvider} from "react-router-dom";
-import {NavItem} from "./interfaces";
-import {MAIN_NAV_ITEMS} from "./constants/nav";
-import React, {Suspense} from "react"
-import {FullPageLoader} from "../../shared/components/FullPageLoader";
+import React from "react";
+import {
+	createHashRouter,
+	Navigate,
+	Outlet,
+	RouterProvider,
+	useParams,
+} from "react-router-dom";
+import { Layout, RouteHandle } from "../../shared/components/Layout/Layout";
+import { ProgramProvider } from "../../shared/components/ProgramProvider/ProgramProvider";
+import { Home } from "../Home/Home";
+import { ProgramDataProfiles } from "../ProgramDataProfiles";
+import { DataProfileConfig } from "../DataProfileConfig";
 
-function createRouter(config: NavItem): RouteObject {
-    const {path, element, subItems} = config ?? {}
-    return {
-        path,
-        Component: element,
-        element: !element ? <Suspense fallback={<FullPageLoader/>}><Outlet/></Suspense> : undefined,
-        children: subItems?.map(createRouter),
-    }
+const fullPage: RouteHandle = { fullPage: true };
+
+function ProgramRoute() {
+	const { id } = useParams();
+	// Keyed by program so that switching programs starts every page (and its datastore subscription) fresh
+	return (
+		<ProgramProvider key={id} programId={id as string}>
+			<Outlet />
+		</ProgramProvider>
+	);
 }
 
-const router = createHashRouter(
-    [
-        {
-            path: "/",
-            element: <Navigate to={"/programs"}/>
-        },
-        ...MAIN_NAV_ITEMS.map(createRouter)
-    ]
-)
+// Links saved before the redesign used /programs/:id/config/:configId
+function LegacyProfileRedirect() {
+	const { configId } = useParams();
+	return <Navigate to={`../profiles/${configId}`} replace />;
+}
+
+const router = createHashRouter([
+	{
+		element: <Layout />,
+		children: [
+			{ index: true, element: <Home /> },
+			{ path: "programs", element: <Navigate to="/" replace /> },
+			{
+				path: "programs/:id",
+				element: <ProgramRoute />,
+				children: [
+					{ index: true, element: <ProgramDataProfiles /> },
+					{
+						path: "profiles/new",
+						element: <DataProfileConfig />,
+						handle: fullPage,
+					},
+					{
+						path: "profiles/:profileId",
+						element: <DataProfileConfig />,
+						handle: fullPage,
+					},
+					{
+						path: "config",
+						element: <Navigate to="../profiles/new" replace />,
+					},
+					{
+						path: "config/:configId",
+						element: <LegacyProfileRedirect />,
+					},
+				],
+			},
+			{ path: "*", element: <Navigate to="/" replace /> },
+		],
+	},
+]);
 
 export function MainRouter() {
-
-    return (
-        <RouterProvider router={router}/>
-    )
+	return <RouterProvider router={router} />;
 }

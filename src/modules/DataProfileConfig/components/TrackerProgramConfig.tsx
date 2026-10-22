@@ -18,13 +18,12 @@ import Collapsible from "react-collapsible";
 import { TeiAttributesConfig } from "./TeiAttributesConfig";
 import { ProgramStageConfig } from "./ProgramStageConfig";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { ProgramState } from "../../ProgramDataProfiles/state/program";
+import { useCurrentProgram } from "../../../shared/components/ProgramProvider/ProgramProvider";
 
 export function TrackerProgramConfig() {
 	const { id: programId } = useParams();
 	const navigate = useNavigate();
-	const program = useRecoilValue(ProgramState(programId));
+	const program = useCurrentProgram();
 	const defaultValues = useDefaultValue();
 	const form = useForm<EventProgramDataConfiguration>({
 		defaultValues,
@@ -40,7 +39,7 @@ export function TrackerProgramConfig() {
 				id: defaultValues?.id ?? uid(),
 			};
 			await save(updatedData);
-			navigate(-1);
+			navigate(`/programs/${program.id}`);
 		},
 		[save],
 	);
@@ -155,7 +154,7 @@ export function TrackerProgramConfig() {
 						</Card>
 						<div style={{ paddingBottom: 64 }} className="">
 							<ButtonStrip>
-								<Button onClick={() => navigate(-1)}>
+								<Button onClick={() => navigate(`/programs/${program.id}`)}>
 									{i18n.t("Cancel")}
 								</Button>
 								<Button

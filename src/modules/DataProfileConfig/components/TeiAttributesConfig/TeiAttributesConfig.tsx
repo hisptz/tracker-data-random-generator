@@ -1,12 +1,11 @@
 import React, { useMemo } from "react";
-import { useRecoilValue } from "recoil";
-import { ProgramState } from "../../../ProgramDataProfiles/state/program";
+import { useCurrentProgram } from "../../../../shared/components/ProgramProvider/ProgramProvider";
 import { useParams } from "react-router-dom";
 import { DataItemConfigField } from "../DataItemConfigField";
 
 export function TeiAttributesConfig() {
 	const { id: programId } = useParams();
-	const program = useRecoilValue(ProgramState(programId));
+	const program = useCurrentProgram();
 	const trackedEntityAttributes = useMemo(
 		() =>
 			program?.programTrackedEntityAttributes?.map(

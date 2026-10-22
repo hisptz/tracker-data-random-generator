@@ -1,5 +1,4 @@
 import {Table, TableBody, TableCell, TableCellHead, TableHead, TableRow, TableRowHead} from "@dhis2/ui";
-import styles from "../../modules/Programs/components/ProgramTable.module.css";
 import React from "react";
 import {TableInstance} from "react-table";
 
@@ -37,7 +36,6 @@ export function CustomTable({instance, onRowClick}: CustomTableProps) {
                     prepareRow(row)
                     return (
                         <TableRow
-                            className={styles['pointer']}
                             onClick={() => onRowClick ? onRowClick(row.id) : undefined}
                             {...row.getRowProps()}>
                             {row.cells.map(cell => {

@@ -8,9 +8,9 @@ import i18n from '@dhis2/d2-i18n';
 
 
 export function useDefaultValue() {
-    const {configId, id: programId} = useParams();
+    const {profileId, id: programId} = useParams();
     const [configs] = useSavedObject(programId as string);
-    return useMemo(() => find(configs ?? [], ['id', configId]) as unknown as DataConfigurationForm, [configs, configId]);
+    return useMemo(() => find(configs ?? [], ["id", profileId]) as unknown as DataConfigurationForm, [configs, profileId]);
 
 }
 

@@ -1,21 +1,13 @@
 import React from "react";
 import { MainRouter } from "./modules/Router/Router";
-import "./styles/main.css";
 import "./styles/common.css";
 import { DataStoreProvider } from "@dhis2/app-service-datastore";
-import { FullPageLoader } from "./shared/components/FullPageLoader";
-import { MutableSnapshot, RecoilRoot } from "recoil";
-import { useDataEngine } from "@dhis2/app-runtime";
-import { DataEngineState } from "./shared/state/engine";
+import { CssVariables } from "@dhis2/ui";
+import { FullPageLoader } from "./shared/components/FullPageLoader/FullPageLoader";
 import { Helmet } from "react-helmet";
+import styles from "./App.module.css";
 
 const MyApp = () => {
-	const engine = useDataEngine();
-
-	function initEngine({ set }: MutableSnapshot) {
-		set(DataEngineState, engine);
-	}
-
 	return (
 		<>
 			<Helmet>
@@ -38,14 +30,13 @@ const MyApp = () => {
 				/>
 				<link rel="manifest" href="/site.webmanifest" />
 			</Helmet>
-			<div className="main-container">
+			<CssVariables colors spacers elevations theme />
+			<div className={styles.app}>
 				<DataStoreProvider
 					namespace={"hisptz-tracker-data-generator"}
 					loadingComponent={<FullPageLoader />}
 				>
-					<RecoilRoot initializeState={initEngine}>
-						<MainRouter />
-					</RecoilRoot>
+					<MainRouter />
 				</DataStoreProvider>
 			</div>
 		</>

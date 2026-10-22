@@ -1,0 +1,4 @@
+.error {
+	padding: var(--spacers-dp24) var(--spacers-dp16);
+	max-inline-size: 720px;
+}
