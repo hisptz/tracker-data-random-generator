@@ -11,6 +11,7 @@ import { ProgramProvider } from "../../shared/components/ProgramProvider/Program
 import { Home } from "../Home/Home";
 import { ProgramDataProfiles } from "../ProgramDataProfiles";
 import { ProfileEditor } from "../ProfileEditor/ProfileEditor";
+import { GeneratePage } from "../Generate/GeneratePage";
 
 const fullPage: RouteHandle = { fullPage: true };
 
@@ -49,6 +50,11 @@ const router = createHashRouter([
 					{
 						path: "profiles/:profileId",
 						element: <ProfileEditor />,
+						handle: fullPage,
+					},
+					{
+						path: "profiles/:profileId/generate",
+						element: <GeneratePage />,
 						handle: fullPage,
 					},
 					{

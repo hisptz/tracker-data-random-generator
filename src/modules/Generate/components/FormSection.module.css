@@ -1,0 +1,34 @@
+.section {
+	background: var(--colors-white);
+	border: 1px solid var(--colors-grey300);
+	border-radius: 3px;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacers-dp4);
+	padding: var(--spacers-dp16) var(--spacers-dp16) 0;
+}
+
+.title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 20px;
+	color: var(--colors-grey900);
+}
+
+.description {
+	margin: 0;
+	font-size: 14px;
+	line-height: 20px;
+	color: var(--colors-grey700);
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacers-dp16);
+	padding: var(--spacers-dp16);
+}

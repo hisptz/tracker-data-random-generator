@@ -2,7 +2,7 @@ import { useAlert, useDataEngine } from "@dhis2/app-runtime";
 import { useCallback, useState } from "react";
 import { chunk, get, isEmpty } from "lodash";
 import i18n from "@dhis2/d2-i18n";
-import { TrackerPayload } from "../../../../../script/interfaces";
+import { TrackerPayload } from "../../../script/interfaces";
 
 interface ImportReport {
 	status: "OK" | "WARNING" | "ERROR";
@@ -130,7 +130,11 @@ export function useUploadData() {
 							)
 						: i18n.t(
 								"Upload complete: {{created}} records created, {{ignored}} ignored. First error: {{error}}",
-								{ ...totals, error: errors[0] },
+								{
+								created: totals.created,
+								ignored: totals.ignored,
+								error: errors[0],
+							},
 							),
 					type: isEmpty(errors)
 						? { success: true }

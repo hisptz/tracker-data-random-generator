@@ -8,22 +8,21 @@ import { EmptyState } from "../../shared/components/EmptyState/EmptyState";
 import { useProfiles } from "../../shared/hooks/profiles";
 import { ProgramMetadata } from "../../shared/interfaces/program";
 import { ProfileTable } from "./components/ProfileTable/ProfileTable";
-import { GenerateDataModal } from "./components/DataProfiles/components/GenerateDataModal";
 
 /*
- * Label style ("Stages: 3") avoids plural forms, which the installed i18next version can't default.
+ * Label style ("Stages (3)") avoids plural forms, which the installed i18next version can't default.
  * Values are computed before i18n.t because the string extractor can't parse optional chaining.
  */
 function getProgramSummary(program: ProgramMetadata): string {
 	if (!program.registration) {
 		const dataElements =
 			program.programStages?.[0]?.programStageDataElements?.length ?? 0;
-		return i18n.t("Data elements: {{total}}", { total: dataElements });
+		return i18n.t("Data elements ({{total}})", { total: dataElements });
 	}
 	const stageCount = program.programStages?.length ?? 0;
 	const attributeCount = program.programTrackedEntityAttributes?.length ?? 0;
-	const stages = i18n.t("Stages: {{total}}", { total: stageCount });
-	const attributes = i18n.t("Attributes: {{total}}", {
+	const stages = i18n.t("Stages ({{total}})", { total: stageCount });
+	const attributes = i18n.t("Attributes ({{total}})", {
 		total: attributeCount,
 	});
 	return `${stages} · ${attributes}`;
@@ -34,9 +33,6 @@ export function ProgramDataProfiles() {
 	const navigate = useNavigate();
 	const { profiles, deleteProfile, duplicateProfile } = useProfiles();
 	const [actionError, setActionError] = useState<string | null>(null);
-	const [profileToGenerate, setProfileToGenerate] = useState<string | null>(
-		null,
-	);
 	const hasProfiles = profiles.length > 0;
 
 	const onDuplicate = async (profileId: string) => {
@@ -44,11 +40,7 @@ export function ProgramDataProfiles() {
 		try {
 			await duplicateProfile(profileId);
 		} catch (e) {
-			setActionError(
-				i18n.t("The profile could not be duplicated: {{message}}", {
-					message: e instanceof Error ? e.message : String(e),
-				}),
-			);
+			setActionError(e instanceof Error ? e.message : String(e));
 		}
 	};
 
@@ -77,11 +69,15 @@ export function ProgramDataProfiles() {
 				)
 			}
 		>
-			{actionError && <NoticeBox error>{actionError}</NoticeBox>}
+			{actionError && (
+				<NoticeBox error title={i18n.t("The profile could not be duplicated")}>
+					{actionError}
+				</NoticeBox>
+			)}
 			{hasProfiles ? (
 				<ProfileTable
 					profiles={profiles}
-					onGenerate={setProfileToGenerate}
+					onGenerate={(id) => navigate(`profiles/${id}/generate`)}
 					onEdit={(id) => navigate(`profiles/${id}`)}
 					onDuplicate={onDuplicate}
 					onDelete={deleteProfile}
@@ -99,10 +95,6 @@ export function ProgramDataProfiles() {
 					}
 				/>
 			)}
-			<GenerateDataModal
-				profileId={profileToGenerate}
-				onClose={() => setProfileToGenerate(null)}
-			/>
 		</Page>
 	);
 }

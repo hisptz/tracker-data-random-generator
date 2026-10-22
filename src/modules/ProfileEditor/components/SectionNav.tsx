@@ -20,10 +20,10 @@ export interface SectionNavProps {
 
 function getStatusText(status: SectionStatus, submitted: boolean): string {
 	if (status.errors > 0) {
-		return i18n.t("Needs attention: {{total}}", { total: status.errors });
+		return i18n.t("Needs attention ({{total}})", { total: status.errors });
 	}
 	if (submitted && status.requiredMissing > 0) {
-		return i18n.t("Required missing: {{total}}", {
+		return i18n.t("Required missing ({{total}})", {
 			total: status.requiredMissing,
 		});
 	}

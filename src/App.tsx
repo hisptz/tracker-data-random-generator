@@ -1,6 +1,5 @@
 import React from "react";
 import { MainRouter } from "./modules/Router/Router";
-import "./styles/common.css";
 import { DataStoreProvider } from "@dhis2/app-service-datastore";
 import { CssVariables } from "@dhis2/ui";
 import { FullPageLoader } from "./shared/components/FullPageLoader/FullPageLoader";

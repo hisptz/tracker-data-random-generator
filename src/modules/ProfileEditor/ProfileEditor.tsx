@@ -116,8 +116,7 @@ function ProfileForm({ profile }: { profile?: Profile }) {
 							<div className={styles.notice}>
 								<span>
 									{i18n.t(
-										"Fields that need attention: {{total}}. Fix them and save again.",
-										{ total: errorCount },
+										"Some fields need attention. Fix them and save again.",
 									)}
 								</span>
 								{firstSectionWithErrors &&

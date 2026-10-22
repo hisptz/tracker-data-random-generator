@@ -61,7 +61,7 @@ export function GeneralPanel() {
 						name="name"
 						type="text"
 						label={i18n.t("Profile name")}
-						placeholder={i18n.t("For example: Malaria cases, 2024")}
+						placeholder={i18n.t("For example, Malaria cases 2024")}
 						validations={{
 							validate: (value?: string) =>
 								!!value?.trim() || i18n.t("Enter a name for the profile"),

@@ -1,0 +1,40 @@
+.toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacers-dp8);
+	margin-block: var(--spacers-dp4) var(--spacers-dp8);
+}
+
+.count {
+	font-size: 14px;
+	color: var(--colors-grey700);
+}
+
+.actions {
+	display: flex;
+	gap: var(--spacers-dp8);
+}
+
+.tree {
+	max-block-size: 360px;
+	overflow: auto;
+	padding: var(--spacers-dp8);
+	border: 1px solid var(--colors-grey400);
+	border-radius: 3px;
+	background: var(--colors-white);
+}
+
+.treeError {
+	border-color: var(--colors-red600);
+}
+
+.unassigned {
+	color: var(--colors-grey600);
+}
+
+.empty {
+	margin: 0;
+	color: var(--colors-grey700);
+}
