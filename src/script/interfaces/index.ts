@@ -61,6 +61,8 @@ export interface DataConfigurationForm {
 	attributes?: DataItemConfig[];
 	programStages?: {
 		id: string;
+		// Events per enrollment for repeatable stages, as typed into the editor
+		count?: number | string;
 		dataElements: DataItemConfig[];
 	}[];
 }
@@ -150,7 +152,7 @@ export interface DataConfiguration {
 	attributes?: DataItemConfig[];
 	programStages?: {
 		id: string;
-		count?: number;
+		count?: number | string;
 		dataElements: DataItemConfig[];
 		eventTimeBoundary?: TimeBoundary;
 	}[];

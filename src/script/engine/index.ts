@@ -324,7 +324,7 @@ export class TrackerRandomDataEngine {
 		});
 	}
 
-	getNumberOfEvents(programStageId: string, count?: number): number {
+	getNumberOfEvents(programStageId: string, count?: number | string): number {
 		const programStage = find(this.program.programStages, [
 			"id",
 			programStageId,

@@ -1,7 +1,10 @@
 import React, { ReactNode } from "react";
+import { useFormContext } from "react-hook-form";
+import { Button } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { RHFTextInputField } from "@hisptz/dhis2-ui";
 import { ProfileSection } from "../utils/sections";
+import { getSupportedGenerators } from "../utils/generators";
 import { FieldRow } from "./FieldRow";
 import styles from "./SectionPanel.module.css";
 
@@ -70,12 +73,33 @@ export function GeneralPanel() {
 	);
 }
 
+function ClearAllButton({ section }: { section: ProfileSection }) {
+	const { setValue } = useFormContext();
+
+	// Fields with a single possible generator keep it, since nothing else could be chosen
+	const onClear = () => {
+		for (const { dataItem, path } of section.fields) {
+			if (getSupportedGenerators(dataItem).length !== 1) {
+				setValue(`${path}.dataTypeName`, "", { shouldDirty: true });
+			}
+			setValue(`${path}.options`, undefined, { shouldDirty: true });
+		}
+	};
+
+	return (
+		<Button small secondary onClick={onClear}>
+			{i18n.t("Clear all")}
+		</Button>
+	);
+}
+
 export function FieldsPanel({
 	section,
-	actions,
+	showSuggestions,
 }: {
 	section: ProfileSection;
-	actions?: ReactNode;
+	// Marks generators that were suggested for a new profile and not changed yet
+	showSuggestions?: boolean;
 }) {
 	return (
 		<section className={styles.panel}>
@@ -84,7 +108,9 @@ export function FieldsPanel({
 				description={i18n.t(
 					"Choose a generator for each field. Fields without a generator are left empty.",
 				)}
-				actions={actions}
+				actions={
+					section.fields.length > 0 && <ClearAllButton section={section} />
+				}
 			/>
 			{section.stage?.repeatable && (
 				<div className={styles.stageSettings}>
@@ -110,7 +136,11 @@ export function FieldsPanel({
 					</p>
 				) : (
 					section.fields.map((field) => (
-						<FieldRow key={field.path} field={field} />
+						<FieldRow
+							key={field.path}
+							field={field}
+							showSuggestion={showSuggestions}
+						/>
 					))
 				)}
 			</div>

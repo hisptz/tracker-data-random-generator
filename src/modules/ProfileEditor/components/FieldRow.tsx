@@ -1,5 +1,10 @@
 import React, { useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import {
+	Controller,
+	useFormContext,
+	useFormState,
+	useWatch,
+} from "react-hook-form";
 import {
 	MultiSelectField,
 	MultiSelectOption,
@@ -8,7 +13,7 @@ import {
 	Tag,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { isEmpty } from "lodash";
+import { get, isEmpty } from "lodash";
 import { ConfigurableField } from "../utils/sections";
 import { getGeneratorOptions } from "../utils/generators";
 import { ParamFields } from "./ParamFields";
@@ -24,11 +29,14 @@ function formatValueType(valueType?: string): string {
 
 export interface FieldRowProps {
 	field: ConfigurableField;
+	// Shows a "Suggested" tag while the suggested generator hasn't been changed
+	showSuggestion?: boolean;
 }
 
-export function FieldRow({ field }: FieldRowProps) {
+export function FieldRow({ field, showSuggestion }: FieldRowProps) {
 	const { dataItem, label, required, path } = field;
 	const { setValue, getValues } = useFormContext();
+	const { dirtyFields } = useFormState({ name: `${path}.dataTypeName` });
 	const generatorOptions = useMemo(
 		() => getGeneratorOptions(dataItem),
 		[dataItem],
@@ -41,6 +49,13 @@ export function FieldRow({ field }: FieldRowProps) {
 			})) ?? [],
 		[dataItem],
 	);
+	const generator = useWatch({ name: `${path}.dataTypeName` });
+	// A field with one possible generator was not really suggested, so it is never tagged
+	const isSuggested =
+		!!showSuggestion &&
+		!!generator &&
+		generatorOptions.length > 1 &&
+		!get(dirtyFields, `${path}.dataTypeName`);
 
 	return (
 		<div className={styles.row}>
@@ -48,6 +63,7 @@ export function FieldRow({ field }: FieldRowProps) {
 				<span className={styles.label}>{label}</span>
 				<div className={styles.meta}>
 					{required && <Tag neutral>{i18n.t("Required")}</Tag>}
+					{isSuggested && <Tag>{i18n.t("Suggested")}</Tag>}
 					<span className={styles.valueType}>
 						{dataItem.optionSet
 							? i18n.t("Option set")

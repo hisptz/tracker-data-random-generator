@@ -17,6 +17,7 @@ import {
 	ProfileFormValues,
 } from "./utils/sections";
 import { countErrors } from "./utils/status";
+import { getSuggestedConfig } from "./utils/suggestions";
 import { SectionNav } from "./components/SectionNav";
 import { FieldsPanel, GeneralPanel } from "./components/SectionPanel";
 import styles from "./ProfileEditor.module.css";
@@ -27,9 +28,14 @@ function ProfileForm({ profile }: { profile?: Profile }) {
 	const { saveProfile } = useProfiles();
 	const programPath = `/programs/${program.id}`;
 	const sections = useMemo(() => getProfileSections(program), [program]);
-	// Computed once, so saving or other datastore updates never reset the form
+	// Computed once, so saving or other datastore updates never reset the form.
+	// Only new profiles get suggested generators; saved profiles load exactly as saved.
 	const [defaultValues] = useState(() =>
-		getProfileFormValues(program, profile),
+		getProfileFormValues(
+			program,
+			profile,
+			profile ? undefined : getSuggestedConfig,
+		),
 	);
 	const form = useForm<ProfileFormValues>({
 		defaultValues,
@@ -146,7 +152,7 @@ function ProfileForm({ profile }: { profile?: Profile }) {
 							</div>
 							{sections.map((section) => (
 								<div key={section.key} hidden={activeKey !== section.key}>
-									<FieldsPanel section={section} />
+									<FieldsPanel section={section} showSuggestions={!profile} />
 								</div>
 							))}
 						</div>
