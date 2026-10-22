@@ -1,0 +1,101 @@
+.nav {
+	position: sticky;
+	inset-block-start: var(--spacers-dp16);
+	align-self: start;
+	background: var(--colors-white);
+	border: 1px solid var(--colors-grey300);
+	border-radius: 3px;
+}
+
+.list {
+	margin: 0;
+	padding: var(--spacers-dp4) 0;
+	list-style: none;
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	inline-size: 100%;
+	padding: var(--spacers-dp8) var(--spacers-dp12);
+	background: none;
+	border: none;
+	text-align: start;
+	font: inherit;
+	color: var(--colors-grey900);
+	cursor: pointer;
+}
+
+.item:hover {
+	background: var(--colors-grey100);
+}
+
+.item:focus-visible {
+	outline: 2px solid var(--colors-blue600);
+	outline-offset: -2px;
+}
+
+.active {
+	background: var(--colors-blue050);
+	box-shadow: inset 4px 0 0 0 var(--colors-blue600);
+}
+
+.active:hover {
+	background: var(--colors-blue050);
+}
+
+.itemLabel {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacers-dp8);
+}
+
+.itemName {
+	font-size: 14px;
+	line-height: 18px;
+	word-break: break-word;
+}
+
+.active .itemName {
+	font-weight: 500;
+}
+
+.itemStatus {
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--colors-grey700);
+}
+
+.itemStatusError {
+	color: var(--colors-red700);
+}
+
+.completeIcon,
+.errorIcon {
+	display: flex;
+	flex-shrink: 0;
+}
+
+.completeIcon {
+	color: var(--colors-green600);
+}
+
+.errorIcon {
+	color: var(--colors-red600);
+}
+
+.select {
+	display: none;
+}
+
+@media (max-width: 768px) {
+	.nav {
+		display: none;
+	}
+
+	.select {
+		display: block;
+	}
+}

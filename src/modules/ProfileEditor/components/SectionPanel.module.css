@@ -1,0 +1,65 @@
+.panel {
+	display: flex;
+	flex-direction: column;
+	background: var(--colors-white);
+	border: 1px solid var(--colors-grey300);
+	border-radius: 3px;
+	min-inline-size: 0;
+}
+
+.header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--spacers-dp12);
+	padding: var(--spacers-dp16);
+	border-block-end: 1px solid var(--colors-grey300);
+}
+
+.heading {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacers-dp4);
+	min-inline-size: 0;
+}
+
+.title {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 24px;
+	color: var(--colors-grey900);
+}
+
+.description {
+	margin: 0;
+	font-size: 14px;
+	line-height: 20px;
+	color: var(--colors-grey700);
+}
+
+.actions {
+	display: flex;
+	gap: var(--spacers-dp8);
+}
+
+.body {
+	padding: var(--spacers-dp16);
+}
+
+.nameField {
+	max-inline-size: 480px;
+}
+
+.stageSettings {
+	padding: var(--spacers-dp16);
+	max-inline-size: 280px;
+	border-block-end: 1px solid var(--colors-grey300);
+}
+
+.empty {
+	margin: 0;
+	padding: var(--spacers-dp16);
+	color: var(--colors-grey700);
+}

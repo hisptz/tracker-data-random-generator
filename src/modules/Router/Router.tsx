@@ -10,7 +10,7 @@ import { Layout, RouteHandle } from "../../shared/components/Layout/Layout";
 import { ProgramProvider } from "../../shared/components/ProgramProvider/ProgramProvider";
 import { Home } from "../Home/Home";
 import { ProgramDataProfiles } from "../ProgramDataProfiles";
-import { DataProfileConfig } from "../DataProfileConfig";
+import { ProfileEditor } from "../ProfileEditor/ProfileEditor";
 
 const fullPage: RouteHandle = { fullPage: true };
 
@@ -43,12 +43,12 @@ const router = createHashRouter([
 					{ index: true, element: <ProgramDataProfiles /> },
 					{
 						path: "profiles/new",
-						element: <DataProfileConfig />,
+						element: <ProfileEditor />,
 						handle: fullPage,
 					},
 					{
 						path: "profiles/:profileId",
-						element: <DataProfileConfig />,
+						element: <ProfileEditor />,
 						handle: fullPage,
 					},
 					{
