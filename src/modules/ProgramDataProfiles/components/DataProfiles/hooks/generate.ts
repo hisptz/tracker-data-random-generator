@@ -142,7 +142,9 @@ export function useGenerateData(
 					await exportData(data);
 				}
 				if (config.shouldUploadData) {
-					await uploadData(data);
+					await uploadData(data, {
+						skipRuleEngine: config.skipRuleEngine,
+					});
 				}
 				onComplete();
 			} catch (e) {

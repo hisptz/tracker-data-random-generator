@@ -26,12 +26,13 @@ interface ImportReport {
 const uploadMutation = {
 	type: "create" as const,
 	resource: "tracker",
-	params: {
+	params: ({ skipRuleEngine }: Record<string, unknown>) => ({
 		async: false,
 		importStrategy: "CREATE",
 		atomicMode: "OBJECT",
 		reportMode: "ERRORS",
-	},
+		skipRuleEngine: !!skipRuleEngine,
+	}),
 	data: ({ data }: Record<string, unknown>) =>
 		data as Record<string, unknown>,
 };
@@ -85,7 +86,10 @@ export function useUploadData() {
 	);
 
 	const uploadData = useCallback(
-		async (payload: TrackerPayload) => {
+		async (
+			payload: TrackerPayload,
+			{ skipRuleEngine = false }: { skipRuleEngine?: boolean } = {},
+		) => {
 			setLoading(true);
 			setError(null);
 			const totals = { created: 0, ignored: 0 };
@@ -96,7 +100,7 @@ export function useUploadData() {
 					let report: ImportReport | undefined;
 					try {
 						report = (await engine.mutate(uploadMutation, {
-							variables: { data: payloadChunk },
+							variables: { data: payloadChunk, skipRuleEngine },
 						})) as unknown as ImportReport;
 					} catch (e) {
 						// The importer responds with 409 and the import report when there are validation errors

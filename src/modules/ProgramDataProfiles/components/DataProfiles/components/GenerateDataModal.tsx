@@ -11,6 +11,7 @@ import {
 	MultiSelectOption,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { useAlert } from "@dhis2/app-runtime";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { ProgramState } from "../../../state/program";
@@ -38,6 +39,7 @@ export interface GenerateConfig {
 	count: number;
 	shouldUploadData?: boolean;
 	shouldExportData?: boolean;
+	skipRuleEngine?: boolean;
 }
 
 export interface EventGenerateConfig {
@@ -46,6 +48,7 @@ export interface EventGenerateConfig {
 	eventTimeBoundary: { min: string; max: string };
 	shouldUploadData?: boolean;
 	shouldExportData?: boolean;
+	skipRuleEngine?: boolean;
 }
 
 const defaultValues = {
@@ -53,6 +56,7 @@ const defaultValues = {
 	count: 10,
 	shouldExportData: false,
 	shouldUploadData: true,
+	skipRuleEngine: false,
 };
 
 const requiredMessage = i18n.t("This field is required");
@@ -85,10 +89,12 @@ export function GenerateDataModal({
 	}, [program]);
 	const form = useForm<GenerateConfig | EventGenerateConfig>({
 		defaultValues,
+		shouldFocusError: false,
 	});
 	const today = DateTime.now().toFormat("yyyy-MM-dd");
 	const enrollmentMin = form.watch("enrollmentTimeBoundary.min" as never);
 	const eventMin = form.watch("eventTimeBoundary.min" as never);
+	const shouldUploadData = form.watch("shouldUploadData");
 
 	const onCloseModal = useCallback(() => {
 		form.reset(defaultValues);
@@ -96,6 +102,12 @@ export function GenerateDataModal({
 	}, [form, onClose]);
 
 	const { generate, uploading } = useGenerateData(profileId, onCloseModal);
+	const { show: showFormError } = useAlert(
+		i18n.t(
+			"Data can't be generated. There is an error on the form, please check and try again",
+		),
+		{ critical: true },
+	);
 
 	return (
 		<Modal position="middle" onClose={onCloseModal} hide={!profileId}>
@@ -316,6 +328,12 @@ export function GenerateDataModal({
 									),
 							}}
 						/>
+						{shouldUploadData && (
+							<RHFCheckboxField
+								label={i18n.t("Skip program rules")}
+								name={"skipRuleEngine"}
+							/>
+						)}
 					</div>
 				</FormProvider>
 			</ModalContent>
@@ -325,7 +343,9 @@ export function GenerateDataModal({
 					<Button
 						loading={uploading || form.formState.isSubmitting}
 						disabled={uploading || form.formState.isSubmitting}
-						onClick={() => form.handleSubmit(generate)()}
+						onClick={() =>
+							form.handleSubmit(generate, () => showFormError())()
+						}
 						primary
 					>
 						{uploading
