@@ -16,6 +16,13 @@ import { useCurrentProgram } from "../../../shared/components/ProgramProvider/Pr
 import { Profile } from "../../../shared/hooks/profiles";
 import { GenerationRequest } from "../interfaces";
 
+export function getDownloadFileName(profileName: string): string {
+	const safeName = profileName
+		.replace(/[^a-z0-9-_]+/gi, "-")
+		.replace(/^-+|-+$/g, "");
+	return `${safeName || "data"}-${new Date().toISOString().slice(0, 10)}.json`;
+}
+
 export function downloadPayload(payload: TrackerPayload, fileName: string) {
 	fileSaver.saveAs(
 		new Blob([JSON.stringify(payload, null, 2)], {

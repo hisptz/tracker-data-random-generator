@@ -1,10 +1,15 @@
-import { useAlert, useDataEngine } from "@dhis2/app-runtime";
-import { useCallback, useState } from "react";
-import { chunk, get, isEmpty } from "lodash";
-import i18n from "@dhis2/d2-i18n";
+import { chunk, get } from "lodash";
 import { TrackerPayload } from "../../../script/interfaces";
+import { DataEngine } from "../../../shared/interfaces/program";
 
-interface ImportReport {
+export interface ImportErrorReport {
+	message: string;
+	errorCode?: string;
+	trackerType?: string;
+	uid?: string;
+}
+
+export interface ImportReport {
 	status: "OK" | "WARNING" | "ERROR";
 	stats?: {
 		created: number;
@@ -14,7 +19,7 @@ interface ImportReport {
 		total: number;
 	};
 	validationReport?: {
-		errorReports?: { message: string; errorCode: string; uid: string }[];
+		errorReports?: ImportErrorReport[];
 	};
 }
 
@@ -33,17 +38,16 @@ const uploadMutation = {
 		reportMode: "ERRORS",
 		skipRuleEngine: !!skipRuleEngine,
 	}),
-	data: ({ data }: Record<string, unknown>) =>
-		data as Record<string, unknown>,
+	data: ({ data }: Record<string, unknown>) => data as Record<string, unknown>,
 };
 
-const CHUNK_SIZE = 50;
+export const CHUNK_SIZE = 50;
 
 /*
  * Splits the payload into requests of at most CHUNK_SIZE tracked entities (or events for event programs),
  * keeping each tracked entity in the same request as its enrollments and events.
  */
-function chunkPayload({
+export function chunkPayload({
 	trackedEntities,
 	enrollments,
 	events,
@@ -60,99 +64,38 @@ function chunkPayload({
 					ids.has(trackedEntity),
 				),
 				events: events.filter(
-					({ trackedEntity }) =>
-						!!trackedEntity && ids.has(trackedEntity),
+					({ trackedEntity }) => !!trackedEntity && ids.has(trackedEntity),
 				),
 			};
 		},
 	);
-	const singleEventChunks = chunk(singleEvents, CHUNK_SIZE).map(
-		(eventsChunk) => ({
-			trackedEntities: [],
-			enrollments: [],
-			events: eventsChunk,
-		}),
-	);
+	const singleEventChunks = chunk(singleEvents, CHUNK_SIZE).map((eventsChunk) => ({
+		trackedEntities: [],
+		enrollments: [],
+		events: eventsChunk,
+	}));
 	return [...trackedEntityChunks, ...singleEventChunks];
 }
 
-export function useUploadData() {
-	const engine = useDataEngine();
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<Error | null>(null);
-	const { show } = useAlert(
-		({ message }) => message,
-		({ type }) => ({ ...type, duration: 5000 }),
-	);
-
-	const uploadData = useCallback(
-		async (
-			payload: TrackerPayload,
-			{ skipRuleEngine = false }: { skipRuleEngine?: boolean } = {},
-		) => {
-			setLoading(true);
-			setError(null);
-			const totals = { created: 0, ignored: 0 };
-			const errors: string[] = [];
-
-			try {
-				for (const payloadChunk of chunkPayload(payload)) {
-					let report: ImportReport | undefined;
-					try {
-						report = (await engine.mutate(uploadMutation, {
-							variables: { data: payloadChunk, skipRuleEngine },
-						})) as unknown as ImportReport;
-					} catch (e) {
-						// The importer responds with 409 and the import report when there are validation errors
-						report = get(e, "details") as ImportReport | undefined;
-						if (!report?.status) {
-							throw e;
-						}
-					}
-					totals.created += report?.stats?.created ?? 0;
-					totals.ignored += report?.stats?.ignored ?? 0;
-					errors.push(
-						...(report?.validationReport?.errorReports?.map(
-							({ message }) => message,
-						) ?? []),
-					);
-				}
-
-				if (!isEmpty(errors)) {
-					console.error("Tracker import errors", errors);
-				}
-
-				show({
-					message: isEmpty(errors)
-						? i18n.t(
-								"Upload complete: {{created}} records created",
-								totals,
-							)
-						: i18n.t(
-								"Upload complete: {{created}} records created, {{ignored}} ignored. First error: {{error}}",
-								{
-								created: totals.created,
-								ignored: totals.ignored,
-								error: errors[0],
-							},
-							),
-					type: isEmpty(errors)
-						? { success: true }
-						: { warning: true },
-				});
-			} catch (e) {
-				setError(e as Error);
-				throw e;
-			} finally {
-				setLoading(false);
-			}
-		},
-		[engine, show],
-	);
-
-	return {
-		loading,
-		uploadData,
-		error,
-	};
+/*
+ * Uploads one chunk and returns its import report. Validation errors are part of the report;
+ * only requests that fail without a report throw.
+ */
+export async function uploadChunk(
+	engine: DataEngine,
+	payloadChunk: TrackerPayload,
+	{ skipRuleEngine = false }: { skipRuleEngine?: boolean } = {},
+): Promise<ImportReport> {
+	try {
+		return (await engine.mutate(uploadMutation, {
+			variables: { data: payloadChunk, skipRuleEngine },
+		})) as unknown as ImportReport;
+	} catch (e) {
+		// The importer responds with 409 and the import report when there are validation errors
+		const report = get(e, "details") as ImportReport | undefined;
+		if (!report?.status) {
+			throw e;
+		}
+		return report;
+	}
 }
